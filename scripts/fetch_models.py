@@ -25,6 +25,15 @@ NEAR_SURFACE = (
 )
 MODELS = {
     "ICON-D2": {"model": "icon_d2", "cycle_hours": list(range(0, 24, 3)), "days": 3},
+    "ICON-EU": {
+        "model": "icon_eu",  # DWD ICON Europe, ~7 km, up to +120 h
+        "cycle_hours": [0, 6, 12, 18],
+        # Seven calendar days is the API query envelope, NOT seven days
+        # of ICON-EU forecast. The actual model horizon is up to 120 h.
+        "days": 7,
+        "verify_local_coverage": True,
+        "min_future_hours": 6,
+    },
     "AROME": {
         "model": "meteofrance_arome_france",  # Météo-France, 2.5 km
         "cycle_hours": list(range(0, 24, 3)),
@@ -70,14 +79,14 @@ def numeric(value):
 
 
 def validate_coverage(obj, hourly, now, min_future_hours):
-    """Reject AROME responses without grid metadata near Mering or future data."""
+    """Reject local-model responses without nearby grid metadata or future data."""
     grid_lat, grid_lon = obj.get("latitude"), obj.get("longitude")
     if not numeric(grid_lat) or not numeric(grid_lon):
-        raise ValueError("AROME: grid coordinates missing; coverage not verified")
+        raise ValueError("Regional model: grid coordinates missing; coverage not verified")
     # Coordinate distances are a guard against extrapolation to distant grids,
     # not an assertion of the exact French model domain boundary.
     if abs(grid_lat - LAT) > 0.35 or abs(grid_lon - LON) > 0.35:
-        raise ValueError("AROME: returned grid point is too far from Mering")
+        raise ValueError("Regional model: returned grid point is too far from Mering")
     valid_future = 0
     for stamp, value in zip(hourly["time"], hourly.get("temperature_2m", [])):
         try:
@@ -87,7 +96,7 @@ def validate_coverage(obj, hourly, now, min_future_hours):
         if dt >= now and numeric(value):
             valid_future += 1
     if valid_future < min_future_hours:
-        raise ValueError(f"AROME: only {valid_future} valid future temperature hours")
+        raise ValueError(f"Regional model: only {valid_future} valid future temperature hours")
     return valid_future
 
 
@@ -152,7 +161,7 @@ def request_run(model, dt, days, *, verify_local_coverage=False, min_future_hour
             f"Returned grid location near Mering and {valid_future} valid future hourly temperatures"
         )
     # Only local high-resolution models need the extra fog/cloud parameters.
-    if model in ("icon_d2", "meteofrance_arome_france"):
+    if model in ("icon_d2", "icon_eu", "meteofrance_arome_france"):
         add_optional_variables(record, model, dt, days)
     record["valid_hours_by_variable"] = {
         key: sum(numeric(v) for v in values)
