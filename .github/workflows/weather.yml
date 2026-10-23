@@ -16,6 +16,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Check local Berlin schedule
         id: clock
@@ -39,12 +40,17 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Test forecast validation
+        if: steps.clock.outputs.run == 'true'
+        run: python -m unittest discover -s tests -v
+
       - name: Fetch model data
+        id: fetch
         if: steps.clock.outputs.run == 'true'
         run: python scripts/fetch_models.py
 
       - name: Commit JSON
-        if: steps.clock.outputs.run == 'true'
+        if: always() && steps.fetch.outcome != 'skipped' && steps.clock.outputs.run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
