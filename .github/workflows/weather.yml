@@ -3,8 +3,12 @@ name: Wettermodelle Mering
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron uses UTC. These four slots cover both CET and CEST.
-    - cron: "40 3,4,13,14 * * *"
+    # GitHub cron uses UTC; separate slots identify the intended schedule.
+    # Local target times: 05:40 and 15:40 in Europe/Berlin (CET or CEST).
+    - cron: "40 3 * * *"
+    - cron: "40 4 * * *"
+    - cron: "40 13 * * *"
+    - cron: "40 14 * * *"
 
 permissions:
   contents: write
@@ -18,17 +22,27 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Check local Berlin schedule
+      - name: Check intended Berlin schedule slot
         id: clock
         env:
           EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE_CRON: ${{ github.event.schedule }}
         run: |
-          hour=$(TZ=Europe/Berlin date +%H)
-          if [[ "$EVENT_NAME" == "workflow_dispatch" || "$hour" == "05" || "$hour" == "15" ]]; then
+          # Manual starts always fetch new data.
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Compute local time from the scheduled UTC slot, not the delayed start.
+          scheduled_utc_hour=$(awk '{print $2}' <<< "$SCHEDULE_CRON")
+          intended_local_hour=$(TZ=Europe/Berlin date -d "$(date -u +%F) ${scheduled_utc_hour}:40 UTC" +%H)
+          if [[ "$intended_local_hour" == "05" || "$intended_local_hour" == "15" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
           fi
+          echo "Scheduled UTC hour: $scheduled_utc_hour; intended Berlin hour: $intended_local_hour"
 
       - name: Checkout
         if: steps.clock.outputs.run == 'true'
