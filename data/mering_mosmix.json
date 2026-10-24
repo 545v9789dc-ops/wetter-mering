@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source": "DWD MOSMIX_L station KMZ/KML",
-  "retrieved_at_utc": "2026-10-24T12:09:21.832388+00:00",
+  "retrieved_at_utc": "2026-10-24T12:40:48.918675+00:00",
   "interpretation_note": "Raw DWD forecast parameter codes; missing values are null. Do not interpret wwM as a fog probability without verifying DWD parameter definition. MOSMIX station values are not direct observations in Mering.",
   "stations": {
     "Augsburg": {
@@ -28780,7 +28780,7 @@
       "station_id": "10852",
       "reference_elevation_m": 463,
       "source_url": "https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/10852/kml/MOSMIX_L_LATEST_10852.kmz",
-      "issue_age_hours": 3.16
+      "issue_age_hours": 3.68
     },
     "Lechfeld": {
       "issue_time_utc": "2026-10-24T09:00:00Z",
@@ -57558,7 +57558,7 @@
       "station_id": "10856",
       "reference_elevation_m": 555,
       "source_url": "https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/10856/kml/MOSMIX_L_LATEST_10856.kmz",
-      "issue_age_hours": 3.16
+      "issue_age_hours": 3.68
     }
   },
   "collection_status": "ok"
