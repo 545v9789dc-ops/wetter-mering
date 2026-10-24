@@ -99,6 +99,71 @@ class WeatherTests(unittest.TestCase):
         self.assertEqual(result["model_run_utc"], NOW.isoformat())
         self.assertEqual(result["extended_forecast"]["model_run_utc"], older["model_run_utc"])
 
+    def test_ifs_candidates_no_older_than_18_hours(self):
+        now = datetime(2026, 10, 24, 5, 32, tzinfo=UTC)
+        runs = f.candidate_runs(now, [0, 6, 12, 18], limit=4, max_age_hours=18)
+        self.assertEqual([r.hour for r in runs], [0, 18, 12])
+        self.assertTrue(all((now-r).total_seconds() <= 18*3600 for r in runs))
+
+    def test_http_400_reason_retained(self):
+        from io import BytesIO
+        from urllib.error import HTTPError
+        error = HTTPError("https://example.org", 400, "Bad Request", {},
+                          BytesIO(b'{"error":true,"reason":"Run is not available"}'))
+        with patch.object(f, "urlopen", side_effect=error):
+            with self.assertRaisesRegex(ValueError, "Run is not available"):
+                f.fetch_json("https://example.org")
+
+    def test_ifs_rejects_old_cached_extended(self):
+        now = NOW
+        latest = record(now, 147)
+        cached = record(now-timedelta(hours=24), 360)
+        with patch.object(f, "candidate_runs", return_value=[now]), \
+             patch.object(f, "request_run", return_value=latest), \
+             patch.object(f, "previous_record", return_value=cached):
+            result = f.select_model("IFS", f.MODELS["IFS"], now, {})
+        self.assertNotIn("extended_forecast", result)
+
+    def test_gfs_core_recovery_fills_missing_values(self):
+        rec = record()
+        rec["hourly"]["wind_gusts_10m"] = [None]*48
+        rec["hourly"]["pressure_msl"] = [None]*48
+        rec["hourly_units"].update({"wind_gusts_10m": "km/h", "pressure_msl": "hPa"})
+        def fetch(url):
+            from urllib.parse import parse_qs, urlparse
+            key = parse_qs(urlparse(url).query)["hourly"][0]
+            obj = response()
+            obj["hourly"] = {"time": obj["hourly"]["time"],
+                             key: [30 if key == "wind_gusts_10m" else 1013]*48}
+            obj["hourly_units"] = {key: "km/h" if key == "wind_gusts_10m" else "hPa"}
+            return obj
+        with patch.object(f, "fetch_json", side_effect=fetch):
+            f.repair_gfs_core(rec, NOW, 16)
+        self.assertEqual(rec["hourly"]["wind_gusts_10m"], [30]*48)
+        self.assertEqual(rec["hourly"]["pressure_msl"], [1013]*48)
+        self.assertEqual(rec["gfs_core_recovery"]["wind_gusts_10m"]["status"], "recovered")
+
+    def test_gfs_rejects_different_grid(self):
+        rec = record()
+        rec["hourly"]["wind_gusts_10m"] = [None]*48
+        rec["hourly"]["pressure_msl"] = [1010]*48
+        obj = response()
+        obj["latitude"] += 0.1
+        obj["hourly"] = {"time": obj["hourly"]["time"], "wind_gusts_10m": [30]*48}
+        obj["hourly_units"] = {"wind_gusts_10m": "km/h"}
+        with patch.object(f, "fetch_json", return_value=obj):
+            f.repair_gfs_core(rec, NOW, 16)
+        self.assertTrue(all(v is None for v in rec["hourly"]["wind_gusts_10m"]))
+        self.assertEqual(rec["gfs_core_recovery"]["wind_gusts_10m"]["status"], "retry_failed")
+
+    def test_gfs_no_retry_if_complete(self):
+        rec = record()
+        rec["hourly"]["wind_gusts_10m"] = [20]*48
+        rec["hourly"]["pressure_msl"] = [1010]*48
+        with patch.object(f, "fetch_json") as fetch:
+            f.repair_gfs_core(rec, NOW, 16)
+        fetch.assert_not_called()
+
     def test_total_outage_preserves_last_json(self):
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp)/"data.json"
