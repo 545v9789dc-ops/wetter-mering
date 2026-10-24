@@ -30,19 +30,14 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           SCHEDULE_CRON: ${{ github.event.schedule }}
         run: |
-          # Manual starts always fetch new data.
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          # Three-hourly UTC schedule always fetches new data.
           if [[ "$SCHEDULE_CRON" == "10 */3 * * *" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          # Compute local time from the scheduled UTC slot, not the delayed start.
           scheduled_utc_hour=$(awk '{print $2}' <<< "$SCHEDULE_CRON")
           intended_local_hour=$(TZ=Europe/Berlin date -d "$(date -u +%F) ${scheduled_utc_hour}:40 UTC" +%H)
           if [[ "$intended_local_hour" == "05" || "$intended_local_hour" == "15" ]]; then
@@ -76,6 +71,11 @@ jobs:
         continue-on-error: true
         run: python scripts/fetch_mosmix.py
 
+      - name: Fetch ensemble data (non-critical)
+        if: steps.clock.outputs.run == 'true'
+        continue-on-error: true
+        run: python scripts/fetch_ensembles.py
+
       - name: Commit JSON
         if: always() && steps.fetch.outcome != 'skipped' && steps.clock.outputs.run == 'true'
         run: |
@@ -85,7 +85,10 @@ jobs:
           if [[ -f data/mering_mosmix.json ]]; then
             git add data/mering_mosmix.json
           fi
+          if [[ -f data/mering_ensembles.json ]]; then
+            git add data/mering_ensembles.json
+          fi
           if ! git diff --cached --quiet; then
-            git commit -m "Update Mering model and MOSMIX data"
+            git commit -m "Update Mering model, MOSMIX and ensemble data"
             git push
           fi
