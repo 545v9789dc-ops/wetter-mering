@@ -9,6 +9,8 @@ on:
     - cron: "40 4 * * *"
     - cron: "40 13 * * *"
     - cron: "40 14 * * *"
+    # Additional model refresh every three hours (UTC).
+    - cron: "10 */3 * * *"
 
 permissions:
   contents: write
@@ -30,6 +32,12 @@ jobs:
         run: |
           # Manual starts always fetch new data.
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Three-hourly UTC schedule always fetches new data.
+          if [[ "$SCHEDULE_CRON" == "10 */3 * * *" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
