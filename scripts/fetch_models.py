@@ -62,11 +62,13 @@ def grid_distance(lat, lon):
     h = math.sin((b-a)/2)**2 + math.cos(a)*math.cos(b)*math.sin(math.radians(lon-LON)/2)**2
     return 6371 * 2 * math.asin(min(1, math.sqrt(h)))
 
-def candidate_runs(now, cycle_hours, limit=12):
+def candidate_runs(now, cycle_hours, limit=12, max_age_hours=None):
     hour = now.replace(minute=0, second=0, microsecond=0)
     candidates = []
     for offset in range(84):
         dt = hour - timedelta(hours=offset)
+        if max_age_hours is not None and (now-dt).total_seconds() > max_age_hours*3600:
+            break
         if dt.hour in cycle_hours:
             candidates.append(dt)
             if len(candidates) >= limit:
@@ -74,8 +76,17 @@ def candidate_runs(now, cycle_hours, limit=12):
     return candidates
 
 def fetch_json(url):
-    with urlopen(Request(url, headers={"User-Agent": "wetter-mering/4.0"}), timeout=REQUEST_TIMEOUT_SECONDS) as res:
-        return json.load(res)
+    try:
+        with urlopen(Request(url, headers={"User-Agent": "wetter-mering/4.0"}), timeout=REQUEST_TIMEOUT_SECONDS) as res:
+            return json.load(res)
+    except HTTPError as exc:
+        # Open-Meteo returns a useful JSON reason (e.g. unavailable run).
+        try:
+            body = exc.read(2048).decode("utf-8", errors="replace")
+            reason = json.loads(body).get("reason", body)
+        except (OSError, ValueError, TypeError):
+            reason = "API did not return a readable error reason"
+        raise ValueError(f"HTTP {exc.code}: {str(reason)[:240]}") from exc
 
 def api_url(model, run, days, variables):
     query = urlencode({
@@ -210,6 +221,56 @@ def add_optional_variables(record, model, run, days, keys=None):
         "are not fog probabilities. Snowfall (cm) is not snow depth (m)."
     )
 
+def repair_gfs_core(record, run, days):
+    """Retry absent GFS core fields separately, preserving model/run provenance.
+
+    Do not silently substitute a different GFS grid or run. A successful
+    fallback must have identical grid coordinates and matching UTC timestamps.
+    """
+    hourly = record["hourly"]
+    times = hourly["time"]
+    results = {}
+    for key in ("wind_gusts_10m", "pressure_msl"):
+        before = sum(numeric(v) for v in hourly.get(key, []))
+        if before == len(times):
+            results[key] = {"status": "complete_original", "valid_hours": before}
+            continue
+        url = api_url("gfs_seamless", run, days, key)
+        try:
+            obj = fetch_json(url)
+            h = obj.get("hourly")
+            if obj.get("error") or not isinstance(h, dict) or key not in h:
+                raise ValueError(obj.get("reason", "GFS parameter unavailable"))
+            validate_hourly(h)
+            if (obj.get("latitude"), obj.get("longitude")) != (
+                record["grid_latitude"], record["grid_longitude"]
+            ):
+                raise ValueError("Different GFS grid; refusing silent merge")
+            unit = obj.get("hourly_units", {}).get(key)
+            expected = "km/h" if key == "wind_gusts_10m" else "hPa"
+            if unit != expected:
+                raise ValueError(f"Unexpected {key} unit: {unit}")
+            clean_values(h)
+            lookup = dict(zip(h["time"], h[key]))
+            original = hourly.get(key, [None] * len(times))
+            combined = [v if numeric(v) else lookup.get(t)
+                        for t, v in zip(times, original)]
+            after = sum(numeric(v) for v in combined)
+            if after > before:
+                hourly[key] = combined
+                record["hourly_units"][key] = unit
+            results[key] = {
+                "status": "recovered" if after > before else "still_missing",
+                "valid_hours": after, "recovered_hours": after-before,
+                "source_model": "gfs_seamless", "source_run_utc": run.isoformat(),
+                "source_url": url,
+            }
+        except FAILURES as exc:
+            results[key] = {"status": "retry_failed", "valid_hours": before,
+                            "reason": str(exc)[:240], "source_url": url}
+        print(f"GFS core {key}: {results[key]['status']}", file=sys.stderr)
+    record["gfs_core_recovery"] = results
+
 def daily_totals(hourly, units):
     """Sum interval-ending hourly data into Berlin local days, including DST."""
     stamps = [parse_time(t) for t in hourly["time"]]
@@ -331,7 +392,11 @@ def previous_record(previous, label, config, now):
 
 def select_model(label, config, now, previous):
     records, errors = [], []
-    for dt in candidate_runs(now, config["cycle_hours"]):
+    # IFS: only recent cycles; 00/12 UTC provide the long horizon, while
+    # 06/18 UTC are retained as newer short-range forecasts.
+    runs = (candidate_runs(now, config["cycle_hours"], limit=4, max_age_hours=18)
+            if label == "IFS" else candidate_runs(now, config["cycle_hours"]))
+    for dt in runs:
         try:
             # Important: do not fetch 18 optional fields for every IFS
             # candidate run. Enrich only the selected latest run below.
@@ -345,6 +410,8 @@ def select_model(label, config, now, previous):
         except FAILURES as exc:
             errors.append(f"{dt.isoformat()}: {str(exc)[:180]}")
     cached = previous_record(previous, label, config, now)
+    if label == "IFS" and cached and cached.get("run_age_hours", 999) > 18:
+        cached = None
     if not records:
         rec = cached or {"status": "unverified", "model_run_utc": None,
                          "reason": "No usable current or previous forecast"}
@@ -352,9 +419,14 @@ def select_model(label, config, now, previous):
         return rec
     latest = records[0]
     latest["selection_note"] = "Newest usable candidate; newer failures logged."
+    if label == "IFS":
+        latest["ifs_candidate_policy"] = "Only runs up to 18 hours old; newest for short term, longest horizon separately"
+        latest["ifs_candidate_runs_utc"] = [dt.isoformat() for dt in runs]
     latest["recent_errors"] = errors
     if label == "IFS":
-        options = records + ([cached] if cached else [])
+        # Never promote cached IFS forecasts older than the requested 18 h limit.
+        options = records + ([cached] if cached and
+                             cached.get("run_age_hours", 999) <= 18 else [])
         best = max(options, key=lambda r: (
             parse_time(r["coverage"]["last_valid_utc"]),
             r["coverage"]["valid_future_hours"],
@@ -374,8 +446,10 @@ def select_model(label, config, now, previous):
     try:
         if not latest.get("source_url"):
             return latest  # In-memory test records have no API source.
-        add_optional_variables(latest, config["model"],
-                               parse_time(latest["model_run_utc"]), config["days"])
+        selected_run = parse_time(latest["model_run_utc"])
+        if label == "GFS":
+            repair_gfs_core(latest, selected_run, config["days"])
+        add_optional_variables(latest, config["model"], selected_run, config["days"])
         enrich(latest, now)
     except FAILURES as exc:
         latest["optional_enrichment_error"] = str(exc)[:180]
