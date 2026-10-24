@@ -45,22 +45,43 @@ def summarize(obj):
     daily=[]
     for day in sorted(set(times)):
         indices=[i for i,d in enumerate(times) if d==day]
-        row={"date":day,"probabilities":{},"available_members":{}}
+        row={"date":day,"probabilities":{},"available_members":{},
+             "data_quality":{"expected_hours":len(indices),"fields":{}}}
         for label,field,predicate in (
             ("frost_any_hour","temperature_2m",lambda v:min(v)<0),
             ("precipitation_ge_1mm","precipitation",lambda v:sum(v)>=1),
             ("snowfall_positive","snowfall",lambda v:sum(v)>0)):
             outcomes=[]
+            complete=partial=empty=missing_field=0
+            valid_hour_counts=[]
             for m in members.values():
                 vals=m.get(field)
-                if vals is None: continue
+                if vals is None:
+                    missing_field+=1
+                    continue
                 segment=[vals[i] for i in indices]
-                if all(valid(v) for v in segment):
+                nvalid=sum(valid(v) for v in segment)
+                valid_hour_counts.append(nvalid)
+                if nvalid==len(indices):
+                    complete+=1
                     outcomes.append(predicate(segment))
+                elif nvalid==0:
+                    empty+=1
+                else:
+                    partial+=1
+            row["data_quality"]["fields"][field]={
+                "complete_members":complete,
+                "partial_members":partial,
+                "empty_members":empty,
+                "missing_field_members":missing_field,
+                "minimum_valid_hours":min(valid_hour_counts) if valid_hour_counts else None,
+                "maximum_valid_hours":max(valid_hour_counts) if valid_hour_counts else None
+            }
             row["available_members"][label]=len(outcomes)
             row["probabilities"][label]=round(sum(outcomes)/len(outcomes),3) if outcomes else None
         daily.append(row)
-    return {"member_count":len(members),"daily":daily}
+    return {"member_count":len(members),"daily":daily,
+            "quality_note":"Only members with every expected hourly value are included in daily event fractions."}
 
 def main():
     result={"retrieved_at_utc":datetime.now(timezone.utc).isoformat(),
