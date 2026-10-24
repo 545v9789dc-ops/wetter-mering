@@ -7,12 +7,12 @@
     "longitude": 10.9846,
     "reference_elevation_m": 510
   },
-  "retrieved_at_utc": "2026-10-24T20:16:58.640264+00:00",
+  "retrieved_at_utc": "2026-10-24T20:26:17.339970+00:00",
   "source_type": "Open-Meteo explicit single runs; GRIB not independently verified",
   "models": {
     "ICON-D2": {
       "status": "ok",
-      "data_retrieved_at_utc": "2026-10-24T20:16:58.640264+00:00",
+      "data_retrieved_at_utc": "2026-10-24T20:26:17.339970+00:00",
       "grid_distance_km": 1.218,
       "model_run_utc": "2026-10-24T18:00:00Z",
       "run_verification": "Single Runs API returned usable data for explicitly requested run; original GRIB not independently checked",
@@ -1863,7 +1863,7 @@
         "valid_future_hours": 46,
         "missing_temperature_hours": 23
       },
-      "run_age_hours": 2.28,
+      "run_age_hours": 2.44,
       "data_age_hours": 0.0,
       "daily_timezone": "Europe/Berlin",
       "daily": [
@@ -2078,7 +2078,7 @@
     },
     "ICON-EU": {
       "status": "ok",
-      "data_retrieved_at_utc": "2026-10-24T20:16:58.640264+00:00",
+      "data_retrieved_at_utc": "2026-10-24T20:26:17.339970+00:00",
       "grid_distance_km": 2.076,
       "model_run_utc": "2026-10-24T12:00:00Z",
       "run_verification": "Single Runs API returned usable data for explicitly requested run; original GRIB not independently checked",
@@ -6234,7 +6234,7 @@
         "valid_future_hours": 112,
         "missing_temperature_hours": 47
       },
-      "run_age_hours": 8.28,
+      "run_age_hours": 8.44,
       "data_age_hours": 0.0,
       "daily_timezone": "Europe/Berlin",
       "daily": [
@@ -6551,7 +6551,7 @@
     },
     "AROME": {
       "status": "ok",
-      "data_retrieved_at_utc": "2026-10-24T20:16:58.640264+00:00",
+      "data_retrieved_at_utc": "2026-10-24T20:26:17.339970+00:00",
       "grid_distance_km": 1.264,
       "model_run_utc": "2026-10-24T15:00:00Z",
       "run_verification": "Single Runs API returned usable data for explicitly requested run; original GRIB not independently checked",
@@ -8099,7 +8099,7 @@
         "valid_future_hours": 46,
         "missing_temperature_hours": 20
       },
-      "run_age_hours": 5.28,
+      "run_age_hours": 5.44,
       "data_age_hours": 0.0,
       "daily_timezone": "Europe/Berlin",
       "daily": [
@@ -8317,7 +8317,7 @@
     },
     "GFS": {
       "status": "ok",
-      "data_retrieved_at_utc": "2026-10-24T20:16:58.640264+00:00",
+      "data_retrieved_at_utc": "2026-10-24T20:26:17.339970+00:00",
       "grid_distance_km": 6.899,
       "model_run_utc": "2026-10-24T12:00:00Z",
       "run_verification": "Single Runs API returned usable data for explicitly requested run; original GRIB not independently checked",
@@ -16492,7 +16492,7 @@
         "valid_future_hours": 375,
         "missing_temperature_hours": 0
       },
-      "run_age_hours": 8.28,
+      "run_age_hours": 8.44,
       "data_age_hours": 0.0,
       "daily_timezone": "Europe/Berlin",
       "daily": [
@@ -17052,7 +17052,7 @@
     },
     "IFS": {
       "status": "ok",
-      "data_retrieved_at_utc": "2026-10-24T20:16:58.640264+00:00",
+      "data_retrieved_at_utc": "2026-10-24T20:26:17.339970+00:00",
       "grid_distance_km": 2.076,
       "model_run_utc": "2026-10-24T06:00:00Z",
       "run_verification": "Single Runs API returned usable data for explicitly requested run; original GRIB not independently checked",
@@ -25227,7 +25227,7 @@
         "valid_future_hours": 132,
         "missing_temperature_hours": 237
       },
-      "run_age_hours": 14.28,
+      "run_age_hours": 14.44,
       "data_age_hours": 0.0,
       "daily_timezone": "Europe/Berlin",
       "daily": [
