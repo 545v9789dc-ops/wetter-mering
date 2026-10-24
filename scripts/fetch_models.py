@@ -46,7 +46,8 @@ MODELS = {
 FAILURES = (HTTPError, URLError, ValueError, TimeoutError, OSError, TypeError, KeyError)
 # Hard request deadline; no unbounded retries. The workflow's 45 min remains
 # the final watchdog. Unsupported optional fields are not retried.
-REQUEST_TIMEOUT_SECONDS = 12
+REQUEST_TIMEOUT_SECONDS = 25
+TRANSIENT_RETRIES = 2
 
 def numeric(v):
     return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
@@ -76,17 +77,23 @@ def candidate_runs(now, cycle_hours, limit=12, max_age_hours=None):
     return candidates
 
 def fetch_json(url):
-    try:
-        with urlopen(Request(url, headers={"User-Agent": "wetter-mering/4.0"}), timeout=REQUEST_TIMEOUT_SECONDS) as res:
-            return json.load(res)
-    except HTTPError as exc:
-        # Open-Meteo returns a useful JSON reason (e.g. unavailable run).
+    for attempt in range(TRANSIENT_RETRIES + 1):
         try:
-            body = exc.read(2048).decode("utf-8", errors="replace")
-            reason = json.loads(body).get("reason", body)
-        except (OSError, ValueError, TypeError):
-            reason = "API did not return a readable error reason"
-        raise ValueError(f"HTTP {exc.code}: {str(reason)[:240]}") from exc
+            with urlopen(Request(url, headers={"User-Agent": "wetter-mering/4.0"}),
+                         timeout=REQUEST_TIMEOUT_SECONDS) as res:
+                return json.load(res)
+        except HTTPError as exc:
+            try:
+                body = exc.read(2048).decode("utf-8", errors="replace")
+                reason = json.loads(body).get("reason", body)
+            except (OSError, ValueError, TypeError):
+                reason = "API did not return a readable error reason"
+            if exc.code not in (429, 500, 502, 503, 504) or attempt == TRANSIENT_RETRIES:
+                raise ValueError(f"HTTP {exc.code}: {str(reason)[:240]}") from exc
+        except (URLError, TimeoutError, OSError):
+            if attempt == TRANSIENT_RETRIES:
+                raise
+        time.sleep(2 ** attempt)
 
 def api_url(model, run, days, variables):
     query = urlencode({
