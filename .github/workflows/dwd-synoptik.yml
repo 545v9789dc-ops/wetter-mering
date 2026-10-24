@@ -1,0 +1,57 @@
+name: DWD Synoptik Mering
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 5,9,13,17,21 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dwd-synoptik-main
+  cancel-in-progress: false
+
+jobs:
+  fetch-synoptik:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download DWD synoptic reports
+        id: download
+        continue-on-error: true
+        run: python scripts/fetch_dwd_synoptik.py
+      - name: Save reports to repository
+        run: |
+          if [ ! -f data/dwd_synoptik.json ]; then
+            echo 'No report file generated.'
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/dwd_synoptik.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update DWD synoptic reports'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Upload diagnostic result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dwd-synoptik-result
+          path: data/dwd_synoptik.json
+          if-no-files-found: warn
+      - name: Flag failed download
+        if: steps.download.outcome == 'failure'
+        run: |
+          echo 'One or more DWD reports could not be downloaded. Check JSON statuses.'
+          exit 1
