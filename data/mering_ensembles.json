@@ -1,0 +1,434 @@
+{
+  "retrieved_at_utc": "2026-10-24T20:20:56.611416+00:00",
+  "source": "Open-Meteo Ensemble API",
+  "models": {
+    "GFS-ENS": {
+      "member_count": 30,
+      "daily": [
+        {
+          "date": "2026-10-24",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.267,
+            "snowfall_positive": 0.033
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-10-25",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 1.0,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-10-26",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.0,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-10-27",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.0,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-10-28",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.2,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-10-29",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.0,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-10-30",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.0,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-10-31",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.133,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-11-01",
+          "probabilities": {
+            "frost_any_hour": 0.033,
+            "precipitation_ge_1mm": 0.233,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-11-02",
+          "probabilities": {
+            "frost_any_hour": 0.1,
+            "precipitation_ge_1mm": 0.033,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          }
+        },
+        {
+          "date": "2026-11-03",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        },
+        {
+          "date": "2026-11-04",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        },
+        {
+          "date": "2026-11-05",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        },
+        {
+          "date": "2026-11-06",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        },
+        {
+          "date": "2026-11-07",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        },
+        {
+          "date": "2026-11-08",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        }
+      ]
+    },
+    "IFS-ENS": {
+      "member_count": 50,
+      "daily": [
+        {
+          "date": "2026-10-24",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.08,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-10-25",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 1.0,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-10-26",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.1,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-10-27",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.12,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-10-28",
+          "probabilities": {
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.44,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-10-29",
+          "probabilities": {
+            "frost_any_hour": 0.02,
+            "precipitation_ge_1mm": 0.0,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-10-30",
+          "probabilities": {
+            "frost_any_hour": 0.02,
+            "precipitation_ge_1mm": 0.02,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-10-31",
+          "probabilities": {
+            "frost_any_hour": 0.06,
+            "precipitation_ge_1mm": 0.06,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-11-01",
+          "probabilities": {
+            "frost_any_hour": 0.26,
+            "precipitation_ge_1mm": 0.22,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-11-02",
+          "probabilities": {
+            "frost_any_hour": 0.3,
+            "precipitation_ge_1mm": 0.32,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-11-03",
+          "probabilities": {
+            "frost_any_hour": 0.36,
+            "precipitation_ge_1mm": 0.2,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-11-04",
+          "probabilities": {
+            "frost_any_hour": 0.42,
+            "precipitation_ge_1mm": 0.24,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-11-05",
+          "probabilities": {
+            "frost_any_hour": 0.32,
+            "precipitation_ge_1mm": 0.34,
+            "snowfall_positive": 0.06
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-11-06",
+          "probabilities": {
+            "frost_any_hour": 0.32,
+            "precipitation_ge_1mm": 0.38,
+            "snowfall_positive": 0.1
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          }
+        },
+        {
+          "date": "2026-11-07",
+          "probabilities": {
+            "frost_any_hour": 0.44,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        },
+        {
+          "date": "2026-11-08",
+          "probabilities": {
+            "frost_any_hour": 0.24,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          }
+        }
+      ]
+    }
+  },
+  "errors": {},
+  "note": "Member fractions are model-based estimates, not calibrated probabilities."
+}
