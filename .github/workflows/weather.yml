@@ -3,14 +3,10 @@ name: Wettermodelle Mering
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron uses UTC; separate slots identify the intended schedule.
-    # Local target times: 05:40 and 15:40 in Europe/Berlin (CET or CEST).
-    - cron: "40 3 * * *"
-    - cron: "40 4 * * *"
-    - cron: "40 13 * * *"
-    - cron: "40 14 * * *"
-    # Additional model refresh every three hours (UTC).
-    - cron: "10 */3 * * *"
+    # UTC alternatives for local times 02:00, 05:00, 10:00, 15:00, 18:00.
+    - cron: "0 0,1,3,4,8,9,13,14,16,17 * * *"
+    # UTC alternatives for local time 21:30.
+    - cron: "30 19,20 * * *"
 
 permissions:
   contents: write
@@ -24,28 +20,38 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Check intended Berlin schedule slot
+      - name: Check Berlin local schedule
         id: clock
         env:
           EVENT_NAME: ${{ github.event_name }}
-          SCHEDULE_CRON: ${{ github.event.schedule }}
+        shell: bash
         run: |
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          if [[ "$SCHEDULE_CRON" == "10 */3 * * *" ]]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
+          local_hm=$(TZ=Europe/Berlin date +%H:%M)
+          local_hour=${local_hm%%:*}
+          local_min=${local_hm##*:}
+          run=false
+          if [[ "$local_hour" =~ ^(02|05|10|15|18)$ ]] && (( 10#$local_min < 30 )); then
+            run=true
           fi
-          scheduled_utc_hour=$(awk '{print $2}' <<< "$SCHEDULE_CRON")
-          intended_local_hour=$(TZ=Europe/Berlin date -d "$(date -u +%F) ${scheduled_utc_hour}:40 UTC" +%H)
-          if [[ "$intended_local_hour" == "05" || "$intended_local_hour" == "15" ]]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
+          if [[ "$local_hour" == "21" ]] && (( 10#$local_min >= 30 )); then
+            run=true
           fi
-          echo "Scheduled UTC hour: $scheduled_utc_hour; intended Berlin hour: $intended_local_hour"
+          # At the October DST fallback, 02:00 occurs twice; use the first occurrence.
+          if [[ "$local_hour" == "02" && "$(TZ=Europe/Berlin date +%z)" == "+0100" ]] && [[ "$(date -u +%m)" == "10" ]]; then
+            # Skip only if this is the duplicated 02:00 hour on the DST transition day.
+            local_day=$(TZ=Europe/Berlin date +%d)
+            local_dow=$(TZ=Europe/Berlin date +%u)
+            local_tomorrow=$(TZ=Europe/Berlin date -d tomorrow +%m)
+            if [[ "$local_dow" == "7" && "$local_tomorrow" == "11" ]]; then
+              run=false
+            fi
+          fi
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+          echo "Local Berlin time: $local_hm; run=$run"
 
       - name: Checkout
         if: steps.clock.outputs.run == 'true'
