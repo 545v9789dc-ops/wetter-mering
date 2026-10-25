@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-10-25T01:29:19.167421+00:00",
+  "retrieved_at_utc": "2026-10-25T04:24:30.611805+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -729,7 +729,7 @@
           "date": "2026-10-26",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.1,
+            "precipitation_ge_1mm": 0.0,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -771,7 +771,7 @@
           "date": "2026-10-27",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.12,
+            "precipitation_ge_1mm": 0.0,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -813,7 +813,7 @@
           "date": "2026-10-28",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.44,
+            "precipitation_ge_1mm": 0.48,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -854,8 +854,8 @@
         {
           "date": "2026-10-29",
           "probabilities": {
-            "frost_any_hour": 0.02,
-            "precipitation_ge_1mm": 0.0,
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.02,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -897,7 +897,7 @@
           "date": "2026-10-30",
           "probabilities": {
             "frost_any_hour": 0.04,
-            "precipitation_ge_1mm": 0.02,
+            "precipitation_ge_1mm": 0.0,
             "snowfall_positive": 0.0
           },
           "available_members": {
