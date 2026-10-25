@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-10-25T09:27:12.490607+00:00",
+  "retrieved_at_utc": "2026-10-25T14:18:58.863434+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -6605,7 +6605,7 @@
         {
           "date": "2026-10-30",
           "probabilities": {
-            "frost_any_hour": 0.04,
+            "frost_any_hour": 0.02,
             "precipitation_ge_1mm": 0.0,
             "snowfall_positive": 0.0
           },
@@ -6775,7 +6775,7 @@
         {
           "date": "2026-11-01",
           "probabilities": {
-            "frost_any_hour": 0.22,
+            "frost_any_hour": 0.14,
             "precipitation_ge_1mm": 0.22,
             "snowfall_positive": 0.0
           },
@@ -6860,7 +6860,7 @@
         {
           "date": "2026-11-02",
           "probabilities": {
-            "frost_any_hour": 0.3,
+            "frost_any_hour": 0.26,
             "precipitation_ge_1mm": 0.32,
             "snowfall_positive": 0.0
           },
@@ -6945,7 +6945,7 @@
         {
           "date": "2026-11-03",
           "probabilities": {
-            "frost_any_hour": 0.34,
+            "frost_any_hour": 0.36,
             "precipitation_ge_1mm": 0.2,
             "snowfall_positive": 0.0
           },
@@ -7115,7 +7115,7 @@
         {
           "date": "2026-11-05",
           "probabilities": {
-            "frost_any_hour": 0.5,
+            "frost_any_hour": 0.42,
             "precipitation_ge_1mm": 0.34,
             "snowfall_positive": 0.06
           },
@@ -7200,7 +7200,7 @@
         {
           "date": "2026-11-06",
           "probabilities": {
-            "frost_any_hour": 0.56,
+            "frost_any_hour": 0.46,
             "precipitation_ge_1mm": 0.38,
             "snowfall_positive": 0.1
           },
@@ -7285,7 +7285,7 @@
         {
           "date": "2026-11-07",
           "probabilities": {
-            "frost_any_hour": 0.58,
+            "frost_any_hour": 0.4,
             "precipitation_ge_1mm": null,
             "snowfall_positive": null
           },
@@ -7336,13 +7336,13 @@
                 "valid_value_fraction": 0.167
               },
               "snow_depth": {
-                "complete_members": 49,
-                "partial_members": 1,
+                "complete_members": 50,
+                "partial_members": 0,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 20,
+                "minimum_valid_hours": 24,
                 "maximum_valid_hours": 24,
-                "valid_value_fraction": 0.997
+                "valid_value_fraction": 1.0
               }
             }
           },
@@ -7358,7 +7358,7 @@
           },
           "snow_depth_max": {
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
@@ -7370,12 +7370,12 @@
         {
           "date": "2026-11-08",
           "probabilities": {
-            "frost_any_hour": null,
+            "frost_any_hour": 0.46,
             "precipitation_ge_1mm": null,
             "snowfall_positive": null
           },
           "available_members": {
-            "frost_any_hour": 0,
+            "frost_any_hour": 50,
             "precipitation_ge_1mm": 0,
             "snowfall_positive": 0
           },
@@ -7385,13 +7385,13 @@
             "full_calendar_day": true,
             "fields": {
               "temperature_2m": {
-                "complete_members": 0,
-                "partial_members": 50,
+                "complete_members": 50,
+                "partial_members": 0,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 16,
-                "maximum_valid_hours": 16,
-                "valid_value_fraction": 0.667
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
               },
               "precipitation": {
                 "complete_members": 0,
@@ -7421,13 +7421,13 @@
                 "valid_value_fraction": 0.0
               },
               "snow_depth": {
-                "complete_members": 0,
-                "partial_members": 50,
+                "complete_members": 50,
+                "partial_members": 0,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 16,
-                "maximum_valid_hours": 16,
-                "valid_value_fraction": 0.667
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
               }
             }
           },
@@ -7443,24 +7443,24 @@
           },
           "snow_depth_max": {
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
           }
         },
         {
           "date": "2026-11-09",
           "probabilities": {
-            "frost_any_hour": null,
+            "frost_any_hour": 0.28,
             "precipitation_ge_1mm": null,
             "snowfall_positive": null
           },
           "available_members": {
-            "frost_any_hour": 0,
+            "frost_any_hour": 50,
             "precipitation_ge_1mm": 0,
             "snowfall_positive": 0
           },
@@ -7470,13 +7470,13 @@
             "full_calendar_day": false,
             "fields": {
               "temperature_2m": {
-                "complete_members": 0,
+                "complete_members": 50,
                 "partial_members": 0,
-                "empty_members": 50,
+                "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 0,
-                "maximum_valid_hours": 0,
-                "valid_value_fraction": 0.0
+                "minimum_valid_hours": 1,
+                "maximum_valid_hours": 1,
+                "valid_value_fraction": 1.0
               },
               "precipitation": {
                 "complete_members": 0,
@@ -7506,13 +7506,13 @@
                 "valid_value_fraction": 0.0
               },
               "snow_depth": {
-                "complete_members": 0,
+                "complete_members": 50,
                 "partial_members": 0,
-                "empty_members": 50,
+                "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 0,
-                "maximum_valid_hours": 0,
-                "valid_value_fraction": 0.0
+                "minimum_valid_hours": 1,
+                "maximum_valid_hours": 1,
+                "valid_value_fraction": 1.0
               }
             }
           },
@@ -7528,13 +7528,13 @@
           },
           "snow_depth_max": {
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
           }
         }
       ],
@@ -11781,54 +11781,54 @@
           {
             "time": "2026-11-07T14:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-07T15:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-07T16:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-07T17:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-07T18:00:00+00:00",
@@ -11849,7 +11849,7 @@
             "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.02,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11860,9 +11860,9 @@
             "time": "2026-11-07T20:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.001,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.06,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11873,9 +11873,9 @@
             "time": "2026-11-07T21:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.002,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.09,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11886,9 +11886,9 @@
             "time": "2026-11-07T22:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.002,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.12,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11899,9 +11899,9 @@
             "time": "2026-11-07T23:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.16,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11912,9 +11912,9 @@
             "time": "2026-11-08T00:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11925,9 +11925,9 @@
             "time": "2026-11-08T01:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11938,9 +11938,9 @@
             "time": "2026-11-08T02:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11951,9 +11951,9 @@
             "time": "2026-11-08T03:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11964,9 +11964,9 @@
             "time": "2026-11-08T04:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11977,9 +11977,9 @@
             "time": "2026-11-08T05:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11990,9 +11990,9 @@
             "time": "2026-11-08T06:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12003,9 +12003,9 @@
             "time": "2026-11-08T07:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12016,9 +12016,9 @@
             "time": "2026-11-08T08:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12029,9 +12029,9 @@
             "time": "2026-11-08T09:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12042,9 +12042,9 @@
             "time": "2026-11-08T10:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12055,9 +12055,9 @@
             "time": "2026-11-08T11:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12068,9 +12068,9 @@
             "time": "2026-11-08T12:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12081,9 +12081,9 @@
             "time": "2026-11-08T13:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12094,9 +12094,9 @@
             "time": "2026-11-08T14:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12106,119 +12106,119 @@
           {
             "time": "2026-11-08T15:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T16:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T17:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T18:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T19:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T20:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T21:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T22:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-08T23:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 50,
-            "member_coverage": 0.0
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           }
         ]
       },
@@ -12238,15 +12238,15 @@
           },
           "snow_depth": {
             "unit": "m",
-            "valid_values": 17546,
-            "status": "partial",
-            "complete_members": 0,
-            "partial_members": 50,
+            "valid_values": 18000,
+            "status": "complete",
+            "complete_members": 50,
+            "partial_members": 0,
             "empty_members": 0,
             "missing_field_members": 0,
-            "minimum_valid_hours": 347,
-            "maximum_valid_hours": 351,
-            "valid_value_fraction": 0.975
+            "minimum_valid_hours": 360,
+            "maximum_valid_hours": 360,
+            "valid_value_fraction": 1.0
           }
         },
         "invalid_arrays": [],
