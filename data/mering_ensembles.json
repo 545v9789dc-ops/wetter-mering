@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-10-27T14:42:19.683675+00:00",
+  "retrieved_at_utc": "2026-10-27T17:33:43.012571+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -6244,12 +6244,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 19.344,
+            "mean": 19.086,
             "min": 16.6,
             "max": 22.3,
-            "p10": 17.6,
-            "p50": 19.4,
-            "p90": 21.2
+            "p10": 17.3,
+            "p50": 19.1,
+            "p90": 20.5
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6266,7 +6266,7 @@
           "date": "2026-10-28",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.8,
+            "precipitation_ge_1mm": 0.78,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -6329,12 +6329,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 28.032,
-            "min": 23.4,
-            "max": 36.7,
-            "p10": 24.8,
-            "p50": 27.9,
-            "p90": 30.64
+            "mean": 29.152,
+            "min": 24.8,
+            "max": 34.6,
+            "p10": 26.57,
+            "p50": 28.4,
+            "p90": 32.83
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6414,12 +6414,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 25.466,
-            "min": 20.5,
+            "mean": 26.206,
+            "min": 21.6,
             "max": 30.2,
-            "p10": 22.3,
-            "p50": 25.2,
-            "p90": 29.2
+            "p10": 22.93,
+            "p50": 25.9,
+            "p90": 29.23
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6499,12 +6499,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 35.836,
-            "min": 23.8,
-            "max": 47.5,
-            "p10": 29.43,
-            "p50": 34.9,
-            "p90": 43.24
+            "mean": 36.106,
+            "min": 28.4,
+            "max": 45.7,
+            "p10": 30.56,
+            "p50": 35.6,
+            "p90": 41.8
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6520,7 +6520,7 @@
         {
           "date": "2026-10-31",
           "probabilities": {
-            "frost_any_hour": 0.06,
+            "frost_any_hour": 0.08,
             "precipitation_ge_1mm": 0.0,
             "snowfall_positive": 0.0
           },
@@ -6584,10 +6584,10 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 33.626,
-            "min": 17.6,
+            "mean": 33.712,
+            "min": 18.0,
             "max": 55.1,
-            "p10": 21.56,
+            "p10": 21.92,
             "p50": 34.05,
             "p90": 46.13
           },
@@ -6605,9 +6605,9 @@
         {
           "date": "2026-11-01",
           "probabilities": {
-            "frost_any_hour": 0.04,
-            "precipitation_ge_1mm": 0.1,
-            "snowfall_positive": 0.02
+            "frost_any_hour": 0.02,
+            "precipitation_ge_1mm": 0.14,
+            "snowfall_positive": 0.0
           },
           "available_members": {
             "frost_any_hour": 50,
@@ -6690,7 +6690,7 @@
         {
           "date": "2026-11-02",
           "probabilities": {
-            "frost_any_hour": 0.34,
+            "frost_any_hour": 0.3,
             "precipitation_ge_1mm": 0.1,
             "snowfall_positive": 0.04
           },
