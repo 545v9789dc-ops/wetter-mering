@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-10-28T17:36:38.067863+00:00",
+  "retrieved_at_utc": "2026-10-28T21:13:12.237726+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -41,7 +41,7 @@
           "date": "2026-10-28",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 1.0,
+            "precipitation_ge_1mm": 0.833,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -381,8 +381,8 @@
           "date": "2026-11-01",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.133,
-            "snowfall_positive": 0.033
+            "precipitation_ge_1mm": 0.167,
+            "snowfall_positive": 0.1
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -466,8 +466,8 @@
           "date": "2026-11-02",
           "probabilities": {
             "frost_any_hour": 0.233,
-            "precipitation_ge_1mm": 0.333,
-            "snowfall_positive": 0.067
+            "precipitation_ge_1mm": 0.633,
+            "snowfall_positive": 0.1
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -551,8 +551,8 @@
           "date": "2026-11-03",
           "probabilities": {
             "frost_any_hour": 0.3,
-            "precipitation_ge_1mm": 0.367,
-            "snowfall_positive": 0.1
+            "precipitation_ge_1mm": 0.5,
+            "snowfall_positive": 0.2
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -636,7 +636,7 @@
           "date": "2026-11-04",
           "probabilities": {
             "frost_any_hour": 0.567,
-            "precipitation_ge_1mm": 0.1,
+            "precipitation_ge_1mm": 0.233,
             "snowfall_positive": 0.067
           },
           "available_members": {
@@ -721,7 +721,7 @@
           "date": "2026-11-05",
           "probabilities": {
             "frost_any_hour": 0.5,
-            "precipitation_ge_1mm": 0.067,
+            "precipitation_ge_1mm": 0.133,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -806,8 +806,8 @@
           "date": "2026-11-06",
           "probabilities": {
             "frost_any_hour": 0.467,
-            "precipitation_ge_1mm": 0.067,
-            "snowfall_positive": 0.033
+            "precipitation_ge_1mm": 0.133,
+            "snowfall_positive": 0.067
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -918,18 +918,18 @@
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 8,
-                "maximum_valid_hours": 8,
-                "valid_value_fraction": 0.333
+                "minimum_valid_hours": 14,
+                "maximum_valid_hours": 14,
+                "valid_value_fraction": 0.583
               },
               "snowfall": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 8,
-                "maximum_valid_hours": 8,
-                "valid_value_fraction": 0.333
+                "minimum_valid_hours": 14,
+                "maximum_valid_hours": 14,
+                "valid_value_fraction": 0.583
               },
               "wind_gusts_10m": {
                 "complete_members": 0,
