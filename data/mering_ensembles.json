@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-10-27T21:04:26.670370+00:00",
+  "retrieved_at_utc": "2026-10-28T01:49:30.478324+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -38,10 +38,10 @@
       ],
       "daily": [
         {
-          "date": "2026-10-27",
+          "date": "2026-10-28",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.0,
+            "precipitation_ge_1mm": 0.433,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -104,97 +104,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 15.163,
-            "min": 11.2,
-            "max": 19.1,
-            "p10": 12.17,
-            "p50": 15.5,
-            "p90": 17.6
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-10-28",
-          "probabilities": {
-            "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.7,
-            "snowfall_positive": 0.0
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 28.7,
-            "min": 20.9,
-            "max": 35.6,
-            "p10": 22.97,
-            "p50": 29.35,
-            "p90": 33.1
+            "mean": 30.173,
+            "min": 22.7,
+            "max": 38.2,
+            "p10": 27.4,
+            "p50": 29.9,
+            "p90": 34.27
           },
           "snow_depth_max": {
             "unit": "m",
@@ -274,12 +189,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 27.097,
-            "min": 13.7,
-            "max": 42.1,
-            "p10": 19.37,
-            "p50": 26.3,
-            "p90": 33.82
+            "mean": 24.737,
+            "min": 16.2,
+            "max": 37.4,
+            "p10": 18.29,
+            "p50": 23.8,
+            "p90": 31.91
           },
           "snow_depth_max": {
             "unit": "m",
@@ -359,12 +274,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 39.283,
-            "min": 24.1,
-            "max": 52.2,
-            "p10": 32.18,
-            "p50": 39.4,
-            "p90": 47.57
+            "mean": 36.76,
+            "min": 21.6,
+            "max": 47.5,
+            "p10": 29.86,
+            "p50": 37.25,
+            "p90": 42.84
           },
           "snow_depth_max": {
             "unit": "m",
@@ -381,7 +296,7 @@
           "date": "2026-10-31",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.033,
+            "precipitation_ge_1mm": 0.0,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -444,12 +359,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 36.767,
-            "min": 18.7,
-            "max": 51.5,
-            "p10": 28.37,
-            "p50": 37.45,
-            "p90": 45.4
+            "mean": 35.04,
+            "min": 16.6,
+            "max": 46.8,
+            "p10": 20.86,
+            "p50": 35.6,
+            "p90": 44.64
           },
           "snow_depth_max": {
             "unit": "m",
@@ -466,7 +381,7 @@
           "date": "2026-11-01",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.033,
+            "precipitation_ge_1mm": 0.067,
             "snowfall_positive": 0.033
           },
           "available_members": {
@@ -529,12 +444,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 30.4,
-            "min": 14.4,
-            "max": 44.6,
-            "p10": 20.18,
-            "p50": 29.35,
-            "p90": 41.8
+            "mean": 31.13,
+            "min": 11.5,
+            "max": 46.8,
+            "p10": 18.14,
+            "p50": 31.3,
+            "p90": 44.37
           },
           "snow_depth_max": {
             "unit": "m",
@@ -550,178 +465,8 @@
         {
           "date": "2026-11-02",
           "probabilities": {
-            "frost_any_hour": 0.233,
-            "precipitation_ge_1mm": 0.0,
-            "snowfall_positive": 0.0
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 30.057,
-            "min": 10.8,
-            "max": 47.5,
-            "p10": 20.7,
-            "p50": 29.9,
-            "p90": 41.4
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-03",
-          "probabilities": {
-            "frost_any_hour": 0.367,
-            "precipitation_ge_1mm": 0.1,
-            "snowfall_positive": 0.0
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 33.727,
-            "min": 11.2,
-            "max": 59.0,
-            "p10": 17.23,
-            "p50": 35.1,
-            "p90": 50.51
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-04",
-          "probabilities": {
-            "frost_any_hour": 0.333,
-            "precipitation_ge_1mm": 0.0,
+            "frost_any_hour": 0.2,
+            "precipitation_ge_1mm": 0.133,
             "snowfall_positive": 0.033
           },
           "available_members": {
@@ -784,12 +529,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 29.25,
-            "min": 8.6,
-            "max": 51.5,
-            "p10": 10.76,
-            "p50": 30.05,
-            "p90": 46.48
+            "mean": 29.59,
+            "min": 10.1,
+            "max": 44.3,
+            "p10": 17.96,
+            "p50": 29.5,
+            "p90": 43.63
           },
           "snow_depth_max": {
             "unit": "m",
@@ -803,9 +548,179 @@
           }
         },
         {
+          "date": "2026-11-03",
+          "probabilities": {
+            "frost_any_hour": 0.133,
+            "precipitation_ge_1mm": 0.133,
+            "snowfall_positive": 0.067
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 30,
+            "mean": 37.097,
+            "min": 12.2,
+            "max": 53.6,
+            "p10": 22.09,
+            "p50": 37.05,
+            "p90": 50.47
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-04",
+          "probabilities": {
+            "frost_any_hour": 0.633,
+            "precipitation_ge_1mm": 0.067,
+            "snowfall_positive": 0.067
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 30,
+            "mean": 31.767,
+            "min": 10.4,
+            "max": 52.2,
+            "p10": 15.88,
+            "p50": 32.75,
+            "p90": 49.48
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.01,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
           "date": "2026-11-05",
           "probabilities": {
-            "frost_any_hour": 0.467,
+            "frost_any_hour": 0.7,
             "precipitation_ge_1mm": 0.0,
             "snowfall_positive": 0.0
           },
@@ -869,19 +784,19 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 18.383,
-            "min": 6.8,
-            "max": 38.9,
-            "p10": 9.36,
-            "p50": 16.35,
-            "p90": 32.69
+            "mean": 21.28,
+            "min": 7.6,
+            "max": 45.7,
+            "p10": 8.57,
+            "p50": 18.55,
+            "p90": 35.33
           },
           "snow_depth_max": {
             "unit": "m",
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0
@@ -909,45 +824,45 @@
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 16,
-                "maximum_valid_hours": 16,
-                "valid_value_fraction": 0.667
+                "minimum_valid_hours": 22,
+                "maximum_valid_hours": 22,
+                "valid_value_fraction": 0.917
               },
               "precipitation": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 14,
-                "maximum_valid_hours": 14,
-                "valid_value_fraction": 0.583
+                "minimum_valid_hours": 20,
+                "maximum_valid_hours": 20,
+                "valid_value_fraction": 0.833
               },
               "snowfall": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 14,
-                "maximum_valid_hours": 14,
-                "valid_value_fraction": 0.583
+                "minimum_valid_hours": 20,
+                "maximum_valid_hours": 20,
+                "valid_value_fraction": 0.833
               },
               "wind_gusts_10m": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 16,
-                "maximum_valid_hours": 16,
-                "valid_value_fraction": 0.667
+                "minimum_valid_hours": 22,
+                "maximum_valid_hours": 22,
+                "valid_value_fraction": 0.917
               },
               "snow_depth": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 13,
-                "maximum_valid_hours": 13,
-                "valid_value_fraction": 0.542
+                "minimum_valid_hours": 19,
+                "maximum_valid_hours": 19,
+                "valid_value_fraction": 0.792
               }
             }
           },
@@ -1325,6 +1240,91 @@
             "snowfall_positive": 0
           },
           "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 0,
+                "partial_members": 0,
+                "empty_members": 30,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
+              },
+              "precipitation": {
+                "complete_members": 0,
+                "partial_members": 0,
+                "empty_members": 30,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
+              },
+              "snowfall": {
+                "complete_members": 0,
+                "partial_members": 0,
+                "empty_members": 30,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 0,
+                "partial_members": 0,
+                "empty_members": 30,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
+              },
+              "snow_depth": {
+                "complete_members": 0,
+                "partial_members": 0,
+                "empty_members": 30,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null
+          }
+        },
+        {
+          "date": "2026-11-12",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          },
+          "data_quality": {
             "expected_hours": 1,
             "calendar_day_hours": 24,
             "full_calendar_day": false,
@@ -1400,318 +1400,6 @@
       ],
       "hourly": {
         "snow_depth": [
-          {
-            "time": "2026-10-27T00:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T01:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T02:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T03:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T04:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T05:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T06:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T07:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T08:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T09:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T10:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T11:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T12:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T13:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T14:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T15:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T16:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T17:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T18:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T19:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T20:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T21:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T22:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T23:00:00+00:00",
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
           {
             "time": "2026-10-28T00:00:00+00:00",
             "unit": "m",
@@ -4123,7 +3811,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4136,7 +3824,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4149,7 +3837,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4162,7 +3850,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4175,7 +3863,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4188,7 +3876,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4201,7 +3889,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4214,7 +3902,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4227,7 +3915,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4240,7 +3928,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4253,7 +3941,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4266,7 +3954,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4279,7 +3967,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4292,7 +3980,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4305,7 +3993,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4318,7 +4006,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4331,7 +4019,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4344,7 +4032,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4357,7 +4045,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4370,7 +4058,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4383,7 +4071,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4396,7 +4084,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4409,7 +4097,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4422,7 +4110,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4435,7 +4123,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4448,7 +4136,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4461,7 +4149,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4474,7 +4162,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4487,7 +4175,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4500,7 +4188,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4513,7 +4201,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4526,7 +4214,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4539,7 +4227,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4552,7 +4240,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4565,7 +4253,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4578,7 +4266,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4591,7 +4279,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4604,7 +4292,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4617,7 +4305,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4630,7 +4318,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4643,7 +4331,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4656,7 +4344,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4669,7 +4357,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.0,
+            "max": 0.01,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -4679,80 +4367,80 @@
           {
             "time": "2026-11-06T12:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.01,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-06T13:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.01,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-06T14:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.01,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-06T15:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.01,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-06T16:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.01,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-06T17:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p50": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.01,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-06T18:00:00+00:00",
@@ -6079,6 +5767,318 @@
             "p90": null,
             "missing_members": 30,
             "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T00:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T01:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T02:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T03:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T04:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T05:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T06:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T07:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T08:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T09:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T10:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T11:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T12:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T13:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T14:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T15:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T16:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T17:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T18:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T19:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T20:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T21:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T22:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T23:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 30,
+            "member_coverage": 0.0
           }
         ]
       },
@@ -6086,27 +6086,27 @@
         "fields": {
           "wind_gusts_10m": {
             "unit": "km/h",
-            "valid_values": 7650,
+            "valid_values": 7110,
             "status": "partial",
             "complete_members": 0,
             "partial_members": 30,
             "empty_members": 0,
             "missing_field_members": 0,
-            "minimum_valid_hours": 255,
-            "maximum_valid_hours": 255,
-            "valid_value_fraction": 0.708
+            "minimum_valid_hours": 237,
+            "maximum_valid_hours": 237,
+            "valid_value_fraction": 0.658
           },
           "snow_depth": {
             "unit": "m",
-            "valid_values": 7560,
+            "valid_values": 7020,
             "status": "partial",
             "complete_members": 0,
             "partial_members": 30,
             "empty_members": 0,
             "missing_field_members": 0,
-            "minimum_valid_hours": 252,
-            "maximum_valid_hours": 252,
-            "valid_value_fraction": 0.7
+            "minimum_valid_hours": 234,
+            "maximum_valid_hours": 234,
+            "valid_value_fraction": 0.65
           }
         },
         "invalid_arrays": [],
@@ -6178,10 +6178,10 @@
       ],
       "daily": [
         {
-          "date": "2026-10-27",
+          "date": "2026-10-28",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.0,
+            "precipitation_ge_1mm": 0.76,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -6244,97 +6244,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 19.086,
-            "min": 16.6,
-            "max": 22.3,
-            "p10": 17.3,
-            "p50": 19.1,
-            "p90": 20.5
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-10-28",
-          "probabilities": {
-            "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.78,
-            "snowfall_positive": 0.0
-          },
-          "available_members": {
-            "frost_any_hour": 50,
-            "precipitation_ge_1mm": 50,
-            "snowfall_positive": 50
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 50,
-            "mean": 29.152,
-            "min": 24.8,
-            "max": 34.6,
-            "p10": 26.57,
-            "p50": 28.4,
-            "p90": 32.83
+            "mean": 28.416,
+            "min": 24.1,
+            "max": 33.5,
+            "p10": 25.9,
+            "p50": 28.1,
+            "p90": 31.3
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6414,12 +6329,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 26.206,
+            "mean": 25.498,
             "min": 21.6,
-            "max": 30.2,
-            "p10": 22.93,
-            "p50": 25.9,
-            "p90": 29.23
+            "max": 29.9,
+            "p10": 22.7,
+            "p50": 25.75,
+            "p90": 27.74
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6499,12 +6414,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 36.106,
-            "min": 28.4,
-            "max": 45.7,
-            "p10": 30.56,
-            "p50": 35.6,
-            "p90": 41.8
+            "mean": 34.596,
+            "min": 27.7,
+            "max": 46.1,
+            "p10": 29.2,
+            "p50": 34.6,
+            "p90": 39.67
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6520,8 +6435,8 @@
         {
           "date": "2026-10-31",
           "probabilities": {
-            "frost_any_hour": 0.08,
-            "precipitation_ge_1mm": 0.0,
+            "frost_any_hour": 0.04,
+            "precipitation_ge_1mm": 0.02,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -6584,10 +6499,10 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 33.712,
-            "min": 18.0,
+            "mean": 33.648,
+            "min": 17.6,
             "max": 55.1,
-            "p10": 21.92,
+            "p10": 22.0,
             "p50": 34.05,
             "p90": 46.13
           },
@@ -6605,9 +6520,9 @@
         {
           "date": "2026-11-01",
           "probabilities": {
-            "frost_any_hour": 0.02,
-            "precipitation_ge_1mm": 0.14,
-            "snowfall_positive": 0.0
+            "frost_any_hour": 0.08,
+            "precipitation_ge_1mm": 0.2,
+            "snowfall_positive": 0.02
           },
           "available_members": {
             "frost_any_hour": 50,
@@ -6690,178 +6605,8 @@
         {
           "date": "2026-11-02",
           "probabilities": {
-            "frost_any_hour": 0.3,
-            "precipitation_ge_1mm": 0.1,
-            "snowfall_positive": 0.04
-          },
-          "available_members": {
-            "frost_any_hour": 50,
-            "precipitation_ge_1mm": 50,
-            "snowfall_positive": 50
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 50,
-            "mean": 31.136,
-            "min": 19.1,
-            "max": 51.8,
-            "p10": 22.27,
-            "p50": 28.6,
-            "p90": 42.88
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-03",
-          "probabilities": {
-            "frost_any_hour": 0.44,
-            "precipitation_ge_1mm": 0.1,
-            "snowfall_positive": 0.04
-          },
-          "available_members": {
-            "frost_any_hour": 50,
-            "precipitation_ge_1mm": 50,
-            "snowfall_positive": 50
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 50,
-            "mean": 32.098,
-            "min": 15.8,
-            "max": 50.0,
-            "p10": 18.59,
-            "p50": 32.05,
-            "p90": 46.13
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-04",
-          "probabilities": {
-            "frost_any_hour": 0.56,
-            "precipitation_ge_1mm": 0.12,
+            "frost_any_hour": 0.4,
+            "precipitation_ge_1mm": 0.2,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -6924,12 +6669,182 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 28.238,
-            "min": 12.2,
-            "max": 52.9,
-            "p10": 17.26,
-            "p50": 26.45,
-            "p90": 42.61
+            "mean": 33.594,
+            "min": 18.0,
+            "max": 53.3,
+            "p10": 23.36,
+            "p50": 33.3,
+            "p90": 45.74
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-03",
+          "probabilities": {
+            "frost_any_hour": 0.24,
+            "precipitation_ge_1mm": 0.28,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 50,
+            "mean": 32.862,
+            "min": 14.0,
+            "max": 63.4,
+            "p10": 20.83,
+            "p50": 31.5,
+            "p90": 46.51
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-04",
+          "probabilities": {
+            "frost_any_hour": 0.32,
+            "precipitation_ge_1mm": 0.24,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 50,
+            "mean": 32.51,
+            "min": 14.4,
+            "max": 49.7,
+            "p10": 20.86,
+            "p50": 32.6,
+            "p90": 43.78
           },
           "snow_depth_max": {
             "unit": "m",
@@ -6945,8 +6860,178 @@
         {
           "date": "2026-11-05",
           "probabilities": {
-            "frost_any_hour": 0.7,
-            "precipitation_ge_1mm": 0.14,
+            "frost_any_hour": 0.48,
+            "precipitation_ge_1mm": 0.06,
+            "snowfall_positive": 0.02
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 50,
+            "mean": 27.91,
+            "min": 15.5,
+            "max": 54.0,
+            "p10": 18.32,
+            "p50": 26.25,
+            "p90": 41.51
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-06",
+          "probabilities": {
+            "frost_any_hour": 0.56,
+            "precipitation_ge_1mm": 0.08,
+            "snowfall_positive": 0.02
+          },
+          "available_members": {
+            "frost_any_hour": 50,
+            "precipitation_ge_1mm": 50,
+            "snowfall_positive": 50
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 50,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 50,
+            "mean": 25.932,
+            "min": 13.0,
+            "max": 55.4,
+            "p10": 16.6,
+            "p50": 24.1,
+            "p90": 36.95
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-07",
+          "probabilities": {
+            "frost_any_hour": 0.76,
+            "precipitation_ge_1mm": 0.24,
             "snowfall_positive": 0.04
           },
           "available_members": {
@@ -7009,182 +7094,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 25.474,
-            "min": 13.0,
-            "max": 41.0,
-            "p10": 15.46,
-            "p50": 26.45,
-            "p90": 35.89
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-06",
-          "probabilities": {
-            "frost_any_hour": 0.78,
-            "precipitation_ge_1mm": 0.14,
-            "snowfall_positive": 0.06
-          },
-          "available_members": {
-            "frost_any_hour": 50,
-            "precipitation_ge_1mm": 50,
-            "snowfall_positive": 50
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 50,
-            "mean": 26.21,
-            "min": 11.9,
-            "max": 53.3,
-            "p10": 15.73,
-            "p50": 23.95,
-            "p90": 39.04
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-07",
-          "probabilities": {
-            "frost_any_hour": 0.72,
-            "precipitation_ge_1mm": 0.2,
-            "snowfall_positive": 0.06
-          },
-          "available_members": {
-            "frost_any_hour": 50,
-            "precipitation_ge_1mm": 50,
-            "snowfall_positive": 50
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 50,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 50,
-            "mean": 28.112,
-            "min": 13.0,
-            "max": 59.8,
-            "p10": 16.13,
-            "p50": 23.95,
-            "p90": 46.84
+            "mean": 25.324,
+            "min": 11.5,
+            "max": 54.4,
+            "p10": 14.4,
+            "p50": 23.4,
+            "p90": 39.51
           },
           "snow_depth_max": {
             "unit": "m",
@@ -7200,9 +7115,9 @@
         {
           "date": "2026-11-08",
           "probabilities": {
-            "frost_any_hour": 0.72,
-            "precipitation_ge_1mm": 0.26,
-            "snowfall_positive": 0.12
+            "frost_any_hour": 0.8,
+            "precipitation_ge_1mm": 0.22,
+            "snowfall_positive": 0.08
           },
           "available_members": {
             "frost_any_hour": 50,
@@ -7264,12 +7179,12 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 27.97,
-            "min": 16.2,
-            "max": 55.1,
-            "p10": 17.57,
-            "p50": 24.1,
-            "p90": 47.97
+            "mean": 23.8,
+            "min": 11.2,
+            "max": 64.4,
+            "p10": 14.8,
+            "p50": 19.4,
+            "p90": 40.18
           },
           "snow_depth_max": {
             "unit": "m",
@@ -7285,9 +7200,9 @@
         {
           "date": "2026-11-09",
           "probabilities": {
-            "frost_any_hour": 0.68,
-            "precipitation_ge_1mm": 0.44,
-            "snowfall_positive": 0.28
+            "frost_any_hour": 0.7,
+            "precipitation_ge_1mm": 0.3,
+            "snowfall_positive": 0.1
           },
           "available_members": {
             "frost_any_hour": 50,
@@ -7336,29 +7251,29 @@
                 "valid_value_fraction": 1.0
               },
               "snow_depth": {
-                "complete_members": 49,
-                "partial_members": 1,
+                "complete_members": 50,
+                "partial_members": 0,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 20,
+                "minimum_valid_hours": 24,
                 "maximum_valid_hours": 24,
-                "valid_value_fraction": 0.997
+                "valid_value_fraction": 1.0
               }
             }
           },
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 32.642,
-            "min": 13.0,
-            "max": 72.4,
-            "p10": 17.86,
-            "p50": 31.15,
-            "p90": 48.44
+            "mean": 25.286,
+            "min": 11.2,
+            "max": 88.6,
+            "p10": 13.7,
+            "p50": 19.8,
+            "p90": 39.49
           },
           "snow_depth_max": {
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
@@ -7370,9 +7285,9 @@
         {
           "date": "2026-11-10",
           "probabilities": {
-            "frost_any_hour": 0.58,
-            "precipitation_ge_1mm": 0.36,
-            "snowfall_positive": 0.16
+            "frost_any_hour": 0.6,
+            "precipitation_ge_1mm": 0.4,
+            "snowfall_positive": 0.14
           },
           "available_members": {
             "frost_any_hour": 50,
@@ -7434,19 +7349,19 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 50,
-            "mean": 34.744,
-            "min": 13.3,
-            "max": 73.4,
-            "p10": 18.63,
-            "p50": 35.25,
-            "p90": 50.15
+            "mean": 27.212,
+            "min": 12.2,
+            "max": 77.8,
+            "p10": 15.1,
+            "p50": 23.6,
+            "p90": 42.32
           },
           "snow_depth_max": {
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0
@@ -7455,14 +7370,99 @@
         {
           "date": "2026-11-11",
           "probabilities": {
-            "frost_any_hour": 0.52,
-            "precipitation_ge_1mm": 0.04,
-            "snowfall_positive": 0.08
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
           },
           "available_members": {
-            "frost_any_hour": 50,
-            "precipitation_ge_1mm": 50,
-            "snowfall_positive": 50
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 0,
+                "partial_members": 50,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 16,
+                "maximum_valid_hours": 16,
+                "valid_value_fraction": 0.667
+              },
+              "precipitation": {
+                "complete_members": 0,
+                "partial_members": 50,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 14,
+                "maximum_valid_hours": 14,
+                "valid_value_fraction": 0.583
+              },
+              "snowfall": {
+                "complete_members": 0,
+                "partial_members": 50,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 14,
+                "maximum_valid_hours": 14,
+                "valid_value_fraction": 0.583
+              },
+              "wind_gusts_10m": {
+                "complete_members": 0,
+                "partial_members": 50,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 16,
+                "maximum_valid_hours": 16,
+                "valid_value_fraction": 0.667
+              },
+              "snow_depth": {
+                "complete_members": 0,
+                "partial_members": 50,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 16,
+                "maximum_valid_hours": 16,
+                "valid_value_fraction": 0.667
+              }
+            }
+          },
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null
+          }
+        },
+        {
+          "date": "2026-11-12",
+          "probabilities": {
+            "frost_any_hour": null,
+            "precipitation_ge_1mm": null,
+            "snowfall_positive": null
+          },
+          "available_members": {
+            "frost_any_hour": 0,
+            "precipitation_ge_1mm": 0,
+            "snowfall_positive": 0
           },
           "data_quality": {
             "expected_hours": 1,
@@ -7470,388 +7470,76 @@
             "full_calendar_day": false,
             "fields": {
               "temperature_2m": {
-                "complete_members": 50,
+                "complete_members": 0,
                 "partial_members": 0,
-                "empty_members": 0,
+                "empty_members": 50,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 1,
-                "maximum_valid_hours": 1,
-                "valid_value_fraction": 1.0
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
               },
               "precipitation": {
-                "complete_members": 50,
+                "complete_members": 0,
                 "partial_members": 0,
-                "empty_members": 0,
+                "empty_members": 50,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 1,
-                "maximum_valid_hours": 1,
-                "valid_value_fraction": 1.0
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
               },
               "snowfall": {
-                "complete_members": 50,
+                "complete_members": 0,
                 "partial_members": 0,
-                "empty_members": 0,
+                "empty_members": 50,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 1,
-                "maximum_valid_hours": 1,
-                "valid_value_fraction": 1.0
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
               },
               "wind_gusts_10m": {
-                "complete_members": 50,
+                "complete_members": 0,
                 "partial_members": 0,
-                "empty_members": 0,
+                "empty_members": 50,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 1,
-                "maximum_valid_hours": 1,
-                "valid_value_fraction": 1.0
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
               },
               "snow_depth": {
-                "complete_members": 50,
+                "complete_members": 0,
                 "partial_members": 0,
-                "empty_members": 0,
+                "empty_members": 50,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 1,
-                "maximum_valid_hours": 1,
-                "valid_value_fraction": 1.0
+                "minimum_valid_hours": 0,
+                "maximum_valid_hours": 0,
+                "valid_value_fraction": 0.0
               }
             }
           },
           "wind_gusts_10m_max": {
             "unit": "km/h",
-            "available_members": 50,
-            "mean": 24.27,
-            "min": 7.2,
-            "max": 64.8,
-            "p10": 11.02,
-            "p50": 20.55,
-            "p90": 42.8
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null
           },
           "snow_depth_max": {
             "unit": "m",
-            "available_members": 50,
-            "mean": 0.003,
-            "min": 0.0,
-            "max": 0.17,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null
           }
         }
       ],
       "hourly": {
         "snow_depth": [
-          {
-            "time": "2026-10-27T00:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T01:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T02:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T03:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T04:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T05:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T06:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T07:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T08:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T09:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T10:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T11:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T12:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T13:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T14:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T15:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T16:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T17:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T18:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T19:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T20:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T21:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T22:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
-          {
-            "time": "2026-10-27T23:00:00+00:00",
-            "unit": "m",
-            "available_members": 50,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "missing_members": 0,
-            "member_coverage": 1.0
-          },
           {
             "time": "2026-10-28T00:00:00+00:00",
             "unit": "m",
@@ -11703,54 +11391,54 @@
           {
             "time": "2026-11-09T08:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-09T09:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-09T10:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-09T11:00:00+00:00",
             "unit": "m",
-            "available_members": 49,
+            "available_members": 50,
             "mean": 0.0,
             "min": 0.0,
             "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
-            "missing_members": 1,
-            "member_coverage": 0.98
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-09T12:00:00+00:00",
@@ -11769,9 +11457,9 @@
             "time": "2026-11-09T13:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.001,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.03,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11782,9 +11470,9 @@
             "time": "2026-11-09T14:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.001,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.06,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11795,9 +11483,9 @@
             "time": "2026-11-09T15:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.002,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.1,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11808,9 +11496,9 @@
             "time": "2026-11-09T16:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.13,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11821,9 +11509,9 @@
             "time": "2026-11-09T17:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11834,9 +11522,9 @@
             "time": "2026-11-09T18:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11847,9 +11535,9 @@
             "time": "2026-11-09T19:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.2,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11860,9 +11548,9 @@
             "time": "2026-11-09T20:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.2,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11873,9 +11561,9 @@
             "time": "2026-11-09T21:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.2,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11886,9 +11574,9 @@
             "time": "2026-11-09T22:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11899,9 +11587,9 @@
             "time": "2026-11-09T23:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.19,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11912,9 +11600,9 @@
             "time": "2026-11-10T00:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11925,9 +11613,9 @@
             "time": "2026-11-10T01:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11938,9 +11626,9 @@
             "time": "2026-11-10T02:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11951,9 +11639,9 @@
             "time": "2026-11-10T03:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11964,9 +11652,9 @@
             "time": "2026-11-10T04:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11977,9 +11665,9 @@
             "time": "2026-11-10T05:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -11990,9 +11678,9 @@
             "time": "2026-11-10T06:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12003,9 +11691,9 @@
             "time": "2026-11-10T07:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12016,9 +11704,9 @@
             "time": "2026-11-10T08:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12029,9 +11717,9 @@
             "time": "2026-11-10T09:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12042,9 +11730,9 @@
             "time": "2026-11-10T10:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12055,9 +11743,9 @@
             "time": "2026-11-10T11:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12068,9 +11756,9 @@
             "time": "2026-11-10T12:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12081,9 +11769,9 @@
             "time": "2026-11-10T13:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12094,9 +11782,9 @@
             "time": "2026-11-10T14:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12107,9 +11795,9 @@
             "time": "2026-11-10T15:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12120,9 +11808,9 @@
             "time": "2026-11-10T16:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.004,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.18,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12133,9 +11821,9 @@
             "time": "2026-11-10T17:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12146,9 +11834,9 @@
             "time": "2026-11-10T18:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12159,9 +11847,9 @@
             "time": "2026-11-10T19:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12172,9 +11860,9 @@
             "time": "2026-11-10T20:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12185,9 +11873,9 @@
             "time": "2026-11-10T21:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12198,9 +11886,9 @@
             "time": "2026-11-10T22:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
@@ -12211,14 +11899,326 @@
             "time": "2026-11-10T23:00:00+00:00",
             "unit": "m",
             "available_members": 50,
-            "mean": 0.003,
+            "mean": 0.0,
             "min": 0.0,
-            "max": 0.17,
+            "max": 0.0,
             "p10": 0.0,
             "p50": 0.0,
             "p90": 0.0,
             "missing_members": 0,
             "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T00:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T01:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T02:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T03:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T04:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T05:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T06:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T07:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T08:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T09:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T10:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T11:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T12:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T13:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T14:00:00+00:00",
+            "unit": "m",
+            "available_members": 50,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
+          },
+          {
+            "time": "2026-11-11T15:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T16:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T17:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T18:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T19:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T20:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T21:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T22:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
+          },
+          {
+            "time": "2026-11-11T23:00:00+00:00",
+            "unit": "m",
+            "available_members": 0,
+            "mean": null,
+            "min": null,
+            "max": null,
+            "p10": null,
+            "p50": null,
+            "p90": null,
+            "missing_members": 50,
+            "member_coverage": 0.0
           }
         ]
       },
@@ -12226,27 +12226,27 @@
         "fields": {
           "wind_gusts_10m": {
             "unit": "km/h",
-            "valid_values": 18000,
-            "status": "complete",
-            "complete_members": 50,
-            "partial_members": 0,
+            "valid_values": 17550,
+            "status": "partial",
+            "complete_members": 0,
+            "partial_members": 50,
             "empty_members": 0,
             "missing_field_members": 0,
-            "minimum_valid_hours": 360,
-            "maximum_valid_hours": 360,
-            "valid_value_fraction": 1.0
+            "minimum_valid_hours": 351,
+            "maximum_valid_hours": 351,
+            "valid_value_fraction": 0.975
           },
           "snow_depth": {
             "unit": "m",
-            "valid_values": 17996,
+            "valid_values": 17550,
             "status": "partial",
-            "complete_members": 49,
-            "partial_members": 1,
+            "complete_members": 0,
+            "partial_members": 50,
             "empty_members": 0,
             "missing_field_members": 0,
-            "minimum_valid_hours": 356,
-            "maximum_valid_hours": 360,
-            "valid_value_fraction": 1.0
+            "minimum_valid_hours": 351,
+            "maximum_valid_hours": 351,
+            "valid_value_fraction": 0.975
           }
         },
         "invalid_arrays": [],
