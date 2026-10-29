@@ -92,6 +92,45 @@ def parse_kml(xml_data, expected_id):
                                       for k, v in parameters.items()},
             'available_preferred_parameters': [k for k in PREFERRED if k in parameters]}
 
+def enrich_station(station):
+    """Preserve all DWD codes and add station-level hourly/local-day diagnostics."""
+    from collections import defaultdict
+    from zoneinfo import ZoneInfo
+    keys = ('TTT', 'Td', 'N', 'Nl', 'Nm', 'Nh', 'VV', 'VV10',
+            'SunD1', 'SunD3', 'FF', 'DD', 'FX1', 'FX3',
+            'RR1c', 'RR3c', 'RR6c')
+    parameters = station['parameters']
+    hourly = []
+    days = defaultdict(list)
+    for i, stamp in enumerate(station['forecast_times_utc']):
+        raw = {key: parameters[key][i] for key in keys if key in parameters}
+        t, td = raw.get('TTT'), raw.get('Td')
+        spread = round(t - td, 2) if t is not None and td is not None else None
+        local_day = datetime.fromisoformat(stamp.replace('Z', '+00:00')).astimezone(
+            ZoneInfo('Europe/Berlin')).date().isoformat()
+        hourly.append({'time_utc': stamp, 'local_date': local_day,
+                       'values_raw': raw, 'temperature_dewpoint_spread': spread})
+        days[local_day].append(i)
+    daily = []
+    for day, indices in sorted(days.items()):
+        def extrema(key):
+            vals = [parameters[key][i] for i in indices if key in parameters
+                    and parameters[key][i] is not None]
+            return {'min': min(vals) if vals else None,
+                    'max': max(vals) if vals else None,
+                    'valid_hours': len(vals)}
+        daily.append({'date': day, 'hours_available': len(indices),
+                      'temperature_raw': extrema('TTT'),
+                      'dewpoint_raw': extrema('Td'),
+                      'low_cloud_raw': extrema('Nl'),
+                      'visibility_raw': extrema('VV'),
+                      'wind_raw': extrema('FF'),
+                      'gust_raw': extrema('FX1'),
+                      'note': 'Raw MOSMIX units; interval-based RR/SunD values are not summed.'})
+    station['derived'] = {'hourly': hourly, 'daily': daily,
+                          'note': 'Raw DWD units preserved; station forecasts are not Mering observations.'}
+    return station
+
 def fetch_station(name, info):
     station_id = info['id']
     url = f'{BASE}/{station_id}/kml/MOSMIX_L_LATEST_{station_id}.kmz'
@@ -111,7 +150,7 @@ def fetch_station(name, info):
     parsed = parse_kml(kml, station_id)
     parsed.update({'status': 'ok', 'station_id': station_id,
                    'reference_elevation_m': info['elevation_m'], 'source_url': url})
-    return parsed
+    return enrich_station(parsed)
 
 def main():
     now = datetime.now(timezone.utc)

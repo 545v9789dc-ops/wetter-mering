@@ -67,7 +67,8 @@ def distribution(values):
     return {"available_members": len(values),
             "mean": round(sum(values) / len(values), 3) if values else None,
             "min": values[0] if values else None, "max": values[-1] if values else None,
-            "p10": quantile(.1), "p50": quantile(.5), "p90": quantile(.9)}
+            "p10": quantile(.1), "p25": quantile(.25), "p50": quantile(.5),
+            "p75": quantile(.75), "p90": quantile(.9)}
 
 
 def summarize(obj):
@@ -141,6 +142,33 @@ def summarize(obj):
                     outcomes.append(predicate(segment))
             row["available_members"][label] = len(outcomes)
             row["probabilities"][label] = round(sum(outcomes) / len(outcomes), 3) if outcomes else None
+        # Phase 1: daily temperature extremes and precipitation distributions.
+        daily_extremes = {}
+        for field, operations in (('temperature_2m', ('min', 'max')),
+                                  ('precipitation', ('sum',))):
+            complete = []
+            for member in members.values():
+                segment = [value(member, field, i) for i in indices]
+                if all(v is not None for v in segment):
+                    complete.append(segment)
+            for operation in operations:
+                values_for_day = [min(v) if operation == 'min' else
+                                  max(v) if operation == 'max' else sum(v)
+                                  for v in complete]
+                daily_extremes[field + '_' + operation] = {
+                    'unit': '°C' if field == 'temperature_2m' else 'mm',
+                    **distribution(values_for_day),
+                    'missing_members': len(members) - len(values_for_day)}
+        row['daily_distributions'] = daily_extremes
+        precip = []
+        for member in members.values():
+            segment = [value(member, 'precipitation', i) for i in indices]
+            if all(v is not None for v in segment):
+                precip.append(sum(segment))
+        row['precipitation_threshold_probabilities'] = {
+            str(threshold): round(sum(v >= threshold for v in precip) / len(precip), 3)
+            if precip else None for threshold in (0.1, 1, 5, 10, 20)}
+        row['precipitation_threshold_available_members'] = len(precip)
         for field in OPTIONAL_FIELDS:
             maxima = []
             for m in members.values():
