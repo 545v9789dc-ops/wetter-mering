@@ -21,10 +21,19 @@ STATIONS = {'Augsburg': {'id': '10852', 'elevation_m': 463},
 OUTPUT = Path('data/mering_mosmix.json')
 MAX_BYTES = 8_000_000
 TIMEOUT = 25
-# Store original DWD element names without claiming unverified derived meanings.
-# Also preserve all available parameters, allowing subsequent model validation.
-PREFERRED = ('N', 'Nl', 'Nm', 'Nh', 'SunD1', 'Rad1h', 'VV10', 'wwM', 'wwP',
-             'TTT', 'Td', 'FF', 'DD', 'PPPP')
+# Phase 1b: retain only forecast fields needed for model comparison and reports.
+# MOSMIX_L is downloaded as a complete station KMZ; filtering limits local JSON only.
+# Raw units are retained (e.g. TTT/Td in K, FF/FX1 in m/s, VV in m).
+KEEP = (
+    'TTT', 'Td', 'TX', 'TN', 'T5cm',
+    'N', 'Nl', 'Nm', 'Nh', 'Neff', 'N05',
+    'VV', 'VV10', 'wwM', 'wwM6', 'ww',
+    'SunD1', 'SunD3', 'SunD', 'Rad1h',
+    'FF', 'DD', 'FX1', 'FX3',
+    'RR1c', 'RR3c', 'RR6c', 'RRS1c', 'RRL1c',
+    'R102', 'R602', 'wwT', 'PPPP',
+)
+PREFERRED = KEEP
 
 def local(tag):
     return tag.rsplit('}', 1)[-1].rsplit(':', 1)[-1]
@@ -77,7 +86,7 @@ def parse_kml(xml_data, expected_id):
         if local(forecast.tag) != 'Forecast':
             continue
         key = next((v for k, v in forecast.attrib.items() if local(k) == 'elementName'), None)
-        if not key or key in parameters:
+        if not key or key in parameters or key not in KEEP:
             continue
         value_el = next((el for el in forecast.iter() if local(el.tag) == 'value'), None)
         if value_el is None:
@@ -93,42 +102,57 @@ def parse_kml(xml_data, expected_id):
             'available_preferred_parameters': [k for k in PREFERRED if k in parameters]}
 
 def enrich_station(station):
-    """Preserve all DWD codes and add station-level hourly/local-day diagnostics."""
+    """Compact local-day summaries; hourly values remain in parameters only."""
     from collections import defaultdict
     from zoneinfo import ZoneInfo
-    keys = ('TTT', 'Td', 'N', 'Nl', 'Nm', 'Nh', 'VV', 'VV10',
-            'SunD1', 'SunD3', 'FF', 'DD', 'FX1', 'FX3',
-            'RR1c', 'RR3c', 'RR6c')
     parameters = station['parameters']
-    hourly = []
     days = defaultdict(list)
     for i, stamp in enumerate(station['forecast_times_utc']):
-        raw = {key: parameters[key][i] for key in keys if key in parameters}
-        t, td = raw.get('TTT'), raw.get('Td')
-        spread = round(t - td, 2) if t is not None and td is not None else None
-        local_day = datetime.fromisoformat(stamp.replace('Z', '+00:00')).astimezone(
+        day = datetime.fromisoformat(stamp.replace('Z', '+00:00')).astimezone(
             ZoneInfo('Europe/Berlin')).date().isoformat()
-        hourly.append({'time_utc': stamp, 'local_date': local_day,
-                       'values_raw': raw, 'temperature_dewpoint_spread': spread})
-        days[local_day].append(i)
+        days[day].append(i)
+
     daily = []
     for day, indices in sorted(days.items()):
-        def extrema(key):
-            vals = [parameters[key][i] for i in indices if key in parameters
-                    and parameters[key][i] is not None]
+        midnight = datetime.fromisoformat(day).replace(tzinfo=ZoneInfo('Europe/Berlin'))
+        from datetime import timedelta
+        next_midnight = midnight + timedelta(days=1)
+        calendar_hours = int((next_midnight.astimezone(timezone.utc) -
+                              midnight.astimezone(timezone.utc)).total_seconds() / 3600)
+        def summary(key):
+            arr = parameters.get(key)
+            vals = [arr[i] for i in indices if arr is not None and arr[i] is not None]
             return {'min': min(vals) if vals else None,
                     'max': max(vals) if vals else None,
                     'valid_hours': len(vals)}
+        t, td = parameters.get('TTT'), parameters.get('Td')
+        spreads = [round(t[i] - td[i], 2) for i in indices
+                   if t is not None and td is not None and
+                   t[i] is not None and td[i] is not None]
+        # RR1c and SunD1 are hourly interval values; sum only complete local days.
+        def interval_total(key):
+            arr = parameters.get(key)
+            vals = [arr[i] for i in indices if arr is not None and arr[i] is not None]
+            return round(sum(vals), 3) if len(indices) == calendar_hours and len(vals) == calendar_hours else None
         daily.append({'date': day, 'hours_available': len(indices),
-                      'temperature_raw': extrema('TTT'),
-                      'dewpoint_raw': extrema('Td'),
-                      'low_cloud_raw': extrema('Nl'),
-                      'visibility_raw': extrema('VV'),
-                      'wind_raw': extrema('FF'),
-                      'gust_raw': extrema('FX1'),
-                      'note': 'Raw MOSMIX units; interval-based RR/SunD values are not summed.'})
-    station['derived'] = {'hourly': hourly, 'daily': daily,
-                          'note': 'Raw DWD units preserved; station forecasts are not Mering observations.'}
+                      'calendar_day_hours': calendar_hours,
+                      'full_calendar_day': len(indices) == calendar_hours,
+                      'temperature_raw': summary('TTT'),
+                      'dewpoint_raw': summary('Td'),
+                      'temperature_dewpoint_spread_min_K': min(spreads) if spreads else None,
+                      'low_cloud_raw': summary('Nl'),
+                      'visibility_raw': summary('VV'),
+                      'wind_raw': summary('FF'),
+                      'gust_raw': summary('FX1'),
+                      'precipitation_1h_total_mm': interval_total('RR1c'),
+                      'sunshine_1h_total_seconds': interval_total('SunD1')})
+    station['derived'] = {
+        'daily': daily,
+        'note': 'Hourly raw series stored only once in parameters; raw DWD units retained. '
+                '12h TX/TN and 3h/6h RR values are not aggregated. '
+                'Only complete local days with all hourly values receive RR1c/SunD1 sums.'}
+    station['retained_parameter_count'] = len(parameters)
+    station['parameter_selection'] = 'phase1b_model_comparison_v1'
     return station
 
 def fetch_station(name, info):
@@ -154,9 +178,9 @@ def fetch_station(name, info):
 
 def main():
     now = datetime.now(timezone.utc)
-    result = {'schema_version': 1, 'source': 'DWD MOSMIX_L station KMZ/KML',
+    result = {'schema_version': 2, 'source': 'DWD MOSMIX_L station KMZ/KML',
               'retrieved_at_utc': now.isoformat(),
-              'interpretation_note': ('Raw DWD forecast parameter codes; missing values are null. '
+              'interpretation_note': ('Selected raw DWD forecast parameter codes; missing values are null. '
                   'Do not interpret wwM as a fog probability without verifying DWD parameter definition. '
                   'MOSMIX station values are not direct observations in Mering.'),
               'stations': {}}
