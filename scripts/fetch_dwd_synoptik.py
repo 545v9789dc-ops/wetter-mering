@@ -97,7 +97,7 @@ def age_status(entry, key, now):
         return
     entry['age_hours'] = round(hours, 2)
     entry['freshness'] = 'stale' if hours > MAX_AGE_HOURS[key] else 'current'
-    if hours < -0.5:
+    if hours < -1.0:
         entry['freshness'] = 'invalid_future_timestamp'
 
 
