@@ -82,6 +82,7 @@ def summarize(obj):
         raise ValueError("Expected a nonempty, unique, consecutive hourly UTC time axis")
     times = [t.astimezone(TZ).date().isoformat() for t in stamps]
     members, control, invalid_arrays, unit_errors = {}, {}, [], []
+    negative_precipitation_values = 0
     units = obj.get("hourly_units", {})
     for key, values in h.items():
         for field in FIELDS:
@@ -97,15 +98,19 @@ def summarize(obj):
                 unit_errors.append({"key": key, "received": units.get(key), "expected": UNITS[field]})
                 target[field] = None
             else:
-                target[field] = values
+                if field == "precipitation":
+                    negative_precipitation_values += sum(valid(v) and v < 0 for v in values)
+                    target[field] = [None if valid(v) and v < 0 else v for v in values]
+                else:
+                    target[field] = values
     if not members:
         raise ValueError("No ensemble member arrays found")
 
     def value(member, field, i):
         array = member.get(field)
         v = array[i] if array is not None else None
-        # Negative depths/gusts are invalid, not zero.
-        return v if valid(v) and (field not in OPTIONAL_FIELDS or v >= 0) else None
+        # Negative depths/gusts/precipitation are invalid, not zero.
+        return v if valid(v) and (field not in (*OPTIONAL_FIELDS, "precipitation") or v >= 0) else None
 
     def quality(field, indices):
         counts = [sum(value(m, field, i) is not None for i in indices)
@@ -195,6 +200,7 @@ def summarize(obj):
             "hourly": {"snow_depth": hourly_depth},
             "data_quality": {"fields": availability, "invalid_arrays": invalid_arrays,
                              "unit_errors": unit_errors,
+                             "negative_precipitation_values_rejected": negative_precipitation_values,
                              "optional_field_errors": obj.get("optional_field_errors", {}),
                              "control_fields_present": sorted(control)},
             "quality_note": "Perturbed members only; unsuffixed/control member 0 excluded, preserving existing event fractions. "
