@@ -4,9 +4,11 @@ on:
   workflow_dispatch:
   schedule:
     # 05:15 Europe/Berlin (03:15 UTC in summer, 04:15 UTC in winter).
-    # Both UTC slots are scheduled; the time check below skips the wrong one.
+    # Separate cron expressions identify the scheduled slot even if GitHub runs late.
     # Remaining four UTC slots are unchanged.
-    - cron: '15 3,4,9,13,17,21 * * *'
+    - cron: '15 3 * * *'
+    - cron: '15 4 * * *'
+    - cron: '15 9,13,17,21 * * *'
 
 permissions:
   contents: write
@@ -27,18 +29,24 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           SCHEDULE: ${{ github.event.schedule }}
         run: |
-          # For the two additional early UTC slots, only execute the one
-          # corresponding to 05:15 local time in Europe/Berlin.
+          # The cron expression identifies the scheduled slot, not the runner start.
           if [ "$EVENT_NAME" = "schedule" ]; then
-            utc_hour=$(date -u +%H)
-            if [ "$utc_hour" = "03" ] || [ "$utc_hour" = "04" ]; then
-              local_hour=$(TZ=Europe/Berlin date +%H)
-              if [ "$local_hour" != "05" ]; then
-                echo "run=false" >> "$GITHUB_OUTPUT"
-                echo "Skipping non-local-05:15 scheduled run."
-                exit 0
-              fi
-            fi
+            case "$SCHEDULE" in
+              '15 3 * * *'|'15 4 * * *')
+                local_date=$(TZ=Europe/Berlin date +%F)
+                offset=$(TZ=Europe/Berlin date -d "${local_date} 05:15" +%z)
+                case "$offset" in
+                  +0200) expected='15 3 * * *' ;;
+                  +0100) expected='15 4 * * *' ;;
+                  *) echo "Unexpected Berlin UTC offset: $offset"; exit 1 ;;
+                esac
+                if [ "$SCHEDULE" != "$expected" ]; then
+                  echo "run=false" >> "$GITHUB_OUTPUT"
+                  echo "Skipping wrong seasonal 05:15 UTC slot."
+                  exit 0
+                fi
+                ;;
+            esac
           fi
           echo "run=true" >> "$GITHUB_OUTPUT"
       - name: Checkout repository
