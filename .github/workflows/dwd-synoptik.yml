@@ -51,12 +51,12 @@ jobs:
           echo "run=true" >> "$GITHUB_OUTPUT"
       - name: Checkout repository
         if: steps.schedule_check.outputs.run == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
       - name: Set up Python
         if: steps.schedule_check.outputs.run == 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Download DWD synoptic reports
@@ -81,7 +81,7 @@ jobs:
           fi
       - name: Upload diagnostic result
         if: always() && steps.schedule_check.outputs.run == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dwd-synoptik-result
           path: data/dwd_synoptik.json
