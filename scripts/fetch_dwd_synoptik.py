@@ -125,8 +125,11 @@ def validate_report(key, report, pub):
         raise ValueError(f'No plausible synoptic report: {len(report)} characters')
     if not pub:
         raise ValueError('DWD issuance timestamp missing or unparseable')
-    opening = report[:2500].lower()
-    if key == 'mittelfrist' and 'mittelfrist' not in opening:
+        opening = report[:2500].lower()
+    normal = 'mittelfrist' in opening
+    spaced = bool(re.search(r'm\s+i\s+t\s+t\s+e\s+l\s+f\s+r\s+i\s+s\s+t', opening))
+
+    if key == 'mittelfrist' and not (normal or spaced):
         raise ValueError('Expected medium-term synoptic report')
     if key != 'mittelfrist' and 'mittelfrist' in opening and 'kurzfrist' not in opening:
         raise ValueError('Unexpected medium-term report on short-term source')
