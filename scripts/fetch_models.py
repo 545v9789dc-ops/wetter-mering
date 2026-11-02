@@ -8,10 +8,11 @@ import json
 import math
 import sys
 import time
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, parse_qs, urlparse
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
@@ -25,8 +26,6 @@ NEAR_SURFACE = (
     "cloud_cover_low", "relative_humidity_2m", "dew_point_2m",
     "visibility", "sunshine_duration", "weather_code", "cloud_cover",
 )
-# Each optional field is queried individually. The hourly snowfall-height
-# field is experimental: unsupported API/model responses are expected.
 WINTER_AND_DIAGNOSTICS = (
     "snowfall", "snow_depth", "freezing_level_height", "snowfall_height",
     "wet_bulb_temperature_2m", "wind_direction_10m",
@@ -44,10 +43,58 @@ MODELS = {
     "IFS": {"model": "ecmwf_ifs025", "cycle_hours": [0, 6, 12, 18], "days": 16},
 }
 FAILURES = (HTTPError, URLError, ValueError, TimeoutError, OSError, TypeError, KeyError)
-# Hard request deadline; no unbounded retries. The workflow's 45 min remains
-# the final watchdog. Unsupported optional fields are not retried.
 REQUEST_TIMEOUT_SECONDS = 25
 TRANSIENT_RETRIES = 2
+
+# Diagnostic-only state: never serialized into forecast JSON.
+HTTP_DIAGNOSTICS = []
+
+def request_context(url):
+    """Safe request identity without URL, coordinates, credentials or query strings."""
+    query = parse_qs(urlparse(url).query)
+    model = query.get("models", ["unknown"])[0]
+    run = query.get("run", ["unknown"])[0]
+    variables = query.get("hourly", ["unknown"])[0]
+    if len(variables) > 75:
+        variables = "core-fields"
+    return f"model={model} run={run} field={variables}"
+
+def failure_category(exc):
+    if isinstance(exc, HTTPError):
+        return f"HTTP_{exc.code}"
+    reason = getattr(exc, "reason", exc)
+    if isinstance(exc, (TimeoutError,)) or isinstance(reason, TimeoutError):
+        return "TIMEOUT"
+    if isinstance(exc, URLError):
+        import socket
+        if isinstance(reason, socket.gaierror):
+            return "DNS_ERROR"
+        if isinstance(reason, ConnectionRefusedError):
+            return "CONNECTION_REFUSED"
+        return "NETWORK_ERROR"
+    return "OS_ERROR"
+
+def log_attempt(url, attempt, elapsed, outcome, detail=""):
+    context = request_context(url)
+    event = {"context": context, "attempt": attempt, "seconds": round(elapsed, 2),
+             "outcome": outcome}
+    HTTP_DIAGNOSTICS.append(event)
+    # Only a short, sanitized HTTP reason; never print the raw URL or exception.
+    extra = f" reason={detail}" if detail else ""
+    print(f"[HTTP] {context} attempt={attempt}/{TRANSIENT_RETRIES+1} "
+          f"duration={elapsed:.2f}s status={outcome}{extra}", file=sys.stderr, flush=True)
+
+def print_diagnostics(started, statuses=None):
+    counts = Counter(item["outcome"] for item in HTTP_DIAGNOSTICS)
+    total = len(HTTP_DIAGNOSTICS)
+    failures = sum(n for k, n in counts.items() if k != "OK")
+    print(f"[ABRUFBERICHT] duration={time.monotonic()-started:.1f}s "
+          f"http_attempts={total} failed_attempts={failures} "
+          f"results={dict(sorted(counts.items()))}", file=sys.stderr, flush=True)
+    if statuses is not None:
+        print(f"[ABRUFBERICHT] models={statuses} "
+              f"previous_json_preserved={not any(s == 'ok' for s in statuses.values())}",
+              file=sys.stderr, flush=True)
 
 def numeric(v):
     return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
@@ -78,19 +125,29 @@ def candidate_runs(now, cycle_hours, limit=12, max_age_hours=None):
 
 def fetch_json(url):
     for attempt in range(TRANSIENT_RETRIES + 1):
+        started = time.monotonic()
         try:
             with urlopen(Request(url, headers={"User-Agent": "wetter-mering/4.0"}),
                          timeout=REQUEST_TIMEOUT_SECONDS) as res:
-                return json.load(res)
+                data = json.load(res)
+            log_attempt(url, attempt + 1, time.monotonic()-started, "OK")
+            return data
         except HTTPError as exc:
             try:
                 body = exc.read(2048).decode("utf-8", errors="replace")
                 reason = json.loads(body).get("reason", body)
             except (OSError, ValueError, TypeError):
                 reason = "API did not return a readable error reason"
+            # API error reason is retained in the exception but not echoed into logs.
+            retry_after = exc.headers.get("Retry-After") if exc.headers else None
+            retry_note = "retry-after-present" if retry_after else ""
+            log_attempt(url, attempt + 1, time.monotonic()-started,
+                        f"HTTP_{exc.code}", retry_note)
             if exc.code not in (429, 500, 502, 503, 504) or attempt == TRANSIENT_RETRIES:
                 raise ValueError(f"HTTP {exc.code}: {str(reason)[:240]}") from exc
-        except (URLError, TimeoutError, OSError):
+        except (URLError, TimeoutError, OSError) as exc:
+            log_attempt(url, attempt + 1, time.monotonic()-started,
+                        failure_category(exc))
             if attempt == TRANSIENT_RETRIES:
                 raise
         time.sleep(2 ** attempt)
@@ -192,7 +249,6 @@ def add_optional_variables(record, model, run, days, keys=None):
             unit = extra.get("hourly_units", {}).get(key)
             if key == "sunshine_duration" and unit not in ("s", "seconds"):
                 raise ValueError("Unexpected sunshine unit")
-            # Unit checks prevent confusing metres of snow depth with cm snowfall.
             if key == "snow_depth" and unit != "m":
                 raise ValueError(f"Unexpected snow depth unit: {unit}")
             if key == "snowfall" and unit != "cm":
@@ -214,7 +270,6 @@ def add_optional_variables(record, model, run, days, keys=None):
                              "reason": str(exc)[:140]}
         print(f"{model} {key}: {coverage[key]['status']}", file=sys.stderr)
     record["optional_variable_coverage"] = coverage
-    # Keep legacy field used by earlier reporting code.
     record["near_surface_variable_coverage"] = {
         k: v for k, v in coverage.items() if k in NEAR_SURFACE
     }
@@ -229,11 +284,7 @@ def add_optional_variables(record, model, run, days, keys=None):
     )
 
 def repair_gfs_core(record, run, days):
-    """Retry absent GFS core fields separately, preserving model/run provenance.
-
-    Do not silently substitute a different GFS grid or run. A successful
-    fallback must have identical grid coordinates and matching UTC timestamps.
-    """
+    """Retry absent GFS core fields separately, preserving model/run provenance."""
     hourly = record["hourly"]
     times = hourly["time"]
     results = {}
@@ -399,14 +450,10 @@ def previous_record(previous, label, config, now):
 
 def select_model(label, config, now, previous):
     records, errors = [], []
-    # IFS: only recent cycles; 00/12 UTC provide the long horizon, while
-    # 06/18 UTC are retained as newer short-range forecasts.
     runs = (candidate_runs(now, config["cycle_hours"], limit=4, max_age_hours=18)
             if label == "IFS" else candidate_runs(now, config["cycle_hours"]))
     for dt in runs:
         try:
-            # Important: do not fetch 18 optional fields for every IFS
-            # candidate run. Enrich only the selected latest run below.
             rec = request_run(config["model"], dt, config["days"],
                               verify_local_coverage=config.get("verify_local_coverage", False),
                               min_future_hours=config.get("min_future_hours", 1),
@@ -416,6 +463,9 @@ def select_model(label, config, now, previous):
                 break
         except FAILURES as exc:
             errors.append(f"{dt.isoformat()}: {str(exc)[:180]}")
+            print(f"[MODEL] {label} candidate={dt.isoformat()} "
+                  f"failure={type(exc).__name__}",
+                  file=sys.stderr, flush=True)
     cached = previous_record(previous, label, config, now)
     if label == "IFS" and cached and cached.get("run_age_hours", 999) > 18:
         cached = None
@@ -431,7 +481,6 @@ def select_model(label, config, now, previous):
         latest["ifs_candidate_runs_utc"] = [dt.isoformat() for dt in runs]
     latest["recent_errors"] = errors
     if label == "IFS":
-        # Never promote cached IFS forecasts older than the requested 18 h limit.
         options = records + ([cached] if cached and
                              cached.get("run_age_hours", 999) <= 18 else [])
         best = max(options, key=lambda r: (
@@ -449,10 +498,9 @@ def select_model(label, config, now, previous):
             latest["extended_forecast"]["selection_note"] = (
                 "Separate longer-reaching run, not the newest run."
             )
-    # Optional errors never invalidate the verified core forecast.
     try:
         if not latest.get("source_url"):
-            return latest  # In-memory test records have no API source.
+            return latest
         selected_run = parse_time(latest["model_run_utc"])
         if label == "GFS":
             repair_gfs_core(latest, selected_run, config["days"])
@@ -464,6 +512,8 @@ def select_model(label, config, now, previous):
     return latest
 
 def main():
+    started = time.monotonic()
+    HTTP_DIAGNOSTICS.clear()
     now = datetime.now(UTC)
     try:
         previous = json.loads(OUTPUT.read_text(encoding="utf-8"))
@@ -488,7 +538,8 @@ def main():
         "ok" if all(r["status"] == "ok" for r in result["models"].values())
         else "degraded"
     )
-    # Do not overwrite a good dataset if no model is freshly verified.
+    statuses = {k: v["status"] for k, v in result["models"].items()}
+    print_diagnostics(started, statuses)
     if not any(r["status"] == "ok" for r in result["models"].values()):
         raise SystemExit("No fresh models; previous JSON preserved")
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
