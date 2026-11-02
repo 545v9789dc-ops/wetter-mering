@@ -174,5 +174,46 @@ class WeatherTests(unittest.TestCase):
                     f.main()
             self.assertEqual(json.loads(output.read_text()), {"existing": "valid"})
 
+    def test_http_429_retries_and_logs(self):
+        from io import BytesIO
+        from urllib.error import HTTPError
+        def error(*args, **kwargs):
+            return HTTPError("https://example.org", 429, "Too Many Requests",
+                             {"Retry-After": "10"}, BytesIO(b'{"reason":"limited"}'))
+        with patch.object(f, "urlopen", side_effect=error()), \
+             patch.object(f.time, "sleep"), \
+             patch.object(f, "log_attempt", wraps=f.log_attempt) as logged:
+            with self.assertRaisesRegex(ValueError, "HTTP 429"):
+                f.fetch_json(f.api_url("icon_d2", NOW, 3, f.VARIABLES))
+        self.assertEqual(logged.call_count, 3)
+        self.assertEqual([c.args[3] for c in logged.call_args_list], ["HTTP_429"]*3)
+
+    def test_http_403_does_not_retry(self):
+        from io import BytesIO
+        from urllib.error import HTTPError
+        err = HTTPError("https://example.org", 403, "Forbidden", {}, BytesIO(b'{}'))
+        with patch.object(f, "urlopen", side_effect=err) as opener:
+            with self.assertRaisesRegex(ValueError, "HTTP 403"):
+                f.fetch_json(f.api_url("icon_d2", NOW, 3, f.VARIABLES))
+        self.assertEqual(opener.call_count, 1)
+
+    def test_timeout_diagnostic_and_retries(self):
+        with patch.object(f, "urlopen", side_effect=TimeoutError("timed out")), \
+             patch.object(f.time, "sleep"), \
+             patch.object(f, "log_attempt", wraps=f.log_attempt) as logged:
+            with self.assertRaises(TimeoutError):
+                f.fetch_json(f.api_url("icon_d2", NOW, 3, f.VARIABLES))
+        self.assertEqual(logged.call_count, 3)
+        self.assertEqual([c.args[3] for c in logged.call_args_list], ["TIMEOUT"]*3)
+
+    def test_summary_does_not_change_json(self):
+        with patch.object(f, "request_run", side_effect=OSError("offline")), \
+             tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/"models.json"
+            path.write_text('{"safe":true}')
+            with patch.object(f, "OUTPUT", path), self.assertRaises(SystemExit):
+                f.main()
+            self.assertEqual(path.read_text(), '{"safe":true}')
+
 if __name__ == "__main__":
     unittest.main()
