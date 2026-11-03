@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "source": "DWD MOSMIX_L station KMZ/KML",
-  "retrieved_at_utc": "2026-11-03T17:43:14.789738+00:00",
+  "retrieved_at_utc": "2026-11-03T21:18:52.167131+00:00",
   "interpretation_note": "Selected raw DWD forecast parameter codes; missing values are null. Do not interpret wwM as a fog probability without verifying DWD parameter definition. MOSMIX station values are not direct observations in Mering.",
   "stations": {
     "Augsburg": {
@@ -8985,7 +8985,7 @@
       },
       "retained_parameter_count": 33,
       "parameter_selection": "phase1b_model_comparison_v1",
-      "issue_age_hours": 2.72
+      "issue_age_hours": 6.31
     },
     "Lechfeld": {
       "issue_time_utc": "2026-11-03T15:00:00Z",
@@ -17968,7 +17968,7 @@
       },
       "retained_parameter_count": 33,
       "parameter_selection": "phase1b_model_comparison_v1",
-      "issue_age_hours": 2.72
+      "issue_age_hours": 6.31
     }
   },
   "collection_status": "ok"
