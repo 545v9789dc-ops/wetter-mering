@@ -71,6 +71,12 @@ jobs:
         continue-on-error: true
         run: python scripts/fetch_ensembles.py
 
+      - name: Compute winter metrics (non-critical)
+        id: winter
+        if: steps.clock.outputs.run == 'true' && steps.fetch.outcome == 'success'
+        continue-on-error: true
+        run: python scripts/winter_metrics.py
+
       - name: Validate collected data
         id: quality
         if: always() && steps.clock.outputs.run == 'true' && steps.fetch.outcome != 'skipped'
@@ -107,6 +113,10 @@ jobs:
           done
           echo 'Push failed after three attempts.' >&2
           exit 1
+
+      - name: Report winter enrichment failure
+        if: always() && steps.clock.outputs.run == 'true' && steps.winter.outcome == 'failure'
+        run: echo '::warning::Winter metrics enrichment failed; core model data retained.'
 
       - name: Flag critical data quality
         if: always() && steps.clock.outputs.run == 'true' && steps.quality.outcome == 'failure'

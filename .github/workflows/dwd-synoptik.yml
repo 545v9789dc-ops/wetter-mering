@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   fetch-synoptik:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
       - name: Check scheduled local time
@@ -48,12 +48,13 @@ jobs:
           echo "run=true" >> "$GITHUB_OUTPUT"
       - name: Checkout repository
         if: steps.schedule_check.outputs.run == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: main
+          persist-credentials: true
       - name: Set up Python
         if: steps.schedule_check.outputs.run == 'true'
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.11'
       - name: Download DWD synoptic reports
@@ -67,7 +68,7 @@ jobs:
       - name: Save reports to repository
         if: steps.schedule_check.outputs.run == 'true'
         run: |
-          set -e
+          set -euo pipefail
           if [ ! -f data/dwd_synoptik.json ]; then
             echo 'No report file generated.'
             exit 1
@@ -77,12 +78,22 @@ jobs:
           git add data/dwd_synoptik.json
           if ! git diff --cached --quiet; then
             git commit -m 'Update DWD synoptic reports'
-            git pull --rebase origin main
-            git push origin HEAD:main
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                echo 'DWD rebase conflict; no force push.' >&2
+                exit 1
+              fi
+              if git push origin HEAD:main; then exit 0; fi
+              if [[ "$attempt" -lt 3 ]]; then sleep $((attempt * 3)); fi
+            done
+            echo 'DWD push failed after three attempts.' >&2
+            exit 1
           fi
       - name: Upload diagnostic result
         if: always() && steps.schedule_check.outputs.run == 'true'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: dwd-synoptik-result
           path: data/dwd_synoptik.json
