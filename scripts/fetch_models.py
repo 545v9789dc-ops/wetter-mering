@@ -49,6 +49,25 @@ TRANSIENT_RETRIES = 2
 # Diagnostic-only state: never serialized into forecast JSON.
 HTTP_DIAGNOSTICS = []
 
+class APIRequestError(ValueError):
+    """Non-retryable API rejection with a safe, bounded classification."""
+    def __init__(self, status, category):
+        self.status = status
+        self.category = category
+        super().__init__(f"HTTP {status}: {category}")
+
+
+def classify_api_rejection(reason):
+    """Classify an API 400 without retaining arbitrary server-supplied text."""
+    message = str(reason).lower()
+    if any(term in message for term in ("invalid model", "model not found", "unknown model")):
+        return "invalid_model"
+    if any(term in message for term in ("invalid variable", "unknown variable", "unsupported", "not available", "not supported", "invalid hourly")):
+        return "unsupported_parameter"
+    if any(term in message for term in ("run", "date", "time", "forecast_days", "out of range")):
+        return "invalid_or_unavailable_run"
+    return "invalid_request"
+
 def request_context(url):
     """Safe request identity without URL, coordinates, credentials or query strings."""
     query = parse_qs(urlparse(url).query)
@@ -138,13 +157,17 @@ def fetch_json(url):
                 reason = json.loads(body).get("reason", body)
             except (OSError, ValueError, TypeError):
                 reason = "API did not return a readable error reason"
-            # API error reason is retained in the exception but not echoed into logs.
+            # A 400 is deterministic for this request: classify and stop immediately.
+            # Do not leak the remote error body or query URL into logs/JSON.
+            category = classify_api_rejection(reason) if exc.code == 400 else ""
             retry_after = exc.headers.get("Retry-After") if exc.headers else None
-            retry_note = "retry-after-present" if retry_after else ""
+            retry_note = category or ("retry-after-present" if retry_after else "")
             log_attempt(url, attempt + 1, time.monotonic()-started,
                         f"HTTP_{exc.code}", retry_note)
+            if exc.code == 400:
+                raise APIRequestError(400, category) from exc
             if exc.code not in (429, 500, 502, 503, 504) or attempt == TRANSIENT_RETRIES:
-                raise ValueError(f"HTTP {exc.code}: {str(reason)[:240]}") from exc
+                raise APIRequestError(exc.code, "request_rejected_or_retries_exhausted") from exc
         except (URLError, TimeoutError, OSError) as exc:
             log_attempt(url, attempt + 1, time.monotonic()-started,
                         failure_category(exc))
@@ -266,7 +289,11 @@ def add_optional_variables(record, model, run, days, keys=None):
                           if count else "unavailable",
             }
         except FAILURES as exc:
-            coverage[key] = {"valid_hours": 0, "status": "unavailable",
+            unsupported = (isinstance(exc, APIRequestError) and
+                           exc.status == 400 and
+                           exc.category == "unsupported_parameter")
+            coverage[key] = {"valid_hours": 0,
+                             "status": "unsupported" if unsupported else "unavailable",
                              "reason": str(exc)[:140]}
         print(f"{model} {key}: {coverage[key]['status']}", file=sys.stderr)
     record["optional_variable_coverage"] = coverage
