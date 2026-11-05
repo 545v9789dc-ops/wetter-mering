@@ -110,9 +110,10 @@ class WeatherTests(unittest.TestCase):
         from urllib.error import HTTPError
         error = HTTPError("https://example.org", 400, "Bad Request", {},
                           BytesIO(b'{"error":true,"reason":"Run is not available"}'))
-        with patch.object(f, "urlopen", side_effect=error):
-            with self.assertRaisesRegex(ValueError, "Run is not available"):
+        with patch.object(f, "urlopen", side_effect=error) as opener:
+            with self.assertRaisesRegex(f.APIRequestError, "HTTP 400: unsupported_parameter"):
                 f.fetch_json("https://example.org")
+        self.assertEqual(opener.call_count, 1)
 
     def test_ifs_rejects_old_cached_extended(self):
         now = NOW
