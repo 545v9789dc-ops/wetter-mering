@@ -14,6 +14,19 @@ class DataQualityTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             time_axis(['2026-11-05T00:00:00'])
 
+    def test_accept_naive_utc_for_model_times(self):
+        times = time_axis(['2026-11-05T00:00:00', '2026-11-05T01:00:00'], assume_utc=True)
+        self.assertEqual(times[0].utcoffset().total_seconds(), 0)
+
+    def test_reject_duplicate_naive_model_times(self):
+        with self.assertRaises(ValueError):
+            time_axis(['2026-11-05T00:00:00', '2026-11-05T00:00:00'], assume_utc=True)
+
+    def test_ensemble_daily_list_is_supported(self):
+        doc = {'models': {'GFS-ENS': {'daily': [{'date': '2026-11-05'}]},
+                          'IFS-ENS': {'daily': [{'date': '2026-11-05'}]}}}
+        self.assertEqual(check_ensembles(doc), [])
+
     def test_detect_negative_rain(self):
         h = {'time': ['2026-11-05T00:00:00Z'], 'precipitation': [-1]}
         self.assertTrue(plausible(h))
