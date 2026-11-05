@@ -3,9 +3,7 @@ name: DWD Synoptik Mering
 on:
   workflow_dispatch:
   schedule:
-    # 05:15 Europe/Berlin (03:15 UTC in summer, 04:15 UTC in winter).
-    # Separate cron expressions identify the scheduled slot even if GitHub runs late.
-    # Remaining four UTC slots are unchanged.
+    # 05:15 Europe/Berlin (03:15 UTC summer, 04:15 UTC winter).
     - cron: '15 3 * * *'
     - cron: '15 4 * * *'
     - cron: '15 9,13,17,21 * * *'
@@ -29,7 +27,6 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           SCHEDULE: ${{ github.event.schedule }}
         run: |
-          # The cron expression identifies the scheduled slot, not the runner start.
           if [ "$EVENT_NAME" = "schedule" ]; then
             case "$SCHEDULE" in
               '15 3 * * *'|'15 4 * * *')
@@ -64,9 +61,13 @@ jobs:
         id: download
         continue-on-error: true
         run: python scripts/fetch_dwd_synoptik.py
+      - name: Annotate DWD availability and cache quality
+        if: steps.schedule_check.outputs.run == 'true' && hashFiles('data/dwd_synoptik.json') != ''
+        run: python scripts/annotate_dwd_quality.py
       - name: Save reports to repository
         if: steps.schedule_check.outputs.run == 'true'
         run: |
+          set -e
           if [ ! -f data/dwd_synoptik.json ]; then
             echo 'No report file generated.'
             exit 1
