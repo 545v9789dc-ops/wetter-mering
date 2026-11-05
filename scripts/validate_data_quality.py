@@ -10,26 +10,28 @@ UTC = timezone.utc
 ROOT = Path('data')
 
 
-def stamp(value):
+def stamp(value, assume_utc=False):
     if not isinstance(value, str):
         raise ValueError('missing timestamp')
     d = datetime.fromisoformat(value.replace('Z', '+00:00'))
     if d.tzinfo is None:
-        raise ValueError('timestamp without timezone')
+        if not assume_utc:
+            raise ValueError('timestamp without timezone')
+        d = d.replace(tzinfo=UTC)
     return d.astimezone(UTC)
 
 
-def time_axis(values):
+def time_axis(values, assume_utc=False):
     if not isinstance(values, list) or not values:
         raise ValueError('empty time axis')
-    ts = [stamp(x) for x in values]
+    ts = [stamp(x, assume_utc=assume_utc) for x in values]
     if any(b <= a for a, b in zip(ts, ts[1:])):
         raise ValueError('duplicate or unordered times')
     return ts
 
 
-def plausible(hourly):
-    times = time_axis(hourly.get('time'))
+def plausible(hourly, assume_utc=False):
+    times = time_axis(hourly.get('time'), assume_utc=assume_utc)
     problems = []
     bounds = {'temperature_2m': (-90, 65), 'precipitation': (0, 500),
               'wind_speed_10m': (0, 300), 'wind_gusts_10m': (0, 400),
@@ -63,12 +65,12 @@ def check_models(doc, now):
         if rec['status'] != 'ok':
             warnings.append(f'{name}: cached')
         try:
-            times = time_axis(rec['hourly']['time'])
+            times = time_axis(rec['hourly']['time'], assume_utc=True)
             if not any(t > now for t in times):
                 warnings.append(f'{name}: no future timestamps')
             if not any(v is not None for v in rec['hourly'].get('temperature_2m', [])):
                 warnings.append(f'{name}: no valid temperatures')
-            warnings.extend(f'{name}: {p}' for p in plausible(rec['hourly']))
+            warnings.extend(f'{name}: {p}' for p in plausible(rec['hourly'], assume_utc=True))
         except (KeyError, TypeError, ValueError) as e:
             critical.append(f'{name}: malformed time series: {e}')
     if not any(isinstance(models.get(n), dict) and models[n].get('status') == 'ok'
@@ -78,8 +80,8 @@ def check_models(doc, now):
         ext = models['IFS'].get('extended_forecast')
         if ext:
             try:
-                time_axis(ext['hourly']['time'])
-                warnings.extend(f'IFS extended_forecast: {p}' for p in plausible(ext['hourly']))
+                time_axis(ext['hourly']['time'], assume_utc=True)
+                warnings.extend(f'IFS extended_forecast: {p}' for p in plausible(ext['hourly'], assume_utc=True))
                 if not any(v is not None for v in ext['hourly'].get('temperature_2m', [])):
                     warnings.append('IFS extended_forecast: no temperatures')
             except (KeyError, TypeError, ValueError) as e:
@@ -112,7 +114,7 @@ def check_ensembles(doc):
     warnings = []
     for name in ('GFS-ENS', 'IFS-ENS'):
         rec = doc.get('models', {}).get(name)
-        if not isinstance(rec, dict) or not isinstance(rec.get('daily'), dict) or not rec['daily']:
+        if not isinstance(rec, dict) or not isinstance(rec.get('daily'), (dict, list)) or not rec['daily']:
             warnings.append(f'{name}: missing/empty')
         elif rec.get('data_quality', {}).get('invalid_arrays'):
             warnings.append(f'{name}: invalid arrays')
