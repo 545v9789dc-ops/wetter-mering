@@ -36,7 +36,9 @@ def plausible(hourly, assume_utc=False):
     bounds = {'temperature_2m': (-90, 65), 'precipitation': (0, 500),
               'wind_speed_10m': (0, 300), 'wind_gusts_10m': (0, 400),
               'pressure_msl': (800, 1100), 'relative_humidity_2m': (0, 100),
-              'cloud_cover': (0, 100), 'cloud_cover_low': (0, 100)}
+              'cloud_cover': (0, 100), 'cloud_cover_low': (0, 100),
+              'snowfall': (0, 300), 'snow_depth': (0, 30),
+              'freezing_level_height': (-1000, 25000)}
     for field, (low, high) in bounds.items():
         vals = hourly.get(field)
         if vals is None:
@@ -54,6 +56,34 @@ def plausible(hourly, assume_utc=False):
     return problems
 
 
+def check_winter(rec, model):
+    """Check optional derived daily values without invalidating core models."""
+    warnings = []
+    rows = rec.get('winter_daily')
+    if rows is None:
+        return [f'{model}: winter_daily unavailable']
+    if not isinstance(rows, list):
+        return [f'{model}: winter_daily malformed']
+    for row in rows:
+        if not isinstance(row, dict) or not isinstance(row.get('date'), str):
+            warnings.append(f'{model}: malformed winter day')
+            break
+        for key in ('precipitation_mm', 'snowfall_cm', 'snow_depth_max_cm', 'snow_depth_end_cm'):
+            value = row.get(key)
+            if value is not None and (not isinstance(value, (int, float)) or isinstance(value, bool)
+                                      or not math.isfinite(value) or value < 0):
+                warnings.append(f'{model}: invalid winter {key}')
+                break
+        if row.get('tmin_c') is not None and row.get('tmax_c') is not None:
+            if row['tmin_c'] > row['tmax_c']:
+                warnings.append(f'{model}: winter Tmin above Tmax')
+        if row.get('snow_depth_change_cm') is not None:
+            change = row['snow_depth_change_cm']
+            if not isinstance(change, (int, float)) or not math.isfinite(change):
+                warnings.append(f'{model}: invalid snow depth change')
+    return warnings
+
+
 def check_models(doc, now):
     critical, warnings = [], []
     models = doc.get('models', {})
@@ -66,11 +96,21 @@ def check_models(doc, now):
             warnings.append(f'{name}: cached')
         try:
             times = time_axis(rec['hourly']['time'], assume_utc=True)
-            if not any(t > now for t in times):
+            future = sum(t > now for t in times)
+            if not future:
                 warnings.append(f'{name}: no future timestamps')
+            elif name in ('ICON-D2', 'AROME') and future < 12:
+                warnings.append(f'{name}: short remaining forecast coverage ({future}h)')
+            elif name in ('ICON-EU', 'IFS', 'GFS') and future < 24:
+                warnings.append(f'{name}: short remaining forecast coverage ({future}h)')
             if not any(v is not None for v in rec['hourly'].get('temperature_2m', [])):
                 warnings.append(f'{name}: no valid temperatures')
             warnings.extend(f'{name}: {p}' for p in plausible(rec['hourly'], assume_utc=True))
+            warnings.extend(check_winter(rec, name))
+            units = rec.get('hourly_units', {})
+            for field, unit in (('snowfall', 'cm'), ('snow_depth', 'm'), ('precipitation', 'mm')):
+                if field in rec['hourly'] and units.get(field) != unit:
+                    warnings.append(f'{name}: unexpected unit for {field}: {units.get(field)}')
         except (KeyError, TypeError, ValueError) as e:
             critical.append(f'{name}: malformed time series: {e}')
     if not any(isinstance(models.get(n), dict) and models[n].get('status') == 'ok'
