@@ -1,0 +1,157 @@
+#!/usr/bin/env python3
+"""Post-fetch quality gate. Never alters forecast JSON or interprets fetch time as model age."""
+import json
+import math
+import sys
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
+
+UTC = timezone.utc
+ROOT = Path('data')
+
+
+def stamp(value):
+    if not isinstance(value, str):
+        raise ValueError('missing timestamp')
+    d = datetime.fromisoformat(value.replace('Z', '+00:00'))
+    if d.tzinfo is None:
+        raise ValueError('timestamp without timezone')
+    return d.astimezone(UTC)
+
+
+def time_axis(values):
+    if not isinstance(values, list) or not values:
+        raise ValueError('empty time axis')
+    ts = [stamp(x) for x in values]
+    if any(b <= a for a, b in zip(ts, ts[1:])):
+        raise ValueError('duplicate or unordered times')
+    return ts
+
+
+def plausible(hourly):
+    times = time_axis(hourly.get('time'))
+    problems = []
+    bounds = {'temperature_2m': (-90, 65), 'precipitation': (0, 500),
+              'wind_speed_10m': (0, 300), 'wind_gusts_10m': (0, 400),
+              'pressure_msl': (800, 1100), 'relative_humidity_2m': (0, 100),
+              'cloud_cover': (0, 100), 'cloud_cover_low': (0, 100)}
+    for field, (low, high) in bounds.items():
+        vals = hourly.get(field)
+        if vals is None:
+            continue  # optional fields differ between models
+        if not isinstance(vals, list) or len(vals) != len(times):
+            problems.append(f'{field}: length mismatch')
+            continue
+        for value in vals:
+            if value is None:
+                continue
+            if (not isinstance(value, (int, float)) or isinstance(value, bool)
+                    or not math.isfinite(value) or not low <= value <= high):
+                problems.append(f'{field}: implausible value')
+                break
+    return problems
+
+
+def check_models(doc, now):
+    critical, warnings = [], []
+    models = doc.get('models', {})
+    for name in ('ICON-D2', 'ICON-EU', 'AROME', 'GFS', 'IFS'):
+        rec = models.get(name)
+        if not isinstance(rec, dict) or rec.get('status') not in ('ok', 'stale'):
+            warnings.append(f'{name}: missing/unverified')
+            continue
+        if rec['status'] != 'ok':
+            warnings.append(f'{name}: cached')
+        try:
+            times = time_axis(rec['hourly']['time'])
+            if not any(t > now for t in times):
+                warnings.append(f'{name}: no future timestamps')
+            if not any(v is not None for v in rec['hourly'].get('temperature_2m', [])):
+                warnings.append(f'{name}: no valid temperatures')
+            warnings.extend(f'{name}: {p}' for p in plausible(rec['hourly']))
+        except (KeyError, TypeError, ValueError) as e:
+            critical.append(f'{name}: malformed time series: {e}')
+    if not any(isinstance(models.get(n), dict) and models[n].get('status') == 'ok'
+               for n in ('ICON-D2', 'ICON-EU', 'AROME', 'GFS', 'IFS')):
+        critical.append('no fresh main model')
+    if isinstance(models.get('IFS'), dict):
+        ext = models['IFS'].get('extended_forecast')
+        if ext:
+            try:
+                time_axis(ext['hourly']['time'])
+                warnings.extend(f'IFS extended_forecast: {p}' for p in plausible(ext['hourly']))
+                if not any(v is not None for v in ext['hourly'].get('temperature_2m', [])):
+                    warnings.append('IFS extended_forecast: no temperatures')
+            except (KeyError, TypeError, ValueError) as e:
+                warnings.append(f'IFS extended_forecast: invalid: {e}')
+        else:
+            warnings.append('IFS extended_forecast: unavailable (optional)')
+    return critical, warnings
+
+
+def check_mosmix(doc):
+    warnings = []
+    for name in ('Augsburg', 'Lechfeld'):
+        station = doc.get('stations', {}).get(name)
+        if not isinstance(station, dict):
+            warnings.append(f'MOSMIX {name}: missing')
+            continue
+        try:
+            times = time_axis(station['forecast_times_utc'])
+            if station.get('status') != 'ok':
+                warnings.append(f'MOSMIX {name}: {station.get("status")}')
+            for key, values in station.get('parameters', {}).items():
+                if not isinstance(values, list) or len(values) != len(times):
+                    warnings.append(f'MOSMIX {name}/{key}: length mismatch')
+        except (KeyError, TypeError, ValueError) as e:
+            warnings.append(f'MOSMIX {name}: {e}')
+    return warnings
+
+
+def check_ensembles(doc):
+    warnings = []
+    for name in ('GFS-ENS', 'IFS-ENS'):
+        rec = doc.get('models', {}).get(name)
+        if not isinstance(rec, dict) or not isinstance(rec.get('daily'), dict) or not rec['daily']:
+            warnings.append(f'{name}: missing/empty')
+        elif rec.get('data_quality', {}).get('invalid_arrays'):
+            warnings.append(f'{name}: invalid arrays')
+    if doc.get('errors'):
+        warnings.append('Ensemble collector reported errors')
+    return warnings
+
+
+def main():
+    now = datetime.now(UTC)
+    critical, warnings = [], []
+    for filename, checker in (('mering_models.json', check_models),
+                              ('mering_mosmix.json', check_mosmix),
+                              ('mering_ensembles.json', check_ensembles)):
+        try:
+            path = ROOT / filename
+            doc = json.loads(path.read_text(encoding='utf-8'))
+            age = (now - stamp(doc['retrieved_at_utc'])).total_seconds() / 3600
+            if age < -1 or age > 30:
+                warnings.append(f'{filename}: collection timestamp age {age:.1f}h')
+            if filename == 'mering_models.json':
+                c, w = checker(doc, now)
+                critical.extend(c)
+                warnings.extend(w)
+            else:
+                warnings.extend(checker(doc))
+        except (OSError, ValueError, TypeError, KeyError) as e:
+            if filename == 'mering_models.json':
+                critical.append(f'{filename}: {e}')
+            else:
+                warnings.append(f'{filename}: {e}')
+    for issue in warnings:
+        print('::warning::' + issue)
+    for issue in critical:
+        print('::error::' + issue)
+    print('QUALITY:', 'failed' if critical else ('degraded' if warnings else 'ok'),
+          f'critical={len(critical)} warnings={len(warnings)}')
+    return 1 if critical else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
