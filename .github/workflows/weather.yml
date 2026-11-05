@@ -77,6 +77,12 @@ jobs:
         continue-on-error: true
         run: python scripts/winter_metrics.py
 
+      - name: Detect winter events (non-critical)
+        id: winter_events
+        if: steps.clock.outputs.run == 'true' && steps.fetch.outcome == 'success' && steps.winter.outcome == 'success'
+        continue-on-error: true
+        run: python scripts/winter_events.py
+
       - name: Validate collected data
         id: quality
         if: always() && steps.clock.outputs.run == 'true' && steps.fetch.outcome != 'skipped'
@@ -93,11 +99,14 @@ jobs:
           git add data/mering_models.json
           if [[ -f data/mering_mosmix.json ]]; then git add data/mering_mosmix.json; fi
           if [[ -f data/mering_ensembles.json ]]; then git add data/mering_ensembles.json; fi
+          if [[ -f data/mering_winter_events.json && "${{ steps.winter_events.outcome }}" == 'success' ]]; then
+            git add data/mering_winter_events.json
+          fi
           if git diff --cached --quiet; then
             echo 'No JSON changes to commit.'
             exit 0
           fi
-          git commit -m "Update Mering model, MOSMIX and ensemble data"
+          git commit -m "Update Mering model, MOSMIX, ensemble and winter event data"
           # Never force-push; the rebase is retried only for concurrent fast-forward changes.
           for attempt in 1 2 3; do
             git fetch origin main
@@ -117,6 +126,10 @@ jobs:
       - name: Report winter enrichment failure
         if: always() && steps.clock.outputs.run == 'true' && steps.winter.outcome == 'failure'
         run: echo '::warning::Winter metrics enrichment failed; core model data retained.'
+
+      - name: Report winter event detection failure
+        if: always() && steps.clock.outputs.run == 'true' && steps.winter_events.outcome == 'failure'
+        run: echo '::warning::Winter event detection failed; core model data retained.'
 
       - name: Flag critical data quality
         if: always() && steps.clock.outputs.run == 'true' && steps.quality.outcome == 'failure'
