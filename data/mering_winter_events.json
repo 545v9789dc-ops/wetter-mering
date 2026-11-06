@@ -1,5 +1,5 @@
 {
-  "source_retrieved_at_utc": "2026-11-06T01:59:20.692118+00:00",
+  "source_retrieved_at_utc": "2026-11-06T04:50:06.935342+00:00",
   "note": "Indicative model signals, not official weather warnings",
   "events": [
     {
@@ -12,6 +12,7 @@
       ],
       "available_models": [
         "GFS",
+        "ICON-EU",
         "IFS"
       ],
       "confidence_note": "Model agreement is not a calibrated probability"
