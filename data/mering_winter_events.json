@@ -1,21 +1,5 @@
 {
-  "source_retrieved_at_utc": "2026-11-06T14:43:18.247380+00:00",
+  "source_retrieved_at_utc": "2026-11-06T17:35:38.148099+00:00",
   "note": "Indicative model signals, not official weather warnings",
-  "events": [
-    {
-      "date": "2026-11-10",
-      "kind": "heavy_precipitation",
-      "description": "At least 10 mm daily precipitation",
-      "supporting_models": [
-        "ICON-EU",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "ICON-EU",
-        "IFS"
-      ],
-      "confidence_note": "Model agreement is not a calibrated probability"
-    }
-  ]
+  "events": []
 }
