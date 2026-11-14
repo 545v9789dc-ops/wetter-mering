@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch DWD synoptic reports, classify by issuance text and retain valid cache."""
+"""DWD synoptic reports: text-based publication dating, robust headings, 3-day history."""
 import datetime as dt
 import json
 import re
@@ -20,6 +20,8 @@ OUT = Path('data/dwd_synoptik.json')
 MAX_AGE_HOURS = {'kurzfrist_frueh': 20, 'kurzfrist_abend': 20, 'mittelfrist': 30}
 RETRY_TIMEOUTS = (15, 20, 30)
 RETRY_DELAYS = (3, 6)
+HISTORY_DAYS = 3
+UTC = dt.timezone.utc
 
 
 class TextParser(HTMLParser):
@@ -56,55 +58,75 @@ def extract_report(html):
         if pos > 700:
             text = text[:pos].strip()
             break
-    header = re.search(r'SXEU31\s+DWAV\s+\d{6}|S\s+Y\s+N\s+O\s+P\s+T\s+I\s+S\s+C\s+H\s+E', text, re.I)
+    header = re.search(r'SXEU31\s+DWAV\s+\d{6}|S\s*Y\s*N\s*O\s*P\s*T\s*I\s*S\s*C\s*H\s*E', text, re.I)
     if header:
         text = text[header.start():].strip()
     return text
 
 
+def normalized_heading(text):
+    """Collapse typography differences for heading checks, without altering stored text."""
+    opening = unescape(text[:3000]).replace('\xa0', ' ').casefold()
+    # Only match recognizable heading words; allow whitespace between each letter.
+    def present(word):
+        pattern = r'(?<!\w)' + r'\s*'.join(map(re.escape, word)) + r'(?!\w)'
+        return bool(re.search(pattern, opening, re.I))
+    return {'mittelfrist': present('mittelfrist'), 'kurzfrist': present('kurzfrist')}
+
+
 def issuance(text):
-    pattern = (r'ausgegeben\s+am\s+(?:[A-Za-zÄÖÜäöüß]+,\s*den\s+)?'
-               r'([0-3]?\d\.[01]?\d\.20\d{2})\s+um\s+'
-               r'([0-2]?\d)(?:[:.]([0-5]\d))?\s*(UTC|MESZ|MEZ)\b')
-    match = re.search(pattern, text[:2500], re.I)
+    """Read issue time from the bulletin itself; never use fetch time as issue time."""
+    # Accept spaces/newlines in the label, punctuation and month/day separators.
+    opening = unescape(text[:3000]).replace('\xa0', ' ')
+    pattern = (r'ausgegeben\s+am\s+(?:[A-Za-zÄÖÜäöüß]+,?\s*(?:den\s+)?)?'
+               r'([0-3]?\d)\s*[.]\s*([01]?\d)\s*[.]\s*(20\d{2})\s+'
+               r'um\s+([0-2]?\d)(?:\s*[:.]\s*([0-5]\d))?\s*(UTC|MESZ|MEZ)\b')
+    match = re.search(pattern, opening, re.I)
     if not match:
         return None
-    date, hour, minute, zone = match.group(1), int(match.group(2)), int(match.group(3) or '0'), match.group(4).upper()
+    day, month, year, hour, minute, zone = match.groups()
+    hour, minute, zone = int(hour), int(minute or '0'), zone.upper()
+    if hour > 23:
+        return None
     try:
-        day = dt.datetime.strptime(date, '%d.%m.%Y')
-        if hour > 23:
-            return None
         offset = {'UTC': 0, 'MEZ': 1, 'MESZ': 2}[zone]
-        published = day.replace(hour=hour, minute=minute, tzinfo=dt.timezone(dt.timedelta(hours=offset)))
-        return {'date': date, 'time': f'{hour:02d}:{minute:02d}', 'timezone': zone,
-                'raw': match.group(0), 'issued_at_utc': published.astimezone(dt.timezone.utc).isoformat()}
+        published = dt.datetime(int(year), int(month), int(day), hour, minute,
+                                tzinfo=dt.timezone(dt.timedelta(hours=offset)))
+        return {'date': f'{int(day):02d}.{int(month):02d}.{year}',
+                'time': f'{hour:02d}:{minute:02d}', 'timezone': zone,
+                'raw': match.group(0), 'issued_at_utc': published.astimezone(UTC).isoformat()}
     except ValueError:
         return None
 
 
 def actual_short_key(pub):
-    """Identify early/late bulletin from publication time, not source URL."""
-    issued = dt.datetime.fromisoformat(pub['issued_at_utc']).astimezone(dt.timezone.utc)
+    issued = dt.datetime.fromisoformat(pub['issued_at_utc']).astimezone(UTC)
     return 'kurzfrist_frueh' if issued.hour < 12 else 'kurzfrist_abend'
+
+
+def classify_report(text, pub):
+    headings = normalized_heading(text)
+    if headings['mittelfrist'] and not headings['kurzfrist']:
+        return 'mittelfrist'
+    if headings['kurzfrist'] and not headings['mittelfrist']:
+        return actual_short_key(pub)
+    raise ValueError('Report heading ambiguous or missing')
 
 
 def age_status(entry, key, now):
     publication = entry.get('publication')
     if not publication or not publication.get('issued_at_utc'):
-        entry['freshness'] = 'unknown'
-        entry['age_hours'] = None
+        entry['freshness'], entry['age_hours'] = 'unknown', None
         return
     try:
         issued = dt.datetime.fromisoformat(publication['issued_at_utc'])
         hours = (now - issued).total_seconds() / 3600
     except (ValueError, TypeError):
-        entry['freshness'] = 'unknown'
-        entry['age_hours'] = None
+        entry['freshness'], entry['age_hours'] = 'unknown', None
         return
     entry['age_hours'] = round(hours, 2)
-    entry['freshness'] = 'stale' if hours > MAX_AGE_HOURS[key] else 'current'
-    if hours < -1.0:
-        entry['freshness'] = 'invalid_future_timestamp'
+    entry['freshness'] = ('invalid_future_timestamp' if hours < -1 else
+                          'stale' if hours > MAX_AGE_HOURS[key] else 'current')
 
 
 def download(request, entry):
@@ -131,14 +153,77 @@ def validate_report(key, report, pub):
         raise ValueError(f'No plausible synoptic report: {len(report)} characters')
     if not pub:
         raise ValueError('DWD issuance timestamp missing or unparseable')
-    opening = report[:2500].lower()
-    normal = 'mittelfrist' in opening
-    spaced = bool(re.search(r'm\s+i\s+t\s+t\s+e\s+l\s+f\s+r\s+i\s+s\s+t', opening))
-    short = bool(re.search(r'k\s+u\s+r\s+z\s+f\s+r\s+i\s+s\s+t', opening)) or 'kurzfrist' in opening
-    if key == 'mittelfrist' and not (normal or spaced):
+    actual = classify_report(report, pub)
+    if key == 'mittelfrist' and actual != 'mittelfrist':
         raise ValueError('Expected medium-term synoptic report')
-    if key != 'mittelfrist' and not short:
+    if key != 'mittelfrist' and actual == 'mittelfrist':
         raise ValueError('Expected short-term synoptic report')
+    return actual
+
+
+def history_items(old):
+    """Normalize legacy and archived entries, rejecting invalid text and timestamps."""
+    candidates = []
+    for entry in list(old.get('history', [])) + list(old.get('reports', {}).values()):
+        if not isinstance(entry, dict) or not entry.get('report_text'):
+            continue
+        try:
+            pub = issuance(entry['report_text'])
+            if not pub:
+                continue
+            actual = classify_report(entry['report_text'], pub)
+            if len(entry['report_text']) < 900:
+                continue
+            candidates.append((actual, pub, entry))
+        except (TypeError, ValueError, KeyError):
+            continue
+    return candidates
+
+
+def select_reports(fetched, old, now):
+    """Newest *text-dated* bulletin always wins, including valid cached history."""
+    candidates = list(fetched) + history_items(old)
+    selected, unique = {}, {}
+    # Local calendar days: today and the two previous days.
+    from zoneinfo import ZoneInfo
+    today = now.astimezone(ZoneInfo('Europe/Berlin')).date()
+    for key, pub, entry in candidates:
+        try:
+            issued = dt.datetime.fromisoformat(pub['issued_at_utc']).astimezone(UTC)
+        except (TypeError, ValueError):
+            continue
+        if issued > now + dt.timedelta(hours=1):
+            continue
+        day = issued.astimezone(ZoneInfo('Europe/Berlin')).date()
+        if not (today - dt.timedelta(days=HISTORY_DAYS - 1) <= day <= today):
+            continue
+        ident = (key, issued.isoformat())
+        prior = unique.get(ident)
+        if prior is None or (prior[2].get('status') != 'ok' and entry.get('status') == 'ok'):
+            unique[ident] = (key, pub, entry)
+    for key, pub, entry in unique.values():
+        prev = selected.get(key)
+        if prev is None or pub['issued_at_utc'] > prev[0]['issued_at_utc']:
+            selected[key] = (pub, entry)
+    reports = {}
+    for key in SOURCES:
+        if key not in selected:
+            reports[key] = {'url': ROOT + SOURCES[key], 'checked_at_utc': now.isoformat(),
+                            'status': 'error', 'used_cache': False,
+                            'error': 'No correctly classified report available'}
+            continue
+        pub, source = selected[key]
+        current_fetch = any(k == key and p['issued_at_utc'] == pub['issued_at_utc']
+                            for k, p, _ in fetched)
+        entry = dict(source)
+        entry.update(publication=pub, status='ok' if current_fetch else 'stale_cached',
+                     used_cache=not current_fetch, checked_at_utc=now.isoformat())
+        age_status(entry, key, now)
+        reports[key] = entry
+    history = []
+    for key, pub, entry in sorted(unique.values(), key=lambda row: row[1]['issued_at_utc'], reverse=True):
+        history.append({'type': key, 'publication': pub, 'report_text': entry['report_text']})
+    return reports, history
 
 
 def effective_status(reports):
@@ -160,15 +245,14 @@ def effective_status(reports):
 
 
 def main():
-    now_dt = dt.datetime.now(dt.timezone.utc)
+    now_dt = dt.datetime.now(UTC)
     now = now_dt.isoformat()
     old = {}
     if OUT.exists():
         try:
-            old = json.loads(OUT.read_text(encoding='utf-8')).get('reports', {})
+            old = json.loads(OUT.read_text(encoding='utf-8'))
         except (OSError, ValueError):
             pass
-    reports = {}
     fetched = []
     mismatched = False
     for source_key, filename in SOURCES.items():
@@ -183,58 +267,37 @@ def main():
             html = download(request, entry)
             report = extract_report(html)
             pub = issuance(report)
-            validate_report(source_key, report, pub)
-            actual_key = source_key if source_key == 'mittelfrist' else actual_short_key(pub)
+            actual = validate_report(source_key, report, pub)
             entry.update(status='ok', fetched_at_utc=now, publication=pub,
                          text_length=len(report), report_text=report)
-            if actual_key != source_key:
+            if actual != source_key:
                 mismatched = True
-                entry['quality_note'] = f'Source {source_key} delivered {actual_key}; reassigned by issuance timestamp'
+                entry['quality_note'] = f'Source {source_key} delivered {actual}; reassigned by issuance text'
                 print(f'WARNING: {entry["quality_note"]}')
-            fetched.append((actual_key, entry))
+            fetched.append((actual, pub, entry))
         except Exception as exc:
             print(f'{source_key}: download/validation error: {type(exc).__name__}: {exc}')
 
-    # The newest successfully downloaded bulletin wins within each actual type.
-    for actual_key, entry in fetched:
-        previous = reports.get(actual_key)
-        if previous is None or entry['publication']['issued_at_utc'] > previous['publication']['issued_at_utc']:
-            reports[actual_key] = entry
-
-    # Reclassify previous cache entries by their actual text, too.
-    for original_key, previous in old.items():
-        if original_key not in SOURCES or not previous.get('report_text'):
-            continue
-        try:
-            pub = issuance(previous['report_text'])
-            validate_report(original_key, previous['report_text'], pub)
-            actual_key = original_key if original_key == 'mittelfrist' else actual_short_key(pub)
-        except (ValueError, TypeError, KeyError):
-            continue
-        current = reports.get(actual_key)
-        if current is None or pub['issued_at_utc'] > current['publication']['issued_at_utc']:
-            cached = dict(previous)
-            cached.update(status='stale_cached', used_cache=True, checked_at_utc=now,
-                          publication=pub, source_key=previous.get('source_key', original_key))
-            reports[actual_key] = cached
-            print(f'{actual_key}: previous correctly classified report retained as cache')
-
-    for key in SOURCES:
-        if key not in reports:
-            reports[key] = {'url': ROOT + SOURCES[key], 'checked_at_utc': now,
-                            'status': 'error', 'used_cache': False,
-                            'error': 'No correctly classified report available'}
-        age_status(reports[key], key, now_dt)
-        print(f'{key}: {reports[key]["status"]}, publication={reports[key].get("publication")}')
-
+    reports, history = select_reports(fetched, old, now_dt)
+    for key, entry in reports.items():
+        print(f'{key}: {entry["status"]}, publication={entry.get("publication")}')
     status, latest_short, availability = effective_status(reports)
     if mismatched and status == 'ok':
         status = 'degraded'
+    mediums = [item for item in history if item['type'] == 'mittelfrist']
+    previous_medium = None
+    if mediums:
+        current_day = mediums[0]['publication']['date']
+        previous_medium = next((item['publication']['issued_at_utc'] for item in mediums[1:]
+                                if item['publication']['date'] != current_day), None)
+    result = {'retrieved_at_utc': now, 'collection_status': status,
+              'latest_short_term': latest_short, 'availability': availability,
+              'latest_medium_term': reports['mittelfrist'].get('publication', {}).get('issued_at_utc'),
+              'previous_medium_term': previous_medium, 'history_days': HISTORY_DAYS,
+              'history': history, 'reports': reports}
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps({'retrieved_at_utc': now, 'collection_status': status,
-                               'latest_short_term': latest_short, 'availability': availability,
-                               'reports': reports}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'collection_status={status}; latest_short_term={latest_short}; output={OUT}')
+    OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print(f'collection_status={status}; latest_short_term={latest_short}; history={len(history)}')
     return 0 if status != 'error' else 1
 
 
