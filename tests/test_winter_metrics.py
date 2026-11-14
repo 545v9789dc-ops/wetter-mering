@@ -7,6 +7,7 @@ spec = importlib.util.spec_from_file_location('winter_metrics', Path(__file__).r
 w = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(w)
 
+
 class WinterTests(unittest.TestCase):
     def record(self, start, n=48):
         times = [(start + timedelta(hours=i)).strftime('%Y-%m-%dT%H:%M') for i in range(1, n + 1)]
@@ -17,7 +18,6 @@ class WinterTests(unittest.TestCase):
     def test_full_day(self):
         r = self.record(datetime(2026, 1, 1, tzinfo=timezone.utc), 48)
         days = w.winter_summary(r)
-        # Local winter days are UTC+1; only Jan 2 is complete.
         d = next(x for x in days if x['date'] == '2026-01-02')
         self.assertEqual(d['precipitation_mm'], 12)
         self.assertEqual(d['snowfall_cm'], 2.4)
@@ -42,6 +42,19 @@ class WinterTests(unittest.TestCase):
         self.assertEqual(result['48']['snowfall_cm'], 4.8)
         self.assertIsNone(result['72']['precipitation_mm'])
 
+    def test_sliding_maxima(self):
+        r = self.record(datetime(2026, 1, 1), 48)
+        r['hourly']['precipitation'][10:16] = [10] * 6
+        result = w.sliding_maxima(r, datetime(2026, 1, 1, tzinfo=timezone.utc), 48)
+        self.assertEqual(result['6']['precipitation_mm']['value'], 60)
+        self.assertEqual(result['6']['precipitation_mm']['complete_windows'], 43)
+
+    def test_sliding_gap_is_not_zero(self):
+        r = self.record(datetime(2026, 1, 1), 6)
+        r['hourly']['precipitation'][3] = None
+        result = w.sliding_maxima(r, datetime(2026, 1, 1, tzinfo=timezone.utc), 6)
+        self.assertIsNone(result['6']['precipitation_mm']['value'])
+
     def test_no_frost_hours_field(self):
         r = self.record(datetime(2026, 1, 1), 48)
         self.assertNotIn('frost_hours', w.winter_summary(r)[0])
@@ -50,6 +63,7 @@ class WinterTests(unittest.TestCase):
         r = self.record(datetime(2026, 3, 28), 72)
         day = next(x for x in w.winter_summary(r) if x['date'] == '2026-03-29')
         self.assertEqual(day['expected_hours'], 23)
+
 
 if __name__ == '__main__':
     unittest.main()
