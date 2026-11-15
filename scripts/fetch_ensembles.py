@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Open-Meteo GFS/IFS ensemble collector for Mering."""
+"""Open-Meteo GFS/IFS ensemble collector for Mering.
+
+The Open-Meteo metadata endpoint supplies the latest published model run, but
+not a verified run ID for the values returned by the operational Ensemble API.
+We store this metadata separately and never silently claim an exact match.
+"""
 import json, math, re, time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -49,6 +54,61 @@ def fetch(model):
         except (HTTPError, URLError, TimeoutError, OSError, ValueError, KeyError, TypeError) as e:
             obj["optional_field_errors"][field] = str(e)[:250]
     return obj
+
+
+def utc_from_unix(value):
+    """Convert a metadata Unix timestamp to an ISO-8601 UTC value, or None."""
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        return None
+    if not math.isfinite(value) or value <= 0:
+        return None
+    try:
+        result = datetime.fromtimestamp(value, tz=timezone.utc)
+    except (ValueError, OverflowError, OSError):
+        return None
+    # An implausibly future-dated initialization should not be displayed.
+    if result > datetime.now(timezone.utc) + timedelta(hours=1):
+        return None
+    return result.isoformat().replace("+00:00", "Z")
+
+
+def fetch_run_metadata(model):
+    """Fetch the latest published run timestamp; NEVER assert it is the API data run.
+
+    The normal ensemble endpoint returns a seamless forecast without an
+    authoritative initialisation/run identifier. The model-updates metadata
+    API shows the newest *published* model run, which may be ahead of the
+    forecast data due to propagation or mixed update times. Metadata errors
+    must not interrupt the existing ensemble forecast collection.
+    """
+    url = f"https://api.open-meteo.com/data/{model}/static/meta.json"
+    checked = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    result = {
+        "latest_published_run_utc": None,
+        "last_run_availability_utc": None,
+        "metadata_checked_at_utc": checked,
+        "metadata_source_url": url,
+        "forecast_run_verification": "unverified",
+        "note": "Latest published model run only; NOT verified as the forecast data run."
+    }
+    try:
+        with urlopen(Request(url, headers={"User-Agent": "wetter-mering/4.1"}),
+                     timeout=8) as response:
+            payload = json.load(response)
+        if not isinstance(payload, dict):
+            raise ValueError("Metadata response is not a JSON object")
+        initialisation = utc_from_unix(payload.get("last_run_initialisation_time"))
+        if initialisation is None:
+            raise ValueError("Missing or invalid last_run_initialisation_time")
+        result["latest_published_run_utc"] = initialisation
+        result["last_run_availability_utc"] = utc_from_unix(
+            payload.get("last_run_availability_time"))
+        result["metadata_status"] = "ok"
+    except (HTTPError, URLError, TimeoutError, OSError, ValueError, TypeError,
+            KeyError, json.JSONDecodeError) as exc:
+        result["metadata_status"] = "unavailable"
+        result["metadata_error"] = f"{type(exc).__name__}: {str(exc)[:160]}"
+    return result
 
 
 def valid(v):
@@ -214,7 +274,12 @@ def main():
             "source":"Open-Meteo Ensemble API","models":{},"errors":{},
             "note":"Member fractions are model-based estimates, not calibrated probabilities."}
     for label,model in MODELS.items():
-        try: result["models"][label]=summarize(fetch(model))
+        try:
+            # Preserve the existing forecast data and all ensemble statistics.
+            entry = summarize(fetch(model))
+            # Optional metadata: its failure cannot invalidate the ensemble.
+            entry["run_metadata"] = fetch_run_metadata(model)
+            result["models"][label] = entry
         except (HTTPError,URLError,TimeoutError,OSError,ValueError,KeyError,TypeError) as e:
             result["errors"][label]=str(e)[:250]
     if not result["models"]: raise SystemExit("No valid ensembles; existing output preserved")
