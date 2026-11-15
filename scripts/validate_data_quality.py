@@ -84,6 +84,49 @@ def check_winter(rec, model):
     return warnings
 
 
+def check_parameter_fallback(rec, name, now, times):
+    """Check provenance and 18h ceiling using source run time, not fetch time."""
+    warnings=[]
+    target_run=stamp(rec.get('model_run_utc'))
+    for field, entry in rec.get('parameter_fallback',{}).items():
+        if not isinstance(entry,dict):
+            warnings.append(f'{name}/{field}: malformed fallback metadata')
+            continue
+        indices=entry.get('recovered_indices',[])
+        sources=entry.get('sources',[])
+        values=rec.get('hourly',{}).get(field,[])
+        if (not isinstance(indices,list) or not isinstance(sources,list) or
+            not isinstance(values,list) or any(not isinstance(i,int) or isinstance(i,bool)
+                    or not 0 <= i < len(times) for i in indices) or
+            len(set(indices)) != len(indices) or
+            entry.get('recovered_hours') != len(indices) or
+            any(i >= len(values) or not isinstance(values[i],(int,float)) or
+                    isinstance(values[i],bool) or not math.isfinite(values[i])
+                    for i in indices)):
+            warnings.append(f'{name}/{field}: inconsistent fallback indices')
+            continue
+        if sum(item.get('recovered_hours',0) for item in sources if isinstance(item,dict)) != len(indices):
+            warnings.append(f'{name}/{field}: inconsistent fallback source counts')
+        if not sources and indices:
+            warnings.append(f'{name}/{field}: missing fallback source')
+        for source in sources:
+            if not isinstance(source,dict):
+                warnings.append(f'{name}/{field}: malformed fallback source')
+                continue
+            try:
+                run=stamp(source.get('source_run_utc'))
+                age=(now-run).total_seconds()/3600
+                if age < 0 or age > 18:
+                    warnings.append(f'{name}/{field}: fallback older than 18h ({age:.1f}h)')
+                if run > target_run:
+                    warnings.append(f'{name}/{field}: fallback from newer run')
+                if source.get('source_model') != rec.get('api_model'):
+                    warnings.append(f'{name}/{field}: fallback model mismatch')
+            except (KeyError,TypeError,ValueError):
+                warnings.append(f'{name}/{field}: invalid fallback run timestamp')
+    return warnings
+
+
 def check_models(doc, now):
     critical, warnings = [], []
     models = doc.get('models', {})
@@ -111,6 +154,26 @@ def check_models(doc, now):
             for field, unit in (('snowfall', 'cm'), ('snow_depth', 'm'), ('precipitation', 'mm')):
                 if field in rec['hourly'] and units.get(field) != unit:
                     warnings.append(f'{name}: unexpected unit for {field}: {units.get(field)}')
+            # Monitor explicitly the five main fields, even if the model status is 'ok'.
+            mandatory = ('temperature_2m', 'precipitation', 'wind_speed_10m',
+                         'wind_gusts_10m', 'pressure_msl')
+            for field in mandatory:
+                values = rec['hourly'].get(field, [])
+                if not isinstance(values, list) or len(values) != len(times):
+                    warnings.append(f'{name}/{field}: missing or wrong-length array')
+                    continue
+                count = sum(isinstance(v, (int, float)) and not isinstance(v, bool)
+                            and math.isfinite(v) for v in values)
+                if count == 0:
+                    warnings.append(f'{name}/{field}: not available (0/{len(times)})')
+            warnings.extend(check_parameter_fallback(rec, name, now, times))
+            for field, entry in rec.get('parameter_fallback', {}).items():
+                if isinstance(entry, dict) and entry.get('recovered_hours', 0) > 0:
+                    warnings.append(f'{name}/{field}: {entry["recovered_hours"]} '
+                                    'replacement hours from a previous model run')
+            run_age = (now-stamp(rec.get('model_run_utc'))).total_seconds()/3600
+            if run_age > 18:
+                warnings.append(f'{name}: model run older than 18h ({run_age:.1f}h)')
         except (KeyError, TypeError, ValueError) as e:
             critical.append(f'{name}: malformed time series: {e}')
     if not any(isinstance(models.get(n), dict) and models[n].get('status') == 'ok'
@@ -126,8 +189,7 @@ def check_models(doc, now):
                     warnings.append('IFS extended_forecast: no temperatures')
             except (KeyError, TypeError, ValueError) as e:
                 warnings.append(f'IFS extended_forecast: invalid: {e}')
-        else:
-            warnings.append('IFS extended_forecast: unavailable (optional)')
+        # No warning if the optional extension is not needed and not stored.
     return critical, warnings
 
 

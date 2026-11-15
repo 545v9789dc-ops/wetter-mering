@@ -46,6 +46,16 @@ FAILURES = (HTTPError, URLError, ValueError, TimeoutError, OSError, TypeError, K
 REQUEST_TIMEOUT_SECONDS = 25
 TRANSIENT_RETRIES = 2
 
+MAX_FALLBACK_AGE_HOURS = 18
+# Explicit older-run requests are reserved for important forecast parameters;
+# every other hourly parameter may still be recovered from the previous file.
+FALLBACK_REQUERY_FIELDS = (
+    "wind_gusts_10m", "pressure_msl", "wind_speed_10m", "precipitation",
+    "temperature_2m", "snowfall", "snow_depth", "sunshine_duration",
+    "cloud_cover_low", "weather_code",
+)
+MAX_FALLBACK_REQUERY_RUNS = 2
+
 # Diagnostic-only state: never serialized into forecast JSON.
 HTTP_DIAGNOSTICS = []
 
@@ -356,6 +366,233 @@ def repair_gfs_core(record, run, days):
         print(f"GFS core {key}: {results[key]['status']}", file=sys.stderr)
     record["gfs_core_recovery"] = results
 
+def strip_previous_fallbacks(record):
+    """Never silently recycle values previously borrowed from another run."""
+    hourly = record.get("hourly", {})
+    for field, info in record.get("parameter_fallback", {}).items():
+        values = hourly.get(field)
+        if not isinstance(values, list) or not isinstance(info, dict):
+            continue
+        for index in info.get("recovered_indices", []):
+            if isinstance(index, int) and not isinstance(index, bool) and 0 <= index < len(values):
+                values[index] = None
+    record.pop("parameter_fallback", None)
+    record.pop("parameter_availability", None)
+
+
+def fallback_source_ok(record, model, target_run, now):
+    """Check model, grid, units and the ORIGINAL run time; not its download time."""
+    if not isinstance(record, dict) or record.get("api_model") != model:
+        return False
+    try:
+        run = parse_time(record["model_run_utc"])
+        age_h = (now-run).total_seconds()/3600
+        if not 0 <= age_h <= MAX_FALLBACK_AGE_HOURS or run > target_run:
+            return False
+        if grid_distance(record.get("grid_latitude"), record.get("grid_longitude")) > 35:
+            return False
+    except (KeyError, TypeError, ValueError):
+        return False
+    return True
+
+
+def supplement_from_source(target, source, now, origin, only_fields=None):
+    """Add only matching-UTC missing hours from an eligible older run.
+
+    Each borrowed hour and original model run is kept in provenance. No data
+    are borrowed from a different model, grid, unit or forecast timestamp.
+    """
+    target_run = parse_time(target["model_run_utc"])
+    model = target["api_model"]
+    if not fallback_source_ok(source, model, target_run, now):
+        return 0
+    if (source.get("grid_latitude"), source.get("grid_longitude")) != (
+            target.get("grid_latitude"), target.get("grid_longitude")):
+        return 0
+    src_h = source.get("hourly", {})
+    dst_h = target.get("hourly", {})
+    src_times = src_h.get("time")
+    dst_times = dst_h.get("time")
+    if not isinstance(src_times, list) or not isinstance(dst_times, list):
+        return 0
+    try:
+        validate_hourly(src_h)
+    except (ValueError, TypeError):
+        return 0
+    used = 0
+    dst_fields = [f for f in dst_h if f != "time"]
+    if only_fields is not None:
+        dst_fields = [f for f in dst_fields if f in only_fields]
+    for field in dst_fields:
+        dst_values = dst_h.get(field)
+        src_values = src_h.get(field)
+        if not isinstance(dst_values, list) or not isinstance(src_values, list):
+            continue
+        if len(dst_values) != len(dst_times) or len(src_values) != len(src_times):
+            continue
+        src_unit = source.get("hourly_units", {}).get(field)
+        dst_unit = target.get("hourly_units", {}).get(field)
+        if src_unit is None or (dst_unit is not None and src_unit != dst_unit):
+            continue
+        # Ignore any indices already borrowed in the source, preventing chaining.
+        source_borrowed = set(source.get("parameter_fallback", {}).get(field, {}).get("recovered_indices", []))
+        lookup = {parse_time(t): v for i, (t,v) in enumerate(zip(src_times,src_values))
+                  if i not in source_borrowed and numeric(v)}
+        indices = []
+        for i, stamp in enumerate(dst_times):
+            if numeric(dst_values[i]):
+                continue
+            value = lookup.get(parse_time(stamp))
+            if numeric(value):
+                dst_values[i] = value
+                indices.append(i)
+        if not indices:
+            continue
+        used += len(indices)
+        if dst_unit is None:
+            target.setdefault("hourly_units", {})[field] = src_unit
+        entry = target.setdefault("parameter_fallback", {}).setdefault(field,
+               {"status":"fallback", "recovered_hours":0,
+                "recovered_indices":[], "sources":[]})
+        entry["recovered_hours"] += len(indices)
+        entry["recovered_indices"].extend(indices)
+        entry["sources"].append({
+            "source_model":model,
+            "source_run_utc":source["model_run_utc"],
+            "source_age_hours":round((now-parse_time(source["model_run_utc"])).total_seconds()/3600,2),
+            "origin":origin,"recovered_hours":len(indices)})
+        print(f"[FALLBACK] model={model} field={field} "
+              f"source_run={source['model_run_utc']} hours={len(indices)} origin={origin}",
+              file=sys.stderr, flush=True)
+    return used
+
+
+def fallback_candidate(record, model, run, days, field):
+    """Fetch a single field for an explicitly identified older model run."""
+    obj = fetch_json(api_url(model,run,days,field))
+    h = obj.get("hourly")
+    if obj.get("error") or not isinstance(h,dict) or field not in h:
+        raise ValueError("Fallback parameter unavailable")
+    validate_hourly(h)
+    if grid_distance(obj.get("latitude"),obj.get("longitude")) > 35:
+        raise ValueError("Fallback grid too far from Mering")
+    expected_unit = record.get("hourly_units", {}).get(field)
+    unit = obj.get("hourly_units", {}).get(field)
+    if not unit or (expected_unit and expected_unit != unit):
+        raise ValueError("Fallback unit differs")
+    clean_values(h)
+    return {"api_model":model,"model_run_utc":run.isoformat(),
+            "grid_latitude":obj.get("latitude"),"grid_longitude":obj.get("longitude"),
+            "hourly_units":{field:unit},"hourly":h}
+
+
+def complete_missing_parameters(record, config, now, previous_record_raw=None):
+    """18-hour hard limit for per-parameter replacement across all main models."""
+    if not isinstance(record.get("hourly"),dict) or not record.get("model_run_utc"):
+        return
+    record.setdefault("parameter_fallback", {})
+    h=record["hourly"]
+    target_run=parse_time(record["model_run_utc"])
+    model=config["model"]
+    # First use earlier actual model values retained from the previous JSON.
+    if isinstance(previous_record_raw,dict):
+        source=copy.deepcopy(previous_record_raw)
+        strip_previous_fallbacks(source)
+        # A parameter may be absent altogether, not just an all-null array.
+        # Restore its key only if the previous native run supplies usable values.
+        added_fields=[]
+        for field, values in source.get("hourly",{}).items():
+            if (field in BOUNDS and field not in h and
+                isinstance(values,list) and any(numeric(v) for v in values) and
+                source.get("hourly_units",{}).get(field)):
+                h[field]=[None]*len(h.get("time",[]))
+                added_fields.append(field)
+        supplement_from_source(record,source,now,"previous_json")
+        for field in added_fields:
+            if not any(numeric(v) for v in h.get(field,[])):
+                h.pop(field,None)
+    # Missing ENTIRE important parameters merit bounded single-variable re-fetches.
+    # Avoid chasing unsupported optional fields or every sparse edge-hour.
+    for field in FALLBACK_REQUERY_FIELDS:
+        if field not in h:
+            if field not in VARIABLES.split(","):
+                continue  # do not chase optional fields the new run never requested
+            h[field] = [None] * len(h.get("time", []))
+        if any(numeric(v) for v in h[field]):
+            continue
+        for old_run in candidate_runs(now,config["cycle_hours"],
+                                      max_age_hours=MAX_FALLBACK_AGE_HOURS):
+            if old_run >= target_run:
+                continue
+            if (target_run-old_run).total_seconds() < 0:
+                continue
+            attempt_count=record.setdefault("fallback_requery_attempts",{}).get(field,0)
+            if attempt_count >= MAX_FALLBACK_REQUERY_RUNS:
+                break
+            record["fallback_requery_attempts"][field]=attempt_count+1
+            try:
+                source=fallback_candidate(record,model,old_run,config["days"],field)
+                if supplement_from_source(record,source,now,"explicit_older_run",{field}):
+                    break
+            except FAILURES as exc:
+                print(f"[FALLBACK] model={model} field={field} "
+                      f"older_run={old_run.isoformat()} failed={type(exc).__name__}",
+                      file=sys.stderr)
+    mark_parameter_availability(record)
+
+
+def mark_parameter_availability(record):
+    """Expose core availability without treating missing data as zero."""
+    h=record.get("hourly",{})
+    n=len(h.get("time",[]))
+    record["parameter_availability"]={}
+    for field in VARIABLES.split(","):
+        vals=h.get(field,[])
+        count=sum(numeric(v) for v in vals) if isinstance(vals,list) else 0
+        count=min(count,n)
+        status=("not_available" if not count else
+                "partial" if count and count < max(1, int(n*.6)) else
+                "fallback" if record["parameter_fallback"].get(field) else "available")
+        record["parameter_availability"][field]={
+            "status":status,"valid_hours":count,"total_hours":n,
+            "replaced_hours":record.get("parameter_fallback",{}).get(field,{}).get("recovered_hours",0)}
+
+
+def expire_fallback_points(record, now):
+    """Last guard at save time: never persist replacement values older than 18h.
+
+    If several sources contributed to one field and any expires, drop all
+    borrowed indices for that field rather than guess which value came from
+    which source. Native values stay untouched.
+    """
+    fallback=record.get("parameter_fallback",{})
+    expired=[]
+    for field, entry in list(fallback.items()):
+        sources=entry.get("sources",[]) if isinstance(entry,dict) else []
+        invalid=not sources
+        for source in sources:
+            try:
+                age=(now-parse_time(source["source_run_utc"])).total_seconds()/3600
+                if not 0 <= age <= MAX_FALLBACK_AGE_HOURS:
+                    invalid=True
+            except (KeyError,TypeError,ValueError):
+                invalid=True
+        if not invalid:
+            continue
+        values=record.get("hourly",{}).get(field,[])
+        if isinstance(values,list):
+            for index in entry.get("recovered_indices",[]):
+                if isinstance(index,int) and not isinstance(index,bool) and 0 <= index < len(values):
+                    values[index]=None
+        fallback.pop(field,None)
+        expired.append(field)
+    if expired:
+        record.setdefault("fallback_expired_fields",[]).extend(expired)
+        mark_parameter_availability(record)
+        if isinstance(record.get("hourly"),dict) and record.get("model_run_utc"):
+            enrich(record,now)
+    return expired
+
 def daily_totals(hourly, units):
     """Sum interval-ending hourly data into Berlin local days, including DST."""
     stamps = [parse_time(t) for t in hourly["time"]]
@@ -458,6 +695,7 @@ def previous_record(previous, label, config, now):
         return None
     old = copy.deepcopy(old)
     old.pop("extended_forecast", None)
+    strip_previous_fallbacks(old)
     try:
         distance = grid_distance(old.get("grid_latitude"), old.get("grid_longitude"))
         if distance > 35:
@@ -465,9 +703,10 @@ def previous_record(previous, label, config, now):
         old["grid_distance_km"] = round(distance, 3)
         old.setdefault("data_retrieved_at_utc", previous.get("retrieved_at_utc"))
         enrich(old, now)
+        mark_parameter_availability(old)
         if (old["coverage"]["valid_future_hours"] <
                 max(1, config.get("min_future_hours", 0)) or
-                not 0 <= old["run_age_hours"] <= 72):
+                not 0 <= old["run_age_hours"] <= MAX_FALLBACK_AGE_HOURS):
             return None
     except FAILURES:
         return None
@@ -477,8 +716,11 @@ def previous_record(previous, label, config, now):
 
 def select_model(label, config, now, previous):
     records, errors = [], []
-    runs = (candidate_runs(now, config["cycle_hours"], limit=4, max_age_hours=18)
-            if label == "IFS" else candidate_runs(now, config["cycle_hours"]))
+    runs = (candidate_runs(now, config["cycle_hours"], limit=4,
+                           max_age_hours=MAX_FALLBACK_AGE_HOURS)
+            if label == "IFS" else
+            candidate_runs(now, config["cycle_hours"],
+                           max_age_hours=MAX_FALLBACK_AGE_HOURS))
     for dt in runs:
         try:
             rec = request_run(config["model"], dt, config["days"],
@@ -532,6 +774,8 @@ def select_model(label, config, now, previous):
         if label == "GFS":
             repair_gfs_core(latest, selected_run, config["days"])
         add_optional_variables(latest, config["model"], selected_run, config["days"])
+        complete_missing_parameters(latest, config, now,
+            previous.get("models",{}).get(label))
         enrich(latest, now)
     except FAILURES as exc:
         latest["optional_enrichment_error"] = str(exc)[:180]
@@ -561,6 +805,11 @@ def main():
         rec = result["models"][label]
         print(f"{label}: {rec['status']} run={rec.get('model_run_utc')} "
               f"age={rec.get('run_age_hours')} h")
+    # A collection may last several minutes; recheck the strict age at write.
+    save_now = datetime.now(UTC)
+    for rec in result["models"].values():
+        if isinstance(rec,dict):
+            expire_fallback_points(rec,save_now)
     result["collection_status"] = (
         "ok" if all(r["status"] == "ok" for r in result["models"].values())
         else "degraded"

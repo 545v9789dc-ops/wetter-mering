@@ -70,7 +70,11 @@ def model_summary(rec):
             'winter_rolling_max': rec.get('winter_rolling_max', {}),
             'coverage': rec.get('coverage', {}),
             'optional_variable_coverage': rec.get('optional_variable_coverage', {}),
-            'recent_errors': rec.get('recent_errors', [])}
+            'recent_errors': rec.get('recent_errors', []),
+            # Explicitly retain provenance/age of substituted hourly values.
+            'parameter_fallback': rec.get('parameter_fallback', {}),
+            'valid_hours_by_variable': rec.get('valid_hours_by_variable', {}),
+            'parameter_availability': rec.get('parameter_availability', {})}
 
 
 def ensemble_summary(rec):
@@ -126,6 +130,12 @@ def prepare(models, mosmix, ensembles, generated_at=None):
     for name, rec in output['models'].items():
         if rec.get('status') in ('ok', 'stale') and not rec.get('winter_rolling_max'):
             gaps.append(f'{name}: sliding maxima unavailable')
+        for field, meta in rec.get('parameter_availability', {}).items():
+            if meta.get('status') in ('not_available', 'partial', 'fallback'):
+                desc = f'{name}/{field}: {meta["status"]} ({meta.get("valid_hours", 0)} valid hours)'
+                if meta.get('status') == 'fallback':
+                    desc += f'; {meta.get("replaced_hours", 0)} from previous model run'
+                gaps.append(desc)
     output['report_quality'] = {
         'status': 'complete' if not gaps else 'complete_with_gaps',
         'model_count_available': model_count,
