@@ -47,6 +47,17 @@ REQUEST_TIMEOUT_SECONDS = 25
 TRANSIENT_RETRIES = 2
 
 MAX_FALLBACK_AGE_HOURS = 18
+# Per-model maximum age of a run used for cached forecasts or missing parameters.
+# Use the ORIGINAL model initialization time, never the download timestamp.
+LONG_RANGE_FALLBACK_AGE_HOURS = 24
+LONG_RANGE_API_MODELS = frozenset(("gfs_seamless", "ecmwf_ifs025"))
+
+
+def fallback_age_limit(api_model):
+    """GFS/IFS: 24 h; ICON-D2/ICON-EU/AROME (and unknown): 18 h."""
+    return (LONG_RANGE_FALLBACK_AGE_HOURS if api_model in LONG_RANGE_API_MODELS
+            else MAX_FALLBACK_AGE_HOURS)
+
 # Explicit older-run requests are reserved for important forecast parameters;
 # every other hourly parameter may still be recovered from the previous file.
 FALLBACK_REQUERY_FIELDS = (
@@ -387,7 +398,7 @@ def fallback_source_ok(record, model, target_run, now):
     try:
         run = parse_time(record["model_run_utc"])
         age_h = (now-run).total_seconds()/3600
-        if not 0 <= age_h <= MAX_FALLBACK_AGE_HOURS or run > target_run:
+        if not 0 <= age_h <= fallback_age_limit(model) or run > target_run:
             return False
         if grid_distance(record.get("grid_latitude"), record.get("grid_longitude")) > 35:
             return False
@@ -487,7 +498,7 @@ def fallback_candidate(record, model, run, days, field):
 
 
 def complete_missing_parameters(record, config, now, previous_record_raw=None):
-    """18-hour hard limit for per-parameter replacement across all main models."""
+    """Model-specific strict source-run limits: 24 h GFS/IFS, 18 h others."""
     if not isinstance(record.get("hourly"),dict) or not record.get("model_run_utc"):
         return
     record.setdefault("parameter_fallback", {})
@@ -521,7 +532,7 @@ def complete_missing_parameters(record, config, now, previous_record_raw=None):
         if any(numeric(v) for v in h[field]):
             continue
         for old_run in candidate_runs(now,config["cycle_hours"],
-                                      max_age_hours=MAX_FALLBACK_AGE_HOURS):
+                                      max_age_hours=fallback_age_limit(model)):
             if old_run >= target_run:
                 continue
             if (target_run-old_run).total_seconds() < 0:
@@ -552,14 +563,14 @@ def mark_parameter_availability(record):
         count=min(count,n)
         status=("not_available" if not count else
                 "partial" if count and count < max(1, int(n*.6)) else
-                "fallback" if record["parameter_fallback"].get(field) else "available")
+                "fallback" if record.get("parameter_fallback", {}).get(field) else "available")
         record["parameter_availability"][field]={
             "status":status,"valid_hours":count,"total_hours":n,
             "replaced_hours":record.get("parameter_fallback",{}).get(field,{}).get("recovered_hours",0)}
 
 
 def expire_fallback_points(record, now):
-    """Last guard at save time: never persist replacement values older than 18h.
+    """Last guard at save time: enforce each model's 18 h/24 h age limit.
 
     If several sources contributed to one field and any expires, drop all
     borrowed indices for that field rather than guess which value came from
@@ -573,7 +584,7 @@ def expire_fallback_points(record, now):
         for source in sources:
             try:
                 age=(now-parse_time(source["source_run_utc"])).total_seconds()/3600
-                if not 0 <= age <= MAX_FALLBACK_AGE_HOURS:
+                if not 0 <= age <= fallback_age_limit(record.get("api_model")):
                     invalid=True
             except (KeyError,TypeError,ValueError):
                 invalid=True
@@ -706,7 +717,7 @@ def previous_record(previous, label, config, now):
         mark_parameter_availability(old)
         if (old["coverage"]["valid_future_hours"] <
                 max(1, config.get("min_future_hours", 0)) or
-                not 0 <= old["run_age_hours"] <= MAX_FALLBACK_AGE_HOURS):
+                not 0 <= old["run_age_hours"] <= fallback_age_limit(config["model"])):
             return None
     except FAILURES:
         return None
@@ -717,10 +728,10 @@ def previous_record(previous, label, config, now):
 def select_model(label, config, now, previous):
     records, errors = [], []
     runs = (candidate_runs(now, config["cycle_hours"], limit=4,
-                           max_age_hours=MAX_FALLBACK_AGE_HOURS)
+                           max_age_hours=fallback_age_limit(config["model"]))
             if label == "IFS" else
             candidate_runs(now, config["cycle_hours"],
-                           max_age_hours=MAX_FALLBACK_AGE_HOURS))
+                           max_age_hours=fallback_age_limit(config["model"])))
     for dt in runs:
         try:
             rec = request_run(config["model"], dt, config["days"],
@@ -736,7 +747,7 @@ def select_model(label, config, now, previous):
                   f"failure={type(exc).__name__}",
                   file=sys.stderr, flush=True)
     cached = previous_record(previous, label, config, now)
-    if label == "IFS" and cached and cached.get("run_age_hours", 999) > 18:
+    if label == "IFS" and cached and cached.get("run_age_hours", 999) > fallback_age_limit(config["model"]):
         cached = None
     if not records:
         rec = cached or {"status": "unverified", "model_run_utc": None,
@@ -746,12 +757,14 @@ def select_model(label, config, now, previous):
     latest = records[0]
     latest["selection_note"] = "Newest usable candidate; newer failures logged."
     if label == "IFS":
-        latest["ifs_candidate_policy"] = "Only runs up to 18 hours old; newest for short term, longest horizon separately"
+        latest["ifs_candidate_policy"] = (
+            f"Only runs up to {fallback_age_limit(config['model'])} hours old; "
+            "newest for short term, longest horizon separately")
         latest["ifs_candidate_runs_utc"] = [dt.isoformat() for dt in runs]
     latest["recent_errors"] = errors
     if label == "IFS":
         options = records + ([cached] if cached and
-                             cached.get("run_age_hours", 999) <= 18 else [])
+                             cached.get("run_age_hours", 999) <= fallback_age_limit(config["model"]) else [])
         best = max(options, key=lambda r: (
             parse_time(r["coverage"]["last_valid_utc"]),
             r["coverage"]["valid_future_hours"],

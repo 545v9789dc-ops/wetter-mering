@@ -9,6 +9,16 @@ from pathlib import Path
 UTC = timezone.utc
 ROOT = Path('data')
 
+# Must agree with scripts/fetch_models.py; do not use a retrieval timestamp.
+DEFAULT_MODEL_AGE_LIMIT_HOURS = 18
+LONG_RANGE_MODEL_AGE_LIMIT_HOURS = 24
+LONG_RANGE_MODELS = frozenset(('GFS', 'IFS'))
+
+
+def model_age_limit(name):
+    return (LONG_RANGE_MODEL_AGE_LIMIT_HOURS if name in LONG_RANGE_MODELS
+            else DEFAULT_MODEL_AGE_LIMIT_HOURS)
+
 
 def stamp(value, assume_utc=False):
     if not isinstance(value, str):
@@ -85,7 +95,7 @@ def check_winter(rec, model):
 
 
 def check_parameter_fallback(rec, name, now, times):
-    """Check provenance and 18h ceiling using source run time, not fetch time."""
+    """Check per-model 18 h/24 h source-run ceiling, not fetch time."""
     warnings=[]
     target_run=stamp(rec.get('model_run_utc'))
     for field, entry in rec.get('parameter_fallback',{}).items():
@@ -116,8 +126,8 @@ def check_parameter_fallback(rec, name, now, times):
             try:
                 run=stamp(source.get('source_run_utc'))
                 age=(now-run).total_seconds()/3600
-                if age < 0 or age > 18:
-                    warnings.append(f'{name}/{field}: fallback older than 18h ({age:.1f}h)')
+                if age < 0 or age > model_age_limit(name):
+                    warnings.append(f'{name}/{field}: fallback older than {model_age_limit(name)}h ({age:.1f}h)')
                 if run > target_run:
                     warnings.append(f'{name}/{field}: fallback from newer run')
                 if source.get('source_model') != rec.get('api_model'):
@@ -125,6 +135,54 @@ def check_parameter_fallback(rec, name, now, times):
             except (KeyError,TypeError,ValueError):
                 warnings.append(f'{name}/{field}: invalid fallback run timestamp')
     return warnings
+
+
+def summarize_fallback_warnings(rec, name, now):
+    """One actionable warning per model; keep provenance defects separate.
+
+    The detailed per-field records remain unchanged in mering_models.json.
+    Grouping affects only GitHub Actions warning output and its count.
+    """
+    fallback = rec.get('parameter_fallback', {})
+    if not isinstance(fallback, dict):
+        return None
+    active = []
+    runs = set()
+    ages = []
+    for field, entry in fallback.items():
+        if not isinstance(entry, dict):
+            continue
+        hours = entry.get('recovered_hours', 0)
+        if not isinstance(hours, int) or isinstance(hours, bool) or hours <= 0:
+            continue
+        active.append((field, hours))
+        for source in entry.get('sources', []):
+            if not isinstance(source, dict):
+                continue
+            run = source.get('source_run_utc')
+            try:
+                dt = stamp(run)
+                ages.append((now - dt).total_seconds() / 3600)
+                runs.add(dt.strftime('%d.%m. %H:%M UTC'))
+            except (ValueError, TypeError):
+                pass  # invalid provenance is reported separately by the quality gate
+    if not active:
+        return None
+    important = {'temperature_2m': 'T', 'precipitation': 'rain',
+                 'wind_speed_10m': 'wind', 'wind_gusts_10m': 'gusts',
+                 'pressure_msl': 'pressure'}
+    top = ', '.join(f'{label}={hours}h' for field, hours in active
+                    if (label := important.get(field)))
+    other_count = sum(field not in important for field, _ in active)
+    if other_count:
+        top += f'; {other_count} other fields' if top else f'{other_count} other fields'
+    summary = (f'{name}: fallback in {len(active)} parameters '
+               f'({sum(n for _, n in active)} hourly values; {top})')
+    if runs:
+        summary += '; source run(s): ' + ', '.join(sorted(runs))
+    if ages:
+        summary += f'; oldest age {max(ages):.1f}h'
+    return summary
 
 
 def check_models(doc, now):
@@ -166,14 +224,15 @@ def check_models(doc, now):
                             and math.isfinite(v) for v in values)
                 if count == 0:
                     warnings.append(f'{name}/{field}: not available (0/{len(times)})')
+            # Keep every invalid-source warning; only valid replacement notices
+            # are consolidated to a single warning per model.
             warnings.extend(check_parameter_fallback(rec, name, now, times))
-            for field, entry in rec.get('parameter_fallback', {}).items():
-                if isinstance(entry, dict) and entry.get('recovered_hours', 0) > 0:
-                    warnings.append(f'{name}/{field}: {entry["recovered_hours"]} '
-                                    'replacement hours from a previous model run')
+            fallback_notice = summarize_fallback_warnings(rec, name, now)
+            if fallback_notice:
+                warnings.append(fallback_notice)
             run_age = (now-stamp(rec.get('model_run_utc'))).total_seconds()/3600
-            if run_age > 18:
-                warnings.append(f'{name}: model run older than 18h ({run_age:.1f}h)')
+            if run_age > model_age_limit(name):
+                warnings.append(f'{name}: model run older than {model_age_limit(name)}h ({run_age:.1f}h)')
         except (KeyError, TypeError, ValueError) as e:
             critical.append(f'{name}: malformed time series: {e}')
     if not any(isinstance(models.get(n), dict) and models[n].get('status') == 'ok'
