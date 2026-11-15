@@ -1,4 +1,4 @@
-"""Regression tests for the maximum 18h, per-parameter run fallback."""
+"""Regression tests for regional 18h and long-range 24h run fallback."""
 import importlib.util
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -42,9 +42,10 @@ class EighteenHourFallbackTests(unittest.TestCase):
         self.assertEqual(f.supplement_from_source(make_record(),
             make_record(NOW-timedelta(hours=18), gust=24), NOW, 'previous_json'), 24)
 
-    def test_anything_over_18_hours_is_rejected(self):
+    def test_anything_over_18_hours_is_rejected_for_icon(self):
         current = make_record()
         previous = make_record(NOW-timedelta(hours=18, minutes=1), gust=35)
+        current['api_model'] = previous['api_model'] = 'icon_d2'
         self.assertEqual(f.supplement_from_source(current,previous,NOW,'previous_json'),0)
         self.assertTrue(all(x is None for x in current['hourly']['wind_gusts_10m']))
 
@@ -102,14 +103,16 @@ class EighteenHourFallbackTests(unittest.TestCase):
         self.assertEqual(current['hourly']['wind_gusts_10m'],[41]*24)
         self.assertEqual(current['parameter_availability']['wind_gusts_10m']['status'],'fallback')
 
-    def test_previous_record_older_than_18h_is_not_accepted(self):
+    def test_previous_record_older_than_18h_is_not_accepted_for_icon(self):
         older=make_record(NOW-timedelta(hours=19),gust=30)
-        previous={'models':{'GFS':older},'retrieved_at_utc':NOW.isoformat()}
-        self.assertIsNone(f.previous_record(previous,'GFS',f.MODELS['GFS'],NOW))
+        older['api_model']='icon_d2'
+        previous={'models':{'ICON-D2':older},'retrieved_at_utc':NOW.isoformat()}
+        self.assertIsNone(f.previous_record(previous,'ICON-D2',f.MODELS['ICON-D2'],NOW))
 
-    def test_values_expire_at_write_time_after_18h(self):
+    def test_values_expire_at_write_time_after_18h_for_icon(self):
         current=make_record()
         older=make_record(NOW-timedelta(hours=18),gust=31)
+        current['api_model']=older['api_model']='icon_d2'
         self.assertEqual(f.supplement_from_source(current,older,NOW,'previous_json'),24)
         expired=f.expire_fallback_points(current,NOW+timedelta(seconds=1))
         self.assertEqual(expired,['wind_gusts_10m'])
@@ -124,6 +127,67 @@ class EighteenHourFallbackTests(unittest.TestCase):
         previous=make_record(NOW-timedelta(hours=6),n=4,gust=20)
         self.assertEqual(f.supplement_from_source(current,previous,NOW,'previous_json'),3)
         self.assertEqual(current['hourly']['wind_gusts_10m'],[20,50,20,20])
+
+
+
+    def test_long_range_gfs_and_ifs_accept_exactly_24h(self):
+        for api_model in ('gfs_seamless', 'ecmwf_ifs025'):
+            with self.subTest(model=api_model):
+                current=make_record()
+                older=make_record(NOW-timedelta(hours=24),gust=37)
+                current['api_model']=older['api_model']=api_model
+                self.assertEqual(f.supplement_from_source(current,older,NOW,'previous_json'),24)
+                self.assertEqual(current['hourly']['wind_gusts_10m'],[37]*24)
+
+    def test_long_range_rejects_over_24h(self):
+        for api_model in ('gfs_seamless', 'ecmwf_ifs025'):
+            with self.subTest(model=api_model):
+                current=make_record()
+                older=make_record(NOW-timedelta(hours=24,seconds=1),gust=37)
+                current['api_model']=older['api_model']=api_model
+                self.assertEqual(f.supplement_from_source(current,older,NOW,'previous_json'),0)
+                self.assertTrue(all(v is None for v in current['hourly']['wind_gusts_10m']))
+
+    def test_long_range_expire_at_save_after_24h(self):
+        for api_model in ('gfs_seamless', 'ecmwf_ifs025'):
+            with self.subTest(model=api_model):
+                current=make_record()
+                older=make_record(NOW-timedelta(hours=24),gust=37)
+                current['api_model']=older['api_model']=api_model
+                self.assertEqual(f.supplement_from_source(current,older,NOW,'previous_json'),24)
+                self.assertEqual(f.expire_fallback_points(current,NOW+timedelta(seconds=1)),
+                                 ['wind_gusts_10m'])
+
+    def test_previous_record_24h_boundary(self):
+        for label in ('GFS', 'IFS'):
+            with self.subTest(label=label):
+                config=f.MODELS[label]
+                older=make_record(NOW-timedelta(hours=24),gust=37)
+                older['api_model']=config['model']
+                previous={'models':{label:older},'retrieved_at_utc':NOW.isoformat()}
+                self.assertIsNotNone(f.previous_record(previous,label,config,NOW))
+                older['model_run_utc']=(NOW-timedelta(hours=25)).isoformat()
+                self.assertIsNone(f.previous_record(previous,label,config,NOW))
+
+    def test_18h_regional_vs_24h_long_range(self):
+        for label,expected in [('ICON-D2',18),('ICON-EU',18),('AROME',18),
+                               ('GFS',24),('IFS',24)]:
+            with self.subTest(model=label):
+                self.assertEqual(f.fallback_age_limit(f.MODELS[label]['model']),expected)
+
+    def test_24h_requery_accepts_older_than_18h(self):
+        current=make_record()
+        previous_run=NOW-timedelta(hours=21)
+        def payload(url):
+            return {'latitude':f.LAT,'longitude':f.LON,
+                    'hourly_units':{'wind_gusts_10m':'km/h'},
+                    'hourly':{'time':current['hourly']['time'],
+                              'wind_gusts_10m':[44]*24}}
+        with patch.object(f,'candidate_runs',return_value=[previous_run]), \
+             patch.object(f,'fetch_json',side_effect=payload) as fetch:
+            f.complete_missing_parameters(current,f.MODELS['GFS'],NOW)
+        self.assertEqual(fetch.call_count,1)
+        self.assertEqual(current['hourly']['wind_gusts_10m'],[44]*24)
 
 
 if __name__=='__main__':

@@ -1,4 +1,4 @@
-"""Offline tests of the 18h provenance quality gate and report annotations."""
+"""Offline tests of model-specific 18h/24h quality gate and report annotations."""
 import importlib.util
 import unittest
 from datetime import datetime,timedelta,timezone
@@ -41,14 +41,15 @@ class Quality18HourTests(unittest.TestCase):
         self.assertEqual(q.check_parameter_fallback(r,'GFS',NOW,
             q.time_axis(r['hourly']['time'])),[])
 
-    def test_19h_source_is_rejected(self):
+    def test_19h_source_is_rejected_for_icon(self):
         r=model([22]*24)
+        r['api_model']='icon_d2'
         r['parameter_fallback']={'wind_gusts_10m':{
             'recovered_hours':1,'recovered_indices':[0],
-            'sources':[{'source_model':'gfs_seamless',
+            'sources':[{'source_model':'icon_d2',
                         'source_run_utc':(NOW-timedelta(hours=19)).isoformat(),
                         'recovered_hours':1}]}}
-        messages=q.check_parameter_fallback(r,'GFS',NOW,
+        messages=q.check_parameter_fallback(r,'ICON-D2',NOW,
             q.time_axis(r['hourly']['time']))
         self.assertTrue(any('older than 18h' in s for s in messages),messages)
 
@@ -63,10 +64,11 @@ class Quality18HourTests(unittest.TestCase):
             q.time_axis(r['hourly']['time']))
         self.assertTrue(any('inconsistent fallback indices' in s for s in messages),messages)
 
-    def test_model_over_18h_is_warned(self):
+    def test_model_over_18h_is_warned_for_icon(self):
         r=model([25]*24)
+        r['api_model']='icon_d2'
         r['model_run_utc']=(NOW-timedelta(hours=19)).isoformat()
-        _,warnings=q.check_models({'models':{'GFS':r}},NOW)
+        _,warnings=q.check_models({'models':{'ICON-D2':r}},NOW)
         self.assertTrue(any('model run older than 18h' in s for s in warnings),warnings)
 
     def test_report_quality_exposes_missing_parameter(self):
@@ -88,6 +90,47 @@ class Quality18HourTests(unittest.TestCase):
         r=model([20]*24)
         _,warnings=q.check_models({'models':{'IFS':r}},NOW)
         self.assertFalse(any('extended_forecast' in s for s in warnings),warnings)
+
+
+
+    def test_24h_source_is_allowed_for_gfs_and_ifs(self):
+        for label,api_model in (('GFS','gfs_seamless'),('IFS','ecmwf_ifs025')):
+            with self.subTest(label=label):
+                r=model([22]*24)
+                r['api_model']=api_model
+                r['parameter_fallback']={'wind_gusts_10m':{
+                    'recovered_hours':1,'recovered_indices':[0],
+                    'sources':[{'source_model':api_model,
+                                'source_run_utc':(NOW-timedelta(hours=24)).isoformat(),
+                                'recovered_hours':1}]}}
+                self.assertEqual(q.check_parameter_fallback(r,label,NOW,
+                                 q.time_axis(r['hourly']['time'])),[])
+
+    def test_over_24h_source_is_rejected_for_gfs_and_ifs(self):
+        for label,api_model in (('GFS','gfs_seamless'),('IFS','ecmwf_ifs025')):
+            with self.subTest(label=label):
+                r=model([22]*24)
+                r['api_model']=api_model
+                r['parameter_fallback']={'wind_gusts_10m':{
+                    'recovered_hours':1,'recovered_indices':[0],
+                    'sources':[{'source_model':api_model,
+                                'source_run_utc':(NOW-timedelta(hours=24,minutes=1)).isoformat(),
+                                'recovered_hours':1}]}}
+                warnings=q.check_parameter_fallback(r,label,NOW,
+                                 q.time_axis(r['hourly']['time']))
+                self.assertTrue(any('older than 24h' in s for s in warnings),warnings)
+
+    def test_main_run_age_warns_by_model(self):
+        for label,api_model,limit in [('GFS','gfs_seamless',24),
+                                       ('IFS','ecmwf_ifs025',24),
+                                       ('ICON-D2','icon_d2',18)]:
+            with self.subTest(label=label):
+                r=model([25]*24)
+                r['api_model']=api_model
+                r['model_run_utc']=(NOW-timedelta(hours=limit,minutes=1)).isoformat()
+                _,warnings=q.check_models({'models':{label:r}},NOW)
+                self.assertTrue(any(f'model run older than {limit}h' in s
+                                    for s in warnings),warnings)
 
 
 if __name__=='__main__':

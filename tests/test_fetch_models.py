@@ -99,11 +99,12 @@ class WeatherTests(unittest.TestCase):
         self.assertEqual(result["model_run_utc"], NOW.isoformat())
         self.assertEqual(result["extended_forecast"]["model_run_utc"], older["model_run_utc"])
 
-    def test_ifs_candidates_no_older_than_18_hours(self):
+    def test_ifs_candidates_no_older_than_24_hours(self):
         now = datetime(2026, 10, 24, 5, 32, tzinfo=UTC)
-        runs = f.candidate_runs(now, [0, 6, 12, 18], limit=4, max_age_hours=18)
-        self.assertEqual([r.hour for r in runs], [0, 18, 12])
-        self.assertTrue(all((now-r).total_seconds() <= 18*3600 for r in runs))
+        runs = f.candidate_runs(now, [0, 6, 12, 18], limit=4,
+                                max_age_hours=f.fallback_age_limit(f.MODELS["IFS"]["model"]))
+        self.assertEqual([r.hour for r in runs], [0, 18, 12, 6])
+        self.assertTrue(all((now-r).total_seconds() <= 24*3600 for r in runs))
 
     def test_http_400_reason_retained(self):
         from io import BytesIO
@@ -118,12 +119,23 @@ class WeatherTests(unittest.TestCase):
     def test_ifs_rejects_old_cached_extended(self):
         now = NOW
         latest = record(now, 147)
-        cached = record(now-timedelta(hours=24), 360)
+        cached = record(now-timedelta(hours=25), 360)
         with patch.object(f, "candidate_runs", return_value=[now]), \
              patch.object(f, "request_run", return_value=latest), \
              patch.object(f, "previous_record", return_value=cached):
             result = f.select_model("IFS", f.MODELS["IFS"], now, {})
         self.assertNotIn("extended_forecast", result)
+
+    def test_ifs_24_hour_cached_extended_is_eligible(self):
+        now = NOW
+        latest = record(now, 147)
+        cached = record(now-timedelta(hours=24), 360)
+        with patch.object(f, "candidate_runs", return_value=[now]), \
+             patch.object(f, "request_run", return_value=latest), \
+             patch.object(f, "previous_record", return_value=cached):
+            result = f.select_model("IFS", f.MODELS["IFS"], now, {})
+        self.assertEqual(result["extended_forecast"]["model_run_utc"],
+                         cached["model_run_utc"])
 
     def test_gfs_core_recovery_fills_missing_values(self):
         rec = record()
