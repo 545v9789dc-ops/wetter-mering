@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-11-16T16:04:50.640763+00:00",
+  "retrieved_at_utc": "2026-11-16T17:52:36.578673+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -118,43 +118,43 @@
             "temperature_2m_max": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 9.067,
-              "min": 8.4,
-              "max": 10.7,
-              "p10": 8.59,
-              "p25": 8.625,
-              "p50": 8.9,
+              "mean": 9.193,
+              "min": 8.5,
+              "max": 10.1,
+              "p10": 8.8,
+              "p25": 9.0,
+              "p50": 9.15,
               "p75": 9.375,
-              "p90": 10.0,
+              "p90": 9.63,
               "missing_members": 0
             },
             "precipitation_sum": {
               "unit": "mm",
               "available_members": 30,
-              "mean": 6.747,
-              "min": 1.8,
-              "max": 15.0,
-              "p10": 2.48,
-              "p25": 4.425,
-              "p50": 6.6,
-              "p75": 9.075,
-              "p90": 11.02,
+              "mean": 8.533,
+              "min": 4.1,
+              "max": 12.700000000000001,
+              "p10": 5.05,
+              "p25": 6.35,
+              "p50": 9.0,
+              "p75": 10.675,
+              "p90": 11.63,
               "missing_members": 0
             }
           },
           "precipitation_threshold_probabilities": {
             "0.1": 1.0,
             "1": 1.0,
-            "5": 0.567,
-            "10": 0.167,
+            "5": 0.9,
+            "10": 0.333,
             "20": 0.0
           },
           "precipitation_threshold_available_members": 30,
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 64.14,
-            "min": 59.0,
+            "mean": 64.077,
+            "min": 57.2,
             "max": 67.7,
             "p10": 60.46,
             "p25": 62.6,
@@ -243,62 +243,62 @@
             "temperature_2m_min": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 6.667,
-              "min": 6.1,
-              "max": 7.3,
-              "p10": 6.3,
-              "p25": 6.4,
+              "mean": 6.733,
+              "min": 6.0,
+              "max": 7.2,
+              "p10": 6.4,
+              "p25": 6.525,
               "p50": 6.7,
-              "p75": 6.8,
+              "p75": 6.9,
               "p90": 7.1,
               "missing_members": 0
             },
             "temperature_2m_max": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 11.21,
-              "min": 10.1,
-              "max": 12.7,
-              "p10": 10.39,
-              "p25": 10.8,
+              "mean": 11.143,
+              "min": 9.7,
+              "max": 13.1,
+              "p10": 10.09,
+              "p25": 10.65,
               "p50": 11.2,
               "p75": 11.6,
-              "p90": 12.03,
+              "p90": 11.91,
               "missing_members": 0
             },
             "precipitation_sum": {
               "unit": "mm",
               "available_members": 30,
-              "mean": 12.09,
-              "min": 3.0,
-              "max": 21.4,
-              "p10": 6.46,
-              "p25": 8.075,
-              "p50": 11.4,
-              "p75": 17.275,
-              "p90": 18.26,
+              "mean": 11.66,
+              "min": 5.3999999999999995,
+              "max": 24.2,
+              "p10": 7.48,
+              "p25": 8.425,
+              "p50": 11.0,
+              "p75": 13.8,
+              "p90": 16.18,
               "missing_members": 0
             }
           },
           "precipitation_threshold_probabilities": {
             "0.1": 1.0,
             "1": 1.0,
-            "5": 0.967,
-            "10": 0.633,
-            "20": 0.067
+            "5": 1.0,
+            "10": 0.6,
+            "20": 0.033
           },
           "precipitation_threshold_available_members": 30,
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 71.447,
-            "min": 56.2,
-            "max": 92.5,
-            "p10": 65.39,
-            "p25": 66.875,
-            "p50": 70.2,
-            "p75": 74.725,
-            "p90": 79.02
+            "mean": 70.333,
+            "min": 59.0,
+            "max": 85.0,
+            "p10": 63.49,
+            "p25": 67.075,
+            "p50": 70.75,
+            "p75": 73.0,
+            "p90": 76.36
           },
           "snow_depth_max": {
             "unit": "m",
@@ -317,7 +317,7 @@
           "date": "2026-11-18",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.933,
+            "precipitation_ge_1mm": 1.0,
             "snowfall_positive": 0.033
           },
           "available_members": {
@@ -381,62 +381,62 @@
             "temperature_2m_min": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 7.15,
-              "min": 5.0,
-              "max": 8.6,
-              "p10": 5.56,
-              "p25": 6.575,
-              "p50": 7.5,
-              "p75": 7.875,
-              "p90": 8.21,
+              "mean": 7.36,
+              "min": 6.0,
+              "max": 9.0,
+              "p10": 6.8,
+              "p25": 6.925,
+              "p50": 7.35,
+              "p75": 7.775,
+              "p90": 8.04,
               "missing_members": 0
             },
             "temperature_2m_max": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 10.607,
-              "min": 9.0,
-              "max": 12.1,
-              "p10": 9.6,
-              "p25": 9.925,
-              "p50": 10.7,
-              "p75": 11.0,
-              "p90": 11.51,
+              "mean": 10.213,
+              "min": 8.2,
+              "max": 12.0,
+              "p10": 8.85,
+              "p25": 9.675,
+              "p50": 10.4,
+              "p75": 10.8,
+              "p90": 11.12,
               "missing_members": 0
             },
             "precipitation_sum": {
               "unit": "mm",
               "available_members": 30,
-              "mean": 4.407,
-              "min": 0.7000000000000001,
-              "max": 11.0,
-              "p10": 1.48,
-              "p25": 2.25,
-              "p50": 4.3,
-              "p75": 5.5,
-              "p90": 7.51,
+              "mean": 5.96,
+              "min": 1.8,
+              "max": 13.5,
+              "p10": 2.95,
+              "p25": 4.025,
+              "p50": 5.35,
+              "p75": 7.275,
+              "p90": 9.75,
               "missing_members": 0
             }
           },
           "precipitation_threshold_probabilities": {
             "0.1": 1.0,
-            "1": 0.933,
-            "5": 0.333,
-            "10": 0.033,
+            "1": 1.0,
+            "5": 0.6,
+            "10": 0.1,
             "20": 0.0
           },
           "precipitation_threshold_available_members": 30,
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 76.33,
-            "min": 60.8,
-            "max": 89.3,
-            "p10": 65.12,
-            "p25": 72.325,
-            "p50": 77.75,
-            "p75": 79.9,
-            "p90": 82.91
+            "mean": 76.433,
+            "min": 68.4,
+            "max": 88.6,
+            "p10": 71.26,
+            "p25": 72.0,
+            "p50": 74.35,
+            "p75": 79.4,
+            "p90": 86.08
           },
           "snow_depth_max": {
             "unit": "m",
@@ -455,697 +455,7 @@
           "date": "2026-11-19",
           "probabilities": {
             "frost_any_hour": 0.0,
-            "precipitation_ge_1mm": 0.7,
-            "snowfall_positive": 0.0
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "daily_distributions": {
-            "temperature_2m_min": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 4.907,
-              "min": 3.6,
-              "max": 7.0,
-              "p10": 3.9,
-              "p25": 4.225,
-              "p50": 4.75,
-              "p75": 5.625,
-              "p90": 6.12,
-              "missing_members": 0
-            },
-            "temperature_2m_max": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 9.217,
-              "min": 7.1,
-              "max": 12.1,
-              "p10": 7.79,
-              "p25": 8.7,
-              "p50": 9.05,
-              "p75": 9.8,
-              "p90": 10.36,
-              "missing_members": 0
-            },
-            "precipitation_sum": {
-              "unit": "mm",
-              "available_members": 30,
-              "mean": 2.29,
-              "min": 0.30000000000000004,
-              "max": 8.1,
-              "p10": 0.59,
-              "p25": 0.9,
-              "p50": 1.55,
-              "p75": 2.925,
-              "p90": 5.25,
-              "missing_members": 0
-            }
-          },
-          "precipitation_threshold_probabilities": {
-            "0.1": 1.0,
-            "1": 0.7,
-            "5": 0.133,
-            "10": 0.0,
-            "20": 0.0
-          },
-          "precipitation_threshold_available_members": 30,
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 62.13,
-            "min": 52.2,
-            "max": 90.4,
-            "p10": 55.66,
-            "p25": 57.2,
-            "p50": 59.4,
-            "p75": 62.825,
-            "p90": 74.23
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p25": 0.0,
-            "p50": 0.0,
-            "p75": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-20",
-          "probabilities": {
-            "frost_any_hour": 0.033,
             "precipitation_ge_1mm": 0.933,
-            "snowfall_positive": 0.067
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "daily_distributions": {
-            "temperature_2m_min": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 3.977,
-              "min": -0.1,
-              "max": 7.4,
-              "p10": 0.99,
-              "p25": 1.85,
-              "p50": 4.35,
-              "p75": 6.275,
-              "p90": 6.73,
-              "missing_members": 0
-            },
-            "temperature_2m_max": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 8.727,
-              "min": 6.1,
-              "max": 10.9,
-              "p10": 7.09,
-              "p25": 7.75,
-              "p50": 8.7,
-              "p75": 9.8,
-              "p90": 10.6,
-              "missing_members": 0
-            },
-            "precipitation_sum": {
-              "unit": "mm",
-              "available_members": 30,
-              "mean": 5.797,
-              "min": 0.6,
-              "max": 20.8,
-              "p10": 1.18,
-              "p25": 2.4,
-              "p50": 3.85,
-              "p75": 7.175,
-              "p90": 13.54,
-              "missing_members": 0
-            }
-          },
-          "precipitation_threshold_probabilities": {
-            "0.1": 1.0,
-            "1": 0.933,
-            "5": 0.367,
-            "10": 0.167,
-            "20": 0.033
-          },
-          "precipitation_threshold_available_members": 30,
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 68.147,
-            "min": 56.5,
-            "max": 92.9,
-            "p10": 58.16,
-            "p25": 59.975,
-            "p50": 69.3,
-            "p75": 73.325,
-            "p90": 80.37
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p25": 0.0,
-            "p50": 0.0,
-            "p75": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-21",
-          "probabilities": {
-            "frost_any_hour": 0.4,
-            "precipitation_ge_1mm": 0.633,
-            "snowfall_positive": 0.467
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "daily_distributions": {
-            "temperature_2m_min": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 0.817,
-              "min": -1.8,
-              "max": 5.6,
-              "p10": -1.2,
-              "p25": -0.75,
-              "p50": 0.1,
-              "p75": 1.275,
-              "p90": 4.82,
-              "missing_members": 0
-            },
-            "temperature_2m_max": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 5.86,
-              "min": 3.3,
-              "max": 9.7,
-              "p10": 3.69,
-              "p25": 4.25,
-              "p50": 5.85,
-              "p75": 6.875,
-              "p90": 7.99,
-              "missing_members": 0
-            },
-            "precipitation_sum": {
-              "unit": "mm",
-              "available_members": 30,
-              "mean": 4.513,
-              "min": 0.0,
-              "max": 21.900000000000002,
-              "p10": 0.0,
-              "p25": 0.6,
-              "p50": 2.15,
-              "p75": 3.85,
-              "p90": 13.72,
-              "missing_members": 0
-            }
-          },
-          "precipitation_threshold_probabilities": {
-            "0.1": 0.833,
-            "1": 0.633,
-            "5": 0.233,
-            "10": 0.2,
-            "20": 0.033
-          },
-          "precipitation_threshold_available_members": 30,
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 47.01,
-            "min": 25.2,
-            "max": 73.1,
-            "p10": 37.8,
-            "p25": 40.0,
-            "p50": 45.7,
-            "p75": 53.825,
-            "p90": 58.88
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p25": 0.0,
-            "p50": 0.0,
-            "p75": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-22",
-          "probabilities": {
-            "frost_any_hour": 0.767,
-            "precipitation_ge_1mm": 0.267,
-            "snowfall_positive": 0.067
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "daily_distributions": {
-            "temperature_2m_min": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": -0.2,
-              "min": -2.3,
-              "max": 6.4,
-              "p10": -1.83,
-              "p25": -1.5,
-              "p50": -1.0,
-              "p75": -0.15,
-              "p90": 2.78,
-              "missing_members": 0
-            },
-            "temperature_2m_max": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 5.94,
-              "min": 1.9,
-              "max": 10.6,
-              "p10": 4.29,
-              "p25": 4.825,
-              "p50": 5.6,
-              "p75": 6.625,
-              "p90": 7.96,
-              "missing_members": 0
-            },
-            "precipitation_sum": {
-              "unit": "mm",
-              "available_members": 30,
-              "mean": 0.867,
-              "min": 0.0,
-              "max": 5.9,
-              "p10": 0.0,
-              "p25": 0.0,
-              "p50": 0.05,
-              "p75": 1.1,
-              "p90": 3.3,
-              "missing_members": 0
-            }
-          },
-          "precipitation_threshold_probabilities": {
-            "0.1": 0.5,
-            "1": 0.267,
-            "5": 0.033,
-            "10": 0.0,
-            "20": 0.0
-          },
-          "precipitation_threshold_available_members": 30,
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 34.933,
-            "min": 9.0,
-            "max": 69.8,
-            "p10": 16.06,
-            "p25": 23.675,
-            "p50": 33.85,
-            "p75": 44.15,
-            "p90": 55.13
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p25": 0.0,
-            "p50": 0.0,
-            "p75": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-23",
-          "probabilities": {
-            "frost_any_hour": 0.2,
-            "precipitation_ge_1mm": 0.567,
-            "snowfall_positive": 0.167
-          },
-          "available_members": {
-            "frost_any_hour": 30,
-            "precipitation_ge_1mm": 30,
-            "snowfall_positive": 30
-          },
-          "data_quality": {
-            "expected_hours": 24,
-            "calendar_day_hours": 24,
-            "full_calendar_day": true,
-            "fields": {
-              "temperature_2m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "precipitation": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snowfall": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "wind_gusts_10m": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              },
-              "snow_depth": {
-                "complete_members": 30,
-                "partial_members": 0,
-                "empty_members": 0,
-                "missing_field_members": 0,
-                "minimum_valid_hours": 24,
-                "maximum_valid_hours": 24,
-                "valid_value_fraction": 1.0
-              }
-            }
-          },
-          "daily_distributions": {
-            "temperature_2m_min": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 1.853,
-              "min": -3.9,
-              "max": 6.3,
-              "p10": -0.8,
-              "p25": 0.4,
-              "p50": 2.35,
-              "p75": 3.575,
-              "p90": 4.3,
-              "missing_members": 0
-            },
-            "temperature_2m_max": {
-              "unit": "°C",
-              "available_members": 30,
-              "mean": 7.623,
-              "min": 1.3,
-              "max": 11.7,
-              "p10": 5.75,
-              "p25": 6.55,
-              "p50": 8.15,
-              "p75": 8.775,
-              "p90": 9.71,
-              "missing_members": 0
-            },
-            "precipitation_sum": {
-              "unit": "mm",
-              "available_members": 30,
-              "mean": 2.74,
-              "min": 0.0,
-              "max": 12.3,
-              "p10": 0.0,
-              "p25": 0.075,
-              "p50": 1.95,
-              "p75": 5.075,
-              "p90": 6.21,
-              "missing_members": 0
-            }
-          },
-          "precipitation_threshold_probabilities": {
-            "0.1": 0.733,
-            "1": 0.567,
-            "5": 0.3,
-            "10": 0.033,
-            "20": 0.0
-          },
-          "precipitation_threshold_available_members": 30,
-          "wind_gusts_10m_max": {
-            "unit": "km/h",
-            "available_members": 30,
-            "mean": 46.927,
-            "min": 23.8,
-            "max": 63.0,
-            "p10": 34.09,
-            "p25": 40.3,
-            "p50": 48.8,
-            "p75": 54.3,
-            "p90": 59.04
-          },
-          "snow_depth_max": {
-            "unit": "m",
-            "available_members": 30,
-            "mean": 0.0,
-            "min": 0.0,
-            "max": 0.0,
-            "p10": 0.0,
-            "p25": 0.0,
-            "p50": 0.0,
-            "p75": 0.0,
-            "p90": 0.0
-          }
-        },
-        {
-          "date": "2026-11-24",
-          "probabilities": {
-            "frost_any_hour": 0.167,
-            "precipitation_ge_1mm": 0.2,
             "snowfall_positive": 0.033
           },
           "available_members": {
@@ -1209,47 +519,47 @@
             "temperature_2m_min": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 1.81,
-              "min": -5.2,
-              "max": 5.5,
-              "p10": -0.5,
-              "p25": 0.45,
-              "p50": 1.8,
-              "p75": 3.275,
-              "p90": 4.71,
+              "mean": 5.19,
+              "min": 3.3,
+              "max": 6.9,
+              "p10": 3.8,
+              "p25": 4.45,
+              "p50": 5.05,
+              "p75": 6.2,
+              "p90": 6.52,
               "missing_members": 0
             },
             "temperature_2m_max": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 8.573,
-              "min": 0.6,
-              "max": 11.9,
-              "p10": 5.88,
-              "p25": 7.25,
-              "p50": 8.55,
-              "p75": 10.1,
-              "p90": 11.45,
+              "mean": 8.92,
+              "min": 7.6,
+              "max": 11.2,
+              "p10": 8.09,
+              "p25": 8.3,
+              "p50": 8.8,
+              "p75": 9.3,
+              "p90": 9.92,
               "missing_members": 0
             },
             "precipitation_sum": {
               "unit": "mm",
               "available_members": 30,
-              "mean": 0.8,
-              "min": 0.0,
-              "max": 5.3,
-              "p10": 0.0,
-              "p25": 0.0,
-              "p50": 0.0,
-              "p75": 0.6,
-              "p90": 3.4,
+              "mean": 3.237,
+              "min": 0.5,
+              "max": 8.1,
+              "p10": 1.18,
+              "p25": 1.625,
+              "p50": 2.7,
+              "p75": 4.2,
+              "p90": 6.17,
               "missing_members": 0
             }
           },
           "precipitation_threshold_probabilities": {
-            "0.1": 0.367,
-            "1": 0.2,
-            "5": 0.033,
+            "0.1": 1.0,
+            "1": 0.933,
+            "5": 0.2,
             "10": 0.0,
             "20": 0.0
           },
@@ -1257,21 +567,21 @@
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 30.863,
-            "min": 10.1,
-            "max": 60.5,
-            "p10": 14.85,
-            "p25": 17.7,
-            "p50": 24.85,
-            "p75": 46.325,
-            "p90": 52.97
+            "mean": 68.133,
+            "min": 56.5,
+            "max": 95.8,
+            "p10": 58.82,
+            "p25": 62.275,
+            "p50": 66.2,
+            "p75": 70.325,
+            "p90": 85.37
           },
           "snow_depth_max": {
             "unit": "m",
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.01,
+            "max": 0.0,
             "p10": 0.0,
             "p25": 0.0,
             "p50": 0.0,
@@ -1280,10 +590,286 @@
           }
         },
         {
-          "date": "2026-11-25",
+          "date": "2026-11-20",
           "probabilities": {
-            "frost_any_hour": 0.067,
-            "precipitation_ge_1mm": 0.5,
+            "frost_any_hour": 0.0,
+            "precipitation_ge_1mm": 0.967,
+            "snowfall_positive": 0.233
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "daily_distributions": {
+            "temperature_2m_min": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 4.743,
+              "min": 0.9,
+              "max": 6.8,
+              "p10": 2.35,
+              "p25": 2.975,
+              "p50": 5.2,
+              "p75": 6.35,
+              "p90": 6.61,
+              "missing_members": 0
+            },
+            "temperature_2m_max": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 8.593,
+              "min": 7.3,
+              "max": 10.4,
+              "p10": 7.49,
+              "p25": 7.925,
+              "p50": 8.5,
+              "p75": 9.275,
+              "p90": 9.9,
+              "missing_members": 0
+            },
+            "precipitation_sum": {
+              "unit": "mm",
+              "available_members": 30,
+              "mean": 7.52,
+              "min": 0.1,
+              "max": 20.3,
+              "p10": 2.22,
+              "p25": 4.4,
+              "p50": 6.8,
+              "p75": 10.65,
+              "p90": 12.96,
+              "missing_members": 0
+            }
+          },
+          "precipitation_threshold_probabilities": {
+            "0.1": 1.0,
+            "1": 0.967,
+            "5": 0.733,
+            "10": 0.267,
+            "20": 0.033
+          },
+          "precipitation_threshold_available_members": 30,
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 30,
+            "mean": 70.747,
+            "min": 56.5,
+            "max": 85.7,
+            "p10": 62.71,
+            "p25": 66.775,
+            "p50": 70.05,
+            "p75": 76.025,
+            "p90": 79.94
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-21",
+          "probabilities": {
+            "frost_any_hour": 0.4,
+            "precipitation_ge_1mm": 0.667,
+            "snowfall_positive": 0.133
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "daily_distributions": {
+            "temperature_2m_min": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 1.767,
+              "min": -1.3,
+              "max": 6.0,
+              "p10": -0.8,
+              "p25": -0.3,
+              "p50": 1.5,
+              "p75": 4.05,
+              "p90": 5.01,
+              "missing_members": 0
+            },
+            "temperature_2m_max": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 6.427,
+              "min": 4.0,
+              "max": 10.0,
+              "p10": 4.28,
+              "p25": 5.35,
+              "p50": 6.3,
+              "p75": 7.5,
+              "p90": 8.32,
+              "missing_members": 0
+            },
+            "precipitation_sum": {
+              "unit": "mm",
+              "available_members": 30,
+              "mean": 5.847,
+              "min": 0.0,
+              "max": 39.300000000000004,
+              "p10": 0.18,
+              "p25": 0.525,
+              "p50": 3.2,
+              "p75": 7.05,
+              "p90": 14.71,
+              "missing_members": 0
+            }
+          },
+          "precipitation_threshold_probabilities": {
+            "0.1": 0.9,
+            "1": 0.667,
+            "5": 0.367,
+            "10": 0.167,
+            "20": 0.1
+          },
+          "precipitation_threshold_available_members": 30,
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 30,
+            "mean": 48.277,
+            "min": 18.4,
+            "max": 74.5,
+            "p10": 34.38,
+            "p25": 40.775,
+            "p50": 49.35,
+            "p75": 55.225,
+            "p90": 63.92
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-22",
+          "probabilities": {
+            "frost_any_hour": 0.367,
+            "precipitation_ge_1mm": 0.4,
             "snowfall_positive": 0.0
           },
           "available_members": {
@@ -1347,62 +933,476 @@
             "temperature_2m_min": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 2.657,
-              "min": -4.4,
-              "max": 5.8,
-              "p10": 0.67,
-              "p25": 1.625,
-              "p50": 3.2,
-              "p75": 3.875,
-              "p90": 5.02,
+              "mean": 1.323,
+              "min": -2.5,
+              "max": 4.7,
+              "p10": -1.91,
+              "p25": -0.5,
+              "p50": 1.65,
+              "p75": 3.275,
+              "p90": 4.32,
               "missing_members": 0
             },
             "temperature_2m_max": {
               "unit": "°C",
               "available_members": 30,
-              "mean": 7.763,
-              "min": 0.9,
-              "max": 11.5,
-              "p10": 4.91,
-              "p25": 6.725,
-              "p50": 8.3,
-              "p75": 8.9,
-              "p90": 10.42,
+              "mean": 7.287,
+              "min": 3.7,
+              "max": 11.1,
+              "p10": 4.36,
+              "p25": 5.05,
+              "p50": 7.85,
+              "p75": 8.7,
+              "p90": 9.92,
               "missing_members": 0
             },
             "precipitation_sum": {
               "unit": "mm",
               "available_members": 30,
-              "mean": 2.94,
+              "mean": 1.207,
               "min": 0.0,
-              "max": 12.6,
+              "max": 7.4,
               "p10": 0.0,
               "p25": 0.0,
-              "p50": 0.95,
-              "p75": 4.925,
-              "p90": 9.48,
+              "p50": 0.45,
+              "p75": 1.65,
+              "p90": 3.08,
               "missing_members": 0
             }
           },
           "precipitation_threshold_probabilities": {
-            "0.1": 0.6,
-            "1": 0.5,
-            "5": 0.267,
-            "10": 0.1,
+            "0.1": 0.7,
+            "1": 0.4,
+            "5": 0.067,
+            "10": 0.0,
             "20": 0.0
           },
           "precipitation_threshold_available_members": 30,
           "wind_gusts_10m_max": {
             "unit": "km/h",
             "available_members": 30,
-            "mean": 33.583,
-            "min": 12.6,
-            "max": 78.1,
-            "p10": 17.53,
-            "p25": 19.9,
-            "p50": 32.95,
-            "p75": 45.0,
-            "p90": 51.17
+            "mean": 40.677,
+            "min": 9.4,
+            "max": 60.1,
+            "p10": 20.18,
+            "p25": 33.575,
+            "p50": 42.3,
+            "p75": 51.5,
+            "p90": 57.28
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-23",
+          "probabilities": {
+            "frost_any_hour": 0.1,
+            "precipitation_ge_1mm": 0.567,
+            "snowfall_positive": 0.0
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "daily_distributions": {
+            "temperature_2m_min": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 2.747,
+              "min": -1.5,
+              "max": 6.4,
+              "p10": 0.13,
+              "p25": 1.625,
+              "p50": 2.8,
+              "p75": 4.075,
+              "p90": 4.93,
+              "missing_members": 0
+            },
+            "temperature_2m_max": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 8.297,
+              "min": 4.8,
+              "max": 11.6,
+              "p10": 6.36,
+              "p25": 6.975,
+              "p50": 8.2,
+              "p75": 9.6,
+              "p90": 10.46,
+              "missing_members": 0
+            },
+            "precipitation_sum": {
+              "unit": "mm",
+              "available_members": 30,
+              "mean": 2.18,
+              "min": 0.0,
+              "max": 13.299999999999999,
+              "p10": 0.0,
+              "p25": 0.05,
+              "p50": 1.35,
+              "p75": 3.15,
+              "p90": 4.71,
+              "missing_members": 0
+            }
+          },
+          "precipitation_threshold_probabilities": {
+            "0.1": 0.733,
+            "1": 0.567,
+            "5": 0.067,
+            "10": 0.033,
+            "20": 0.0
+          },
+          "precipitation_threshold_available_members": 30,
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 30,
+            "mean": 44.677,
+            "min": 9.4,
+            "max": 59.8,
+            "p10": 26.6,
+            "p25": 41.675,
+            "p50": 47.7,
+            "p75": 53.525,
+            "p90": 57.24
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-24",
+          "probabilities": {
+            "frost_any_hour": 0.033,
+            "precipitation_ge_1mm": 0.133,
+            "snowfall_positive": 0.033
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "daily_distributions": {
+            "temperature_2m_min": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 1.797,
+              "min": -0.3,
+              "max": 3.8,
+              "p10": 0.3,
+              "p25": 1.025,
+              "p50": 1.75,
+              "p75": 2.4,
+              "p90": 3.51,
+              "missing_members": 0
+            },
+            "temperature_2m_max": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 8.497,
+              "min": 5.8,
+              "max": 11.4,
+              "p10": 6.8,
+              "p25": 7.35,
+              "p50": 8.4,
+              "p75": 9.475,
+              "p90": 10.07,
+              "missing_members": 0
+            },
+            "precipitation_sum": {
+              "unit": "mm",
+              "available_members": 30,
+              "mean": 0.613,
+              "min": 0.0,
+              "max": 5.4,
+              "p10": 0.0,
+              "p25": 0.0,
+              "p50": 0.0,
+              "p75": 0.0,
+              "p90": 3.78,
+              "missing_members": 0
+            }
+          },
+          "precipitation_threshold_probabilities": {
+            "0.1": 0.167,
+            "1": 0.133,
+            "5": 0.033,
+            "10": 0.0,
+            "20": 0.0
+          },
+          "precipitation_threshold_available_members": 30,
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 30,
+            "mean": 28.543,
+            "min": 10.8,
+            "max": 52.6,
+            "p10": 17.1,
+            "p25": 20.075,
+            "p50": 26.6,
+            "p75": 38.35,
+            "p90": 41.87
+          },
+          "snow_depth_max": {
+            "unit": "m",
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0
+          }
+        },
+        {
+          "date": "2026-11-25",
+          "probabilities": {
+            "frost_any_hour": 0.033,
+            "precipitation_ge_1mm": 0.633,
+            "snowfall_positive": 0.1
+          },
+          "available_members": {
+            "frost_any_hour": 30,
+            "precipitation_ge_1mm": 30,
+            "snowfall_positive": 30
+          },
+          "data_quality": {
+            "expected_hours": 24,
+            "calendar_day_hours": 24,
+            "full_calendar_day": true,
+            "fields": {
+              "temperature_2m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "precipitation": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snowfall": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "wind_gusts_10m": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              },
+              "snow_depth": {
+                "complete_members": 30,
+                "partial_members": 0,
+                "empty_members": 0,
+                "missing_field_members": 0,
+                "minimum_valid_hours": 24,
+                "maximum_valid_hours": 24,
+                "valid_value_fraction": 1.0
+              }
+            }
+          },
+          "daily_distributions": {
+            "temperature_2m_min": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 2.45,
+              "min": -0.4,
+              "max": 5.1,
+              "p10": 0.67,
+              "p25": 1.3,
+              "p50": 2.1,
+              "p75": 3.8,
+              "p90": 4.56,
+              "missing_members": 0
+            },
+            "temperature_2m_max": {
+              "unit": "°C",
+              "available_members": 30,
+              "mean": 7.177,
+              "min": 3.6,
+              "max": 11.4,
+              "p10": 4.8,
+              "p25": 5.8,
+              "p50": 7.25,
+              "p75": 8.15,
+              "p90": 9.81,
+              "missing_members": 0
+            },
+            "precipitation_sum": {
+              "unit": "mm",
+              "available_members": 30,
+              "mean": 3.963,
+              "min": 0.0,
+              "max": 21.9,
+              "p10": 0.0,
+              "p25": 0.025,
+              "p50": 2.5,
+              "p75": 5.175,
+              "p90": 7.14,
+              "missing_members": 0
+            }
+          },
+          "precipitation_threshold_probabilities": {
+            "0.1": 0.733,
+            "1": 0.633,
+            "5": 0.267,
+            "10": 0.1,
+            "20": 0.067
+          },
+          "precipitation_threshold_available_members": 30,
+          "wind_gusts_10m_max": {
+            "unit": "km/h",
+            "available_members": 30,
+            "mean": 33.837,
+            "min": 10.4,
+            "max": 62.6,
+            "p10": 16.33,
+            "p25": 24.5,
+            "p50": 35.45,
+            "p75": 41.125,
+            "p90": 52.94
           },
           "snow_depth_max": {
             "unit": "m",
@@ -1439,45 +1439,45 @@
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 10,
-                "maximum_valid_hours": 10,
-                "valid_value_fraction": 0.417
+                "minimum_valid_hours": 16,
+                "maximum_valid_hours": 16,
+                "valid_value_fraction": 0.667
               },
               "precipitation": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 8,
-                "maximum_valid_hours": 8,
-                "valid_value_fraction": 0.333
+                "minimum_valid_hours": 14,
+                "maximum_valid_hours": 14,
+                "valid_value_fraction": 0.583
               },
               "snowfall": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 8,
-                "maximum_valid_hours": 8,
-                "valid_value_fraction": 0.333
+                "minimum_valid_hours": 14,
+                "maximum_valid_hours": 14,
+                "valid_value_fraction": 0.583
               },
               "wind_gusts_10m": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 10,
-                "maximum_valid_hours": 10,
-                "valid_value_fraction": 0.417
+                "minimum_valid_hours": 16,
+                "maximum_valid_hours": 16,
+                "valid_value_fraction": 0.667
               },
               "snow_depth": {
                 "complete_members": 0,
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 7,
-                "maximum_valid_hours": 7,
-                "valid_value_fraction": 0.292
+                "minimum_valid_hours": 13,
+                "maximum_valid_hours": 13,
+                "valid_value_fraction": 0.542
               }
             }
           },
@@ -5299,7 +5299,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.01,
+            "max": 0.0,
             "p10": 0.0,
             "p25": 0.0,
             "p50": 0.0,
@@ -5314,7 +5314,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.01,
+            "max": 0.0,
             "p10": 0.0,
             "p25": 0.0,
             "p50": 0.0,
@@ -5329,7 +5329,7 @@
             "available_members": 30,
             "mean": 0.0,
             "min": 0.0,
-            "max": 0.01,
+            "max": 0.0,
             "p10": 0.0,
             "p25": 0.0,
             "p50": 0.0,
@@ -5941,92 +5941,92 @@
           {
             "time": "2026-11-26T06:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p25": null,
-            "p50": null,
-            "p75": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-26T07:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p25": null,
-            "p50": null,
-            "p75": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-26T08:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p25": null,
-            "p50": null,
-            "p75": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-26T09:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p25": null,
-            "p50": null,
-            "p75": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-26T10:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p25": null,
-            "p50": null,
-            "p75": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-26T11:00:00+00:00",
             "unit": "m",
-            "available_members": 0,
-            "mean": null,
-            "min": null,
-            "max": null,
-            "p10": null,
-            "p25": null,
-            "p50": null,
-            "p75": null,
-            "p90": null,
-            "missing_members": 30,
-            "member_coverage": 0.0
+            "available_members": 30,
+            "mean": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p10": 0.0,
+            "p25": 0.0,
+            "p50": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "missing_members": 0,
+            "member_coverage": 1.0
           },
           {
             "time": "2026-11-26T12:00:00+00:00",
@@ -7654,27 +7654,27 @@
         "fields": {
           "wind_gusts_10m": {
             "unit": "km/h",
-            "valid_values": 7470,
+            "valid_values": 7650,
             "status": "partial",
             "complete_members": 0,
             "partial_members": 30,
             "empty_members": 0,
             "missing_field_members": 0,
-            "minimum_valid_hours": 249,
-            "maximum_valid_hours": 249,
-            "valid_value_fraction": 0.692
+            "minimum_valid_hours": 255,
+            "maximum_valid_hours": 255,
+            "valid_value_fraction": 0.708
           },
           "snow_depth": {
             "unit": "m",
-            "valid_values": 7380,
+            "valid_values": 7560,
             "status": "partial",
             "complete_members": 0,
             "partial_members": 30,
             "empty_members": 0,
             "missing_field_members": 0,
-            "minimum_valid_hours": 246,
-            "maximum_valid_hours": 246,
-            "valid_value_fraction": 0.683
+            "minimum_valid_hours": 252,
+            "maximum_valid_hours": 252,
+            "valid_value_fraction": 0.7
           }
         },
         "invalid_arrays": [],
@@ -7691,13 +7691,14 @@
       },
       "quality_note": "Perturbed members only; unsuffixed/control member 0 excluded, preserving existing event fractions. Daily statistics require all returned hours per member; full_calendar_day flags truncated edge days. Maxima are computed per member before ensemble statistics. Snow depth is instantaneous, never summed. Hourly snow depth uses all valid members at that timestamp. Units are km/h for gusts and m for depth. Hourly values can be interpolated by Open-Meteo; temporal coverage does not imply native hourly model output.",
       "run_metadata": {
-        "latest_published_run_utc": "2026-11-16T06:00:00Z",
-        "last_run_availability_utc": "2026-11-16T11:40:19Z",
-        "metadata_checked_at_utc": "2026-11-16T16:04:52.625159Z",
+        "latest_published_run_utc": null,
+        "last_run_availability_utc": null,
+        "metadata_checked_at_utc": "2026-11-16T17:52:39.338729Z",
         "metadata_source_url": "https://api.open-meteo.com/data/ncep_gefs025/static/meta.json",
         "forecast_run_verification": "unverified",
         "note": "Latest published model run only; NOT verified as the forecast data run.",
-        "metadata_status": "ok"
+        "metadata_status": "unavailable",
+        "metadata_error": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
       }
     },
     "IFS-ENS": {
@@ -15409,13 +15410,14 @@
       },
       "quality_note": "Perturbed members only; unsuffixed/control member 0 excluded, preserving existing event fractions. Daily statistics require all returned hours per member; full_calendar_day flags truncated edge days. Maxima are computed per member before ensemble statistics. Snow depth is instantaneous, never summed. Hourly snow depth uses all valid members at that timestamp. Units are km/h for gusts and m for depth. Hourly values can be interpolated by Open-Meteo; temporal coverage does not imply native hourly model output.",
       "run_metadata": {
-        "latest_published_run_utc": "2026-11-16T06:00:00Z",
-        "last_run_availability_utc": "2026-11-16T15:27:49Z",
-        "metadata_checked_at_utc": "2026-11-16T16:04:54.987853Z",
+        "latest_published_run_utc": null,
+        "last_run_availability_utc": null,
+        "metadata_checked_at_utc": "2026-11-16T17:53:16.749828Z",
         "metadata_source_url": "https://api.open-meteo.com/data/ecmwf_ifs025_ensemble/static/meta.json",
         "forecast_run_verification": "unverified",
         "note": "Latest published model run only; NOT verified as the forecast data run.",
-        "metadata_status": "ok"
+        "metadata_status": "unavailable",
+        "metadata_error": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
       }
     }
   },
