@@ -1,9 +1,9 @@
 {
-  "source_retrieved_at_utc": "2026-11-19T21:16:54.749940+00:00",
+  "source_retrieved_at_utc": "2026-11-20T01:59:54.607292+00:00",
   "note": "Indicative model signals, not official weather warnings",
   "events": [
     {
-      "date": "2026-11-26",
+      "date": "2026-11-27",
       "kind": "snowfall",
       "description": "At least 2 cm forecast snowfall",
       "supporting_models": [
