@@ -1,5 +1,48 @@
 {
-  "source_retrieved_at_utc": "2026-11-21T09:42:57.918992+00:00",
+  "source_retrieved_at_utc": "2026-11-21T14:40:07.018497+00:00",
   "note": "Indicative model signals, not official weather warnings",
-  "events": []
+  "events": [
+    {
+      "date": "2026-11-26",
+      "kind": "snowfall",
+      "description": "At least 2 cm forecast snowfall",
+      "supporting_models": [
+        "GFS",
+        "IFS"
+      ],
+      "available_models": [
+        "GFS",
+        "IFS"
+      ],
+      "confidence_note": "Model agreement is not a calibrated probability"
+    },
+    {
+      "date": "2026-11-26",
+      "kind": "ice_day",
+      "description": "Daily maximum below 0 C",
+      "supporting_models": [
+        "GFS",
+        "IFS"
+      ],
+      "available_models": [
+        "GFS",
+        "IFS"
+      ],
+      "confidence_note": "Model agreement is not a calibrated probability"
+    },
+    {
+      "date": "2026-11-28",
+      "kind": "ice_day",
+      "description": "Daily maximum below 0 C",
+      "supporting_models": [
+        "GFS",
+        "IFS"
+      ],
+      "available_models": [
+        "GFS",
+        "IFS"
+      ],
+      "confidence_note": "Model agreement is not a calibrated probability"
+    }
+  ]
 }
