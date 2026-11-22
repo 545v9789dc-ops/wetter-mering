@@ -1,5 +1,21 @@
 {
-  "source_retrieved_at_utc": "2026-11-22T01:59:10.298528+00:00",
+  "source_retrieved_at_utc": "2026-11-22T04:51:19.877109+00:00",
   "note": "Indicative model signals, not official weather warnings",
-  "events": []
+  "events": [
+    {
+      "date": "2026-11-26",
+      "kind": "ice_day",
+      "description": "Daily maximum below 0 C",
+      "supporting_models": [
+        "ICON-EU",
+        "IFS"
+      ],
+      "available_models": [
+        "GFS",
+        "ICON-EU",
+        "IFS"
+      ],
+      "confidence_note": "Model agreement is not a calibrated probability"
+    }
+  ]
 }
