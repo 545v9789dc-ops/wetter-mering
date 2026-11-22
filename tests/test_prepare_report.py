@@ -17,6 +17,12 @@ class PrepareTests(unittest.TestCase):
         self.assertIsNone(row['sunshine_hours']['sum'])
         self.assertEqual(row['precipitation_mm']['valid_hours'], 1)
 
+    def test_ukmo_report_is_included_and_missing_is_visible(self):
+        doc = p.prepare({'models': {}}, {'stations': {}}, {'models': {}}, '2026-11-14T10:00:00Z')
+        self.assertEqual(len(doc['models']), 6)
+        self.assertIn('UKMO', doc['models'])
+        self.assertIn('Main models available: 0/6', doc['report_quality']['gaps'])
+
     def test_ensemble_distributions_reused(self):
         ens = {'models': {'IFS-ENS': {'member_count': 50, 'daily': [
             {'date': '2026-11-14', 'daily_distributions': {'temperature_2m_max': {'p90': 12}}}]}}}

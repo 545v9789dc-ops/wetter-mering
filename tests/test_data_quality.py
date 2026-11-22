@@ -40,6 +40,17 @@ class DataQualityTests(unittest.TestCase):
         self.assertTrue(critical)
         self.assertTrue(warnings)
 
+    def test_ukmo_missing_is_warning_not_critical(self):
+        critical, warnings = check_models({'models': {'ICON-D2': {'status': 'ok',
+            'hourly': {'time': ['2026-11-22T23:00:00Z'],
+                       'temperature_2m': [1], 'precipitation': [0],
+                       'wind_speed_10m': [5], 'wind_gusts_10m': [10],
+                       'pressure_msl': [1010]},
+            'model_run_utc': '2026-11-22T18:00:00Z'}}},
+            datetime(2026, 11, 22, 20, tzinfo=timezone.utc))
+        self.assertTrue(any('UKMO: missing/unverified' in w for w in warnings))
+        self.assertFalse(any('no fresh main model' in c for c in critical))
+
     def test_mosmix_missing_is_warning(self):
         self.assertTrue(check_mosmix({'stations': {}}))
 

@@ -28,6 +28,13 @@ def record(run=NOW, n=48):
     return rec
 
 class WeatherTests(unittest.TestCase):
+    def test_ukmo_configuration(self):
+        self.assertEqual(f.MODELS["UKMO"]["model"], "ukmo_global_deterministic_10km")
+        self.assertEqual(f.MODELS["UKMO"]["cycle_hours"], [0, 6, 12, 18])
+        self.assertEqual(f.MODELS["UKMO"]["days"], 7)
+        self.assertEqual(f.fallback_age_limit(f.MODELS["UKMO"]["model"]), 18)
+
+
     def test_dst_and_midnight(self):
         for day, hours in [("2026-10-25", 25), ("2026-03-29", 23), ("2026-10-24", 24)]:
             start = datetime.fromisoformat(day).replace(tzinfo=f.BERLIN).astimezone(UTC)
