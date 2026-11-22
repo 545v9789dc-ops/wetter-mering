@@ -41,6 +41,10 @@ MODELS = {
               "verify_local_coverage": True, "min_future_hours": 3},
     "GFS": {"model": "gfs_seamless", "cycle_hours": [0, 6, 12, 18], "days": 16},
     "IFS": {"model": "ecmwf_ifs025", "cycle_hours": [0, 6, 12, 18], "days": 16},
+    # UK Met Office global deterministic; no UKMO ensemble.
+    "UKMO": {"model": "ukmo_global_deterministic_10km",
+             "cycle_hours": [0, 6, 12, 18], "days": 7,
+             "verify_local_coverage": True, "min_future_hours": 6},
 }
 FAILURES = (HTTPError, URLError, ValueError, TimeoutError, OSError, TypeError, KeyError)
 REQUEST_TIMEOUT_SECONDS = 25
@@ -54,7 +58,7 @@ LONG_RANGE_API_MODELS = frozenset(("gfs_seamless", "ecmwf_ifs025"))
 
 
 def fallback_age_limit(api_model):
-    """GFS/IFS: 24 h; ICON-D2/ICON-EU/AROME (and unknown): 18 h."""
+    """GFS/IFS: 24 h; ICON-D2/ICON-EU/AROME/UKMO (and unknown): 18 h."""
     return (LONG_RANGE_FALLBACK_AGE_HOURS if api_model in LONG_RANGE_API_MODELS
             else MAX_FALLBACK_AGE_HOURS)
 
@@ -823,8 +827,11 @@ def main():
     for rec in result["models"].values():
         if isinstance(rec,dict):
             expire_fallback_points(rec,save_now)
+    # UKMO is additional: initial UKMO absence must not downgrade the
+    # established five-model operational collection.
     result["collection_status"] = (
-        "ok" if all(r["status"] == "ok" for r in result["models"].values())
+        "ok" if all(r["status"] == "ok" for name, r in result["models"].items()
+                    if name != "UKMO")
         else "degraded"
     )
     statuses = {k: v["status"] for k, v in result["models"].items()}

@@ -30,6 +30,9 @@ def identify(models):
             if len(hits) >= 2:
                 events.append({'date': date, 'kind': kind, 'description': explanation,
                                'supporting_models': hits, 'available_models': sorted(available),
+                               'supporting_model_count': len(hits),
+                               'available_model_count': len(available),
+                               'agreement_fraction': round(len(hits) / len(available), 3),
                                'confidence_note': 'Model agreement is not a calibrated probability'})
     return events
 

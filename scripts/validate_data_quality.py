@@ -188,7 +188,7 @@ def summarize_fallback_warnings(rec, name, now):
 def check_models(doc, now):
     critical, warnings = [], []
     models = doc.get('models', {})
-    for name in ('ICON-D2', 'ICON-EU', 'AROME', 'GFS', 'IFS'):
+    for name in ('ICON-D2', 'ICON-EU', 'AROME', 'GFS', 'IFS', 'UKMO'):
         rec = models.get(name)
         if not isinstance(rec, dict) or rec.get('status') not in ('ok', 'stale'):
             warnings.append(f'{name}: missing/unverified')
@@ -202,7 +202,7 @@ def check_models(doc, now):
                 warnings.append(f'{name}: no future timestamps')
             elif name in ('ICON-D2', 'AROME') and future < 12:
                 warnings.append(f'{name}: short remaining forecast coverage ({future}h)')
-            elif name in ('ICON-EU', 'IFS', 'GFS') and future < 24:
+            elif name in ('ICON-EU', 'IFS', 'GFS', 'UKMO') and future < 24:
                 warnings.append(f'{name}: short remaining forecast coverage ({future}h)')
             if not any(v is not None for v in rec['hourly'].get('temperature_2m', [])):
                 warnings.append(f'{name}: no valid temperatures')
@@ -212,7 +212,7 @@ def check_models(doc, now):
             for field, unit in (('snowfall', 'cm'), ('snow_depth', 'm'), ('precipitation', 'mm')):
                 if field in rec['hourly'] and units.get(field) != unit:
                     warnings.append(f'{name}: unexpected unit for {field}: {units.get(field)}')
-            # Monitor explicitly the five main fields, even if the model status is 'ok'.
+            # Monitor explicitly the five mandatory fields, even if the model status is 'ok'.
             mandatory = ('temperature_2m', 'precipitation', 'wind_speed_10m',
                          'wind_gusts_10m', 'pressure_msl')
             for field in mandatory:

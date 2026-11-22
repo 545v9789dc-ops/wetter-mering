@@ -106,7 +106,7 @@ def prepare(models, mosmix, ensembles, generated_at=None):
                         'Ensemble percentiles copied from existing member distributions.',
                         'DWD synoptic reports are maintained separately and must be read from dwd_synoptik.json.',
                         'Original hourly arrays remain in source JSON files.']}
-    for name in ('ICON-D2', 'ICON-EU', 'AROME', 'GFS', 'IFS'):
+    for name in ('ICON-D2', 'ICON-EU', 'AROME', 'GFS', 'IFS', 'UKMO'):
         rec = models.get('models', {}).get(name, {})
         output['models'][name] = model_summary(rec)
     for name in ('Augsburg', 'Lechfeld'):
@@ -121,8 +121,8 @@ def prepare(models, mosmix, ensembles, generated_at=None):
     mosmix_count = sum(v.get('status') in ('ok', 'stale') for v in output['mosmix'].values())
     ensemble_count = sum(bool(v.get('daily')) for v in output['ensembles'].values())
     gaps = []
-    if model_count < 5:
-        gaps.append(f'Main models available: {model_count}/5')
+    if model_count < 6:
+        gaps.append(f'Main models available: {model_count}/6')
     if mosmix_count < 2:
         gaps.append(f'MOSMIX stations available: {mosmix_count}/2')
     if ensemble_count < 2:
