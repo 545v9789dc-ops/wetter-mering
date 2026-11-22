@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-11-22T16:21:40.819727+00:00",
+  "retrieved_at_utc": "2026-11-22T16:56:05.334143+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -7693,7 +7693,7 @@
       "run_metadata": {
         "latest_published_run_utc": "2026-11-22T06:00:00Z",
         "last_run_availability_utc": "2026-11-22T11:45:22Z",
-        "metadata_checked_at_utc": "2026-11-22T16:21:43.523249Z",
+        "metadata_checked_at_utc": "2026-11-22T16:56:08.260619Z",
         "metadata_source_url": "https://api.open-meteo.com/data/ncep_gefs025/static/meta.json",
         "forecast_run_verification": "unverified",
         "note": "Latest published model run only; NOT verified as the forecast data run.",
@@ -15411,7 +15411,7 @@
       "run_metadata": {
         "latest_published_run_utc": "2026-11-22T06:00:00Z",
         "last_run_availability_utc": "2026-11-22T15:09:44Z",
-        "metadata_checked_at_utc": "2026-11-22T16:21:46.675742Z",
+        "metadata_checked_at_utc": "2026-11-22T16:56:11.300187Z",
         "metadata_source_url": "https://api.open-meteo.com/data/ecmwf_ifs025_ensemble/static/meta.json",
         "forecast_run_verification": "unverified",
         "note": "Latest published model run only; NOT verified as the forecast data run.",
