@@ -3,20 +3,11 @@ name: Wettermodelle Mering
 on:
   workflow_dispatch:
   schedule:
-    # Separate entries make github.event.schedule identify the UTC slot.
-    # Berlin targets: 02:00, 05:00, 10:00, 15:00, 18:00, 21:30.
-    - cron: "0 0 * * *"
-    - cron: "0 1 * * *"
-    - cron: "0 3 * * *"
-    - cron: "0 4 * * *"
-    - cron: "0 8 * * *"
-    - cron: "0 9 * * *"
-    - cron: "0 13 * * *"
-    - cron: "0 14 * * *"
-    - cron: "0 16 * * *"
-    - cron: "0 17 * * *"
-    - cron: "30 19 * * *"
-    - cron: "30 20 * * *"
+    # Fixed UTC times year-round. No seasonal duplicates.
+    - cron: "20 4 * * *"
+    - cron: "20 9 * * *"
+    - cron: "20 14 * * *"
+    - cron: "20 18 * * *"
 
 permissions:
   contents: write
@@ -36,7 +27,7 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Check Berlin local schedule
+      - name: Check fixed UTC schedule
         id: clock
         env:
           EVENT_NAME: ${{ github.event_name }}

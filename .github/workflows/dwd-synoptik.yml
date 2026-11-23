@@ -3,10 +3,11 @@ name: DWD Synoptik Mering
 on:
   workflow_dispatch:
   schedule:
-    # 05:15 Europe/Berlin (03:15 UTC summer, 04:15 UTC winter).
-    - cron: '15 3 * * *'
+    # Fixed UTC times year-round. No seasonal duplicates.
     - cron: '15 4 * * *'
-    - cron: '15 9,13,17,21 * * *'
+    - cron: '15 10 * * *'
+    - cron: '15 14 * * *'
+    - cron: '15 18 * * *'
 
 permissions:
   contents: write
@@ -20,32 +21,9 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
-      - name: Check scheduled local time
+      - name: Confirm schedule
         id: schedule_check
-        shell: bash
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          SCHEDULE: ${{ github.event.schedule }}
-        run: |
-          if [ "$EVENT_NAME" = "schedule" ]; then
-            case "$SCHEDULE" in
-              '15 3 * * *'|'15 4 * * *')
-                local_date=$(TZ=Europe/Berlin date +%F)
-                offset=$(TZ=Europe/Berlin date -d "${local_date} 05:15" +%z)
-                case "$offset" in
-                  +0200) expected='15 3 * * *' ;;
-                  +0100) expected='15 4 * * *' ;;
-                  *) echo "Unexpected Berlin UTC offset: $offset"; exit 1 ;;
-                esac
-                if [ "$SCHEDULE" != "$expected" ]; then
-                  echo "run=false" >> "$GITHUB_OUTPUT"
-                  echo "Skipping wrong seasonal 05:15 UTC slot."
-                  exit 0
-                fi
-                ;;
-            esac
-          fi
-          echo "run=true" >> "$GITHUB_OUTPUT"
+        run: echo 'run=true' >> "$GITHUB_OUTPUT"
       - name: Checkout repository
         if: steps.schedule_check.outputs.run == 'true'
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
