@@ -1,5 +1,5 @@
 {
-  "source_retrieved_at_utc": "2026-11-22T21:13:00.695341+00:00",
+  "source_retrieved_at_utc": "2026-11-23T02:09:08.415243+00:00",
   "note": "Indicative model signals, not official weather warnings",
   "events": [
     {
@@ -21,128 +21,9 @@
       "confidence_note": "Model agreement is not a calibrated probability"
     },
     {
-      "date": "2026-11-27",
-      "kind": "ice_day",
-      "description": "Daily maximum below 0 C",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
-    {
-      "date": "2026-12-01",
-      "kind": "ice_day",
-      "description": "Daily maximum below 0 C",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
-    {
-      "date": "2026-12-02",
-      "kind": "ice_day",
-      "description": "Daily maximum below 0 C",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
-    {
-      "date": "2026-12-03",
-      "kind": "ice_day",
-      "description": "Daily maximum below 0 C",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
-    {
-      "date": "2026-12-04",
-      "kind": "ice_day",
-      "description": "Daily maximum below 0 C",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
-    {
       "date": "2026-12-05",
       "kind": "ice_day",
       "description": "Daily maximum below 0 C",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
-    {
-      "date": "2026-12-06",
-      "kind": "ice_day",
-      "description": "Daily maximum below 0 C",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
-    {
-      "date": "2026-12-06",
-      "kind": "severe_frost",
-      "description": "Daily minimum at or below -10 C",
       "supporting_models": [
         "GFS",
         "IFS"
