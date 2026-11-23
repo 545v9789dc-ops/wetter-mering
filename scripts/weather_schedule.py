@@ -1,4 +1,4 @@
-"""Identify scheduled UTC slot by original run creation, not runner start time."""
+"""Validate fixed UTC cron events and report GitHub scheduler delays."""
 import json
 import os
 from datetime import datetime, timedelta, timezone
@@ -6,9 +6,7 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 BERLIN = ZoneInfo('Europe/Berlin')
-TARGETS = {(2, 0), (5, 0), (10, 0), (15, 0), (18, 0), (21, 30)}
-CRONS = {f'0 {h} * * *': (h, 0) for h in (0, 1, 3, 4, 8, 9, 13, 14, 16, 17)}
-CRONS.update({f'30 {h} * * *': (h, 30) for h in (19, 20)})
+CRONS = {f'20 {h} * * *': (h, 20) for h in (4, 9, 14, 18)}
 
 def scheduled_time(cron, created_at):
     if created_at.tzinfo is None:
@@ -25,8 +23,7 @@ def should_run(event_name, cron='', created_at=None):
         return True
     if event_name != 'schedule':
         raise ValueError(f'Unsupported event: {event_name}')
-    local = scheduled_time(cron, created_at).astimezone(BERLIN)
-    return (local.hour, local.minute) in TARGETS and local.fold == 0
+    return cron in CRONS
 
 def run_created_at():
     url = (f"{os.environ['GITHUB_API_URL']}/repos/{os.environ['GITHUB_REPOSITORY']}"
@@ -60,8 +57,6 @@ def main():
         if delay > 90:
             print('::warning::Very late GitHub schedule; verify data collection and downstream reporting deadlines.')
     print(f'Event: {event}; run={str(run).lower()}')
-    if not run:
-        print('Seasonal UTC duplicate skipped (based on ORIGINAL scheduled UTC slot, not current local time).')
     with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
         output.write(f'run={str(run).lower()}\n')
 
