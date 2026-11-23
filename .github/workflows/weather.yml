@@ -3,11 +3,15 @@ name: Wettermodelle Mering
 on:
   workflow_dispatch:
   schedule:
-    # Fixed UTC times year-round. No seasonal duplicates.
+    # Fixed Europe/Berlin local times year-round; DST handled by GitHub.
     - cron: "20 4 * * *"
+      timezone: "Europe/Berlin"
     - cron: "20 9 * * *"
+      timezone: "Europe/Berlin"
     - cron: "20 14 * * *"
+      timezone: "Europe/Berlin"
     - cron: "20 18 * * *"
+      timezone: "Europe/Berlin"
 
 permissions:
   contents: write
