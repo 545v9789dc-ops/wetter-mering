@@ -1,4 +1,4 @@
-"""Validate fixed UTC cron events and report GitHub scheduler delays."""
+"""Validate Europe/Berlin cron events and report GitHub scheduler delays."""
 import json
 import os
 from datetime import datetime, timedelta, timezone
@@ -9,14 +9,27 @@ BERLIN = ZoneInfo('Europe/Berlin')
 CRONS = {f'20 {h} * * *': (h, 20) for h in (4, 9, 14, 18)}
 
 def scheduled_time(cron, created_at):
+    """Find latest scheduled Berlin wall-clock slot, including DST changes."""
     if created_at.tzinfo is None:
         raise ValueError('created_at must include a timezone')
     hour, minute = CRONS[cron]
-    created_at = created_at.astimezone(timezone.utc)
-    planned = created_at.replace(hour=hour, minute=minute, second=0, microsecond=0)
-    if planned > created_at:
-        planned -= timedelta(days=1)
-    return planned
+    created_utc = created_at.astimezone(timezone.utc)
+    local_date = created_utc.astimezone(BERLIN).date()
+    candidates = []
+    for days_back in (0, 1, 2):
+        day = local_date - timedelta(days=days_back)
+        for fold in (0, 1):
+            local = datetime(day.year, day.month, day.day, hour, minute,
+                             tzinfo=BERLIN, fold=fold)
+            candidate = local.astimezone(timezone.utc)
+            # Reject nonexistent local times during spring DST transition.
+            if candidate.astimezone(BERLIN).replace(tzinfo=None) != local.replace(tzinfo=None):
+                continue
+            if candidate <= created_utc:
+                candidates.append(candidate)
+    if not candidates:
+        raise ValueError('No valid schedule candidate found')
+    return max(candidates)
 
 def should_run(event_name, cron='', created_at=None):
     if event_name == 'workflow_dispatch':
