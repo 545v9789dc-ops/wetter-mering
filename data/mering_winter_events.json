@@ -1,33 +1,14 @@
 {
-  "source_retrieved_at_utc": "2026-11-23T19:33:30.509157+00:00",
+  "source_retrieved_at_utc": "2026-11-24T05:06:11.571522+00:00",
   "note": "Indicative model signals, not official weather warnings",
   "events": [
-    {
-      "date": "2026-11-26",
-      "kind": "snowfall",
-      "description": "At least 2 cm forecast snowfall",
-      "supporting_models": [
-        "IFS",
-        "UKMO"
-      ],
-      "available_models": [
-        "GFS",
-        "ICON-EU",
-        "IFS",
-        "UKMO"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 4,
-      "agreement_fraction": 0.5,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    },
     {
       "date": "2026-11-26",
       "kind": "ice_day",
       "description": "Daily maximum below 0 C",
       "supporting_models": [
         "ICON-EU",
-        "IFS",
+        "GFS",
         "UKMO"
       ],
       "available_models": [
@@ -47,8 +28,6 @@
       "description": "Daily maximum below 0 C",
       "supporting_models": [
         "ICON-EU",
-        "GFS",
-        "IFS",
         "UKMO"
       ],
       "available_models": [
@@ -57,9 +36,9 @@
         "IFS",
         "UKMO"
       ],
-      "supporting_model_count": 4,
+      "supporting_model_count": 2,
       "available_model_count": 4,
-      "agreement_fraction": 1.0,
+      "agreement_fraction": 0.5,
       "confidence_note": "Model agreement is not a calibrated probability"
     },
     {
@@ -67,17 +46,18 @@
       "kind": "ice_day",
       "description": "Daily maximum below 0 C",
       "supporting_models": [
-        "IFS",
+        "ICON-EU",
         "UKMO"
       ],
       "available_models": [
         "GFS",
+        "ICON-EU",
         "IFS",
         "UKMO"
       ],
       "supporting_model_count": 2,
-      "available_model_count": 3,
-      "agreement_fraction": 0.667,
+      "available_model_count": 4,
+      "agreement_fraction": 0.5,
       "confidence_note": "Model agreement is not a calibrated probability"
     }
   ]
