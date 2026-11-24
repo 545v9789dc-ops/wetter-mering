@@ -1,5 +1,5 @@
 {
-  "source_retrieved_at_utc": "2026-11-24T19:27:28.070979+00:00",
+  "source_retrieved_at_utc": "2026-11-24T23:05:49.663848+00:00",
   "note": "Indicative model signals, not official weather warnings",
   "events": [
     {
@@ -9,15 +9,17 @@
       "supporting_models": [
         "ICON-EU",
         "GFS",
-        "IFS"
+        "IFS",
+        "UKMO"
       ],
       "available_models": [
         "GFS",
         "ICON-EU",
-        "IFS"
+        "IFS",
+        "UKMO"
       ],
-      "supporting_model_count": 3,
-      "available_model_count": 3,
+      "supporting_model_count": 4,
+      "available_model_count": 4,
       "agreement_fraction": 1.0,
       "confidence_note": "Model agreement is not a calibrated probability"
     },
@@ -27,16 +29,17 @@
       "description": "Daily maximum below 0 C",
       "supporting_models": [
         "ICON-EU",
-        "IFS"
+        "UKMO"
       ],
       "available_models": [
         "GFS",
         "ICON-EU",
-        "IFS"
+        "IFS",
+        "UKMO"
       ],
       "supporting_model_count": 2,
-      "available_model_count": 3,
-      "agreement_fraction": 0.667,
+      "available_model_count": 4,
+      "agreement_fraction": 0.5,
       "confidence_note": "Model agreement is not a calibrated probability"
     }
   ]
