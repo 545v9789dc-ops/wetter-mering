@@ -1,5 +1,5 @@
 {
-  "source_retrieved_at_utc": "2026-11-24T23:05:49.663848+00:00",
+  "source_retrieved_at_utc": "2026-11-25T01:28:17.763761+00:00",
   "note": "Indicative model signals, not official weather warnings",
   "events": [
     {
@@ -7,20 +7,23 @@
       "kind": "ice_day",
       "description": "Daily maximum below 0 C",
       "supporting_models": [
+        "ICON-D2",
         "ICON-EU",
+        "AROME",
         "GFS",
-        "IFS",
         "UKMO"
       ],
       "available_models": [
+        "AROME",
         "GFS",
+        "ICON-D2",
         "ICON-EU",
         "IFS",
         "UKMO"
       ],
-      "supporting_model_count": 4,
-      "available_model_count": 4,
-      "agreement_fraction": 1.0,
+      "supporting_model_count": 5,
+      "available_model_count": 6,
+      "agreement_fraction": 0.833,
       "confidence_note": "Model agreement is not a calibrated probability"
     },
     {
