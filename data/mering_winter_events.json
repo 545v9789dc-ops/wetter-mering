@@ -1,24 +1,22 @@
 {
-  "source_retrieved_at_utc": "2026-11-27T12:29:27.274641+00:00",
+  "source_retrieved_at_utc": "2026-11-27T18:15:31.108893+00:00",
   "note": "Indicative model signals, not official weather warnings",
   "events": [
     {
-      "date": "2026-12-01",
-      "kind": "ice_day",
-      "description": "Daily maximum below 0 C",
+      "date": "2026-12-09",
+      "kind": "snowfall",
+      "description": "At least 2 cm forecast snowfall",
       "supporting_models": [
-        "ICON-EU",
-        "UKMO"
+        "GFS",
+        "IFS"
       ],
       "available_models": [
         "GFS",
-        "ICON-EU",
-        "IFS",
-        "UKMO"
+        "IFS"
       ],
       "supporting_model_count": 2,
-      "available_model_count": 4,
-      "agreement_fraction": 0.5,
+      "available_model_count": 2,
+      "agreement_fraction": 1.0,
       "confidence_note": "Model agreement is not a calibrated probability"
     }
   ]
