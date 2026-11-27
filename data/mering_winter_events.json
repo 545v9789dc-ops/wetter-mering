@@ -1,23 +1,5 @@
 {
-  "source_retrieved_at_utc": "2026-11-27T18:15:31.108893+00:00",
+  "source_retrieved_at_utc": "2026-11-27T22:05:55.926349+00:00",
   "note": "Indicative model signals, not official weather warnings",
-  "events": [
-    {
-      "date": "2026-12-09",
-      "kind": "snowfall",
-      "description": "At least 2 cm forecast snowfall",
-      "supporting_models": [
-        "GFS",
-        "IFS"
-      ],
-      "available_models": [
-        "GFS",
-        "IFS"
-      ],
-      "supporting_model_count": 2,
-      "available_model_count": 2,
-      "agreement_fraction": 1.0,
-      "confidence_note": "Model agreement is not a calibrated probability"
-    }
-  ]
+  "events": []
 }
