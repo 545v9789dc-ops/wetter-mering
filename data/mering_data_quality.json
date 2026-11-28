@@ -1,29 +1,32 @@
 {
   "schema_version": 1,
-  "checked_at_utc": "2026-11-28T12:43:37.250230+00:00",
+  "checked_at_utc": "2026-11-28T15:00:23.832801+00:00",
   "status": "degraded",
   "critical_count": 0,
-  "warning_count": 1,
+  "warning_count": 4,
   "critical": [],
   "warnings": [
-    "IFS: fallback in 1 parameters (363 hourly values; 1 other fields); source run(s): 28.11. 00:00 UTC; oldest age 12.7h"
+    "ICON-D2: fallback in 7 parameters (7 hourly values; rain=1h, gusts=1h; 5 other fields); source run(s): 28.11. 09:00 UTC; oldest age 6.0h",
+    "AROME: fallback in 11 parameters (11 hourly values; rain=1h, gusts=1h; 9 other fields); source run(s): 28.11. 06:00 UTC; oldest age 9.0h",
+    "IFS: fallback in 19 parameters (4005 hourly values; T=210h, rain=211h, wind=210h, gusts=213h, pressure=210h; 14 other fields); source run(s): 28.11. 00:00 UTC; oldest age 15.0h",
+    "UKMO: fallback in 20 parameters (1723 hourly values; T=101h, rain=102h, wind=101h, gusts=101h, pressure=101h; 15 other fields); source run(s): 28.11. 00:00 UTC; oldest age 15.0h"
   ],
   "sources": {
     "mering_models.json": {
       "readable": true,
-      "retrieved_at_utc": "2026-11-28T12:36:54.809049+00:00",
+      "retrieved_at_utc": "2026-11-28T14:58:17.048624+00:00",
       "collection_status": "ok",
-      "age_hours": 0.11
+      "age_hours": 0.04
     },
     "mering_mosmix.json": {
       "readable": true,
-      "retrieved_at_utc": "2026-11-28T12:43:28.494112+00:00",
+      "retrieved_at_utc": "2026-11-28T15:00:12.055325+00:00",
       "collection_status": "ok",
       "age_hours": 0.0
     },
     "mering_ensembles.json": {
       "readable": true,
-      "retrieved_at_utc": "2026-11-28T12:43:30.430529+00:00",
+      "retrieved_at_utc": "2026-11-28T15:00:16.615278+00:00",
       "collection_status": null,
       "age_hours": 0.0
     }
@@ -31,23 +34,31 @@
   "models": {
     "ICON-D2": {
       "status": "ok",
-      "model_run_utc": "2026-11-28T09:00:00Z",
+      "model_run_utc": "2026-11-28T12:00:00Z",
       "age_limit_hours": 18,
-      "run_age_hours": 3.73,
+      "run_age_hours": 3.01,
       "valid_hours_by_variable": {
         "temperature_2m": 49,
-        "precipitation": 48,
+        "precipitation": 49,
         "wind_speed_10m": 49,
-        "wind_gusts_10m": 48,
+        "wind_gusts_10m": 49,
         "pressure_msl": 49
       },
-      "fallback_fields": []
+      "fallback_fields": [
+        "precipitation",
+        "shortwave_radiation",
+        "snowfall",
+        "sunshine_duration",
+        "sunshine_duration_minutes",
+        "weather_code",
+        "wind_gusts_10m"
+      ]
     },
     "ICON-EU": {
       "status": "ok",
       "model_run_utc": "2026-11-28T06:00:00Z",
       "age_limit_hours": 18,
-      "run_age_hours": 6.73,
+      "run_age_hours": 9.01,
       "valid_hours_by_variable": {
         "temperature_2m": 121,
         "precipitation": 120,
@@ -59,23 +70,35 @@
     },
     "AROME": {
       "status": "ok",
-      "model_run_utc": "2026-11-28T06:00:00Z",
+      "model_run_utc": "2026-11-28T09:00:00Z",
       "age_limit_hours": 18,
-      "run_age_hours": 6.73,
+      "run_age_hours": 6.01,
       "valid_hours_by_variable": {
         "temperature_2m": 52,
-        "precipitation": 51,
+        "precipitation": 52,
         "wind_speed_10m": 52,
-        "wind_gusts_10m": 51,
+        "wind_gusts_10m": 52,
         "pressure_msl": 52
       },
-      "fallback_fields": []
+      "fallback_fields": [
+        "cloud_cover",
+        "cloud_cover_high",
+        "cloud_cover_low",
+        "cloud_cover_mid",
+        "precipitation",
+        "shortwave_radiation",
+        "snowfall",
+        "sunshine_duration",
+        "sunshine_duration_minutes",
+        "weather_code",
+        "wind_gusts_10m"
+      ]
     },
     "GFS": {
       "status": "ok",
       "model_run_utc": "2026-11-28T06:00:00Z",
       "age_limit_hours": 24,
-      "run_age_hours": 6.73,
+      "run_age_hours": 9.01,
       "valid_hours_by_variable": {
         "temperature_2m": 384,
         "precipitation": 383,
@@ -87,33 +110,72 @@
     },
     "IFS": {
       "status": "ok",
-      "model_run_utc": "2026-11-28T00:00:00Z",
+      "model_run_utc": "2026-11-28T06:00:00Z",
       "age_limit_hours": 24,
-      "run_age_hours": 12.73,
+      "run_age_hours": 9.01,
       "valid_hours_by_variable": {
-        "temperature_2m": 363,
-        "precipitation": 360,
-        "wind_speed_10m": 363,
-        "wind_gusts_10m": 300,
-        "pressure_msl": 363
+        "temperature_2m": 357,
+        "precipitation": 355,
+        "wind_speed_10m": 357,
+        "wind_gusts_10m": 303,
+        "pressure_msl": 357
       },
       "fallback_fields": [
-        "temperature_850hPa"
+        "cloud_cover",
+        "cloud_cover_high",
+        "cloud_cover_low",
+        "cloud_cover_mid",
+        "dew_point_2m",
+        "precipitation",
+        "pressure_msl",
+        "relative_humidity_2m",
+        "shortwave_radiation",
+        "snow_depth",
+        "snowfall",
+        "sunshine_duration",
+        "sunshine_duration_minutes",
+        "temperature_2m",
+        "weather_code",
+        "wet_bulb_temperature_2m",
+        "wind_direction_10m",
+        "wind_gusts_10m",
+        "wind_speed_10m"
       ]
     },
     "UKMO": {
       "status": "ok",
-      "model_run_utc": "2026-11-28T00:00:00Z",
+      "model_run_utc": "2026-11-28T06:00:00Z",
       "age_limit_hours": 18,
-      "run_age_hours": 12.73,
+      "run_age_hours": 9.01,
       "valid_hours_by_variable": {
-        "temperature_2m": 168,
-        "precipitation": 167,
-        "wind_speed_10m": 168,
-        "wind_gusts_10m": 168,
-        "pressure_msl": 168
+        "temperature_2m": 162,
+        "precipitation": 162,
+        "wind_speed_10m": 162,
+        "wind_gusts_10m": 162,
+        "pressure_msl": 162
       },
-      "fallback_fields": []
+      "fallback_fields": [
+        "cloud_cover",
+        "cloud_cover_high",
+        "cloud_cover_low",
+        "cloud_cover_mid",
+        "dew_point_2m",
+        "precipitation",
+        "pressure_msl",
+        "relative_humidity_2m",
+        "shortwave_radiation",
+        "snowfall",
+        "sunshine_duration",
+        "sunshine_duration_minutes",
+        "temperature_2m",
+        "temperature_850hPa",
+        "visibility",
+        "weather_code",
+        "wet_bulb_temperature_2m",
+        "wind_direction_10m",
+        "wind_gusts_10m",
+        "wind_speed_10m"
+      ]
     }
   },
   "note": "Snapshot of existing validation rules; no historical change detection or DWD validation."
