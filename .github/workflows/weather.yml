@@ -78,17 +78,23 @@ jobs:
         continue-on-error: true
         run: python scripts/winter_events.py
 
+      - name: Validate collected data
+        id: quality
+        if: always() && !cancelled() && steps.clock.outputs.run == 'true' && steps.fetch.outcome != 'skipped'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Never let an earlier snapshot masquerade as this run's validation.
+          rm -f data/mering_data_quality.json data/mering_data_quality.tmp
+          python scripts/validate_data_quality.py
+          test -s data/mering_data_quality.json
+
       - name: Prepare compact report index (non-critical)
         id: report
         if: steps.clock.outputs.run == 'true' && steps.fetch.outcome == 'success'
         continue-on-error: true
         run: python scripts/prepare_report.py
-
-      - name: Validate collected data
-        id: quality
-        if: always() && steps.clock.outputs.run == 'true' && steps.fetch.outcome != 'skipped'
-        continue-on-error: true
-        run: python scripts/validate_data_quality.py
 
       - name: Commit JSON with bounded retries
         if: always() && steps.clock.outputs.run == 'true' && steps.fetch.outcome != 'skipped'
@@ -103,6 +109,11 @@ jobs:
           if [[ -f data/mering_winter_events.json && "${{ steps.winter_events.outcome }}" == 'success' ]]; then
             git add data/mering_winter_events.json
           fi
+          # A failed validation can still produce a valid diagnostic snapshot.
+          # Stage deletion as well if validation could not write a fresh snapshot.
+          if [[ -f data/mering_data_quality.json ]] || git ls-files --error-unmatch data/mering_data_quality.json >/dev/null 2>&1; then
+            git add -A -- data/mering_data_quality.json
+          fi
           if [[ -f data/mering_report.json && "${{ steps.report.outcome }}" == 'success' ]]; then
             git add data/mering_report.json
           fi
@@ -110,7 +121,7 @@ jobs:
             echo 'No JSON changes to commit.'
             exit 0
           fi
-          git commit -m "Update Mering model, MOSMIX, ensemble, report and winter event data"
+          git commit -m "Update Mering model, MOSMIX, ensemble, report, quality and winter event data"
           for attempt in 1 2 3; do
             git fetch origin main
             if ! git rebase origin/main; then
@@ -141,4 +152,5 @@ jobs:
       - name: Flag critical data quality
         if: always() && steps.clock.outputs.run == 'true' && steps.quality.outcome == 'failure'
         run: |
-          echo 'Data quality validation failed; inspect previous step.' >&2
+          echo '::error::Data quality validation failed; inspect previous step.' >&2
+          exit 1
