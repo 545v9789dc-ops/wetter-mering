@@ -1,5 +1,5 @@
 {
-  "retrieved_at_utc": "2026-11-28T11:42:23.350475+00:00",
+  "retrieved_at_utc": "2026-11-28T11:57:27.037871+00:00",
   "source": "Open-Meteo Ensemble API",
   "models": {
     "GFS-ENS": {
@@ -180,7 +180,7 @@
           "probabilities": {
             "frost_any_hour": 1.0,
             "precipitation_ge_1mm": 0.033,
-            "snowfall_positive": 0.067
+            "snowfall_positive": 0.167
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -318,7 +318,7 @@
           "probabilities": {
             "frost_any_hour": 0.467,
             "precipitation_ge_1mm": 0.333,
-            "snowfall_positive": 0.0
+            "snowfall_positive": 0.067
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -594,7 +594,7 @@
           "probabilities": {
             "frost_any_hour": 1.0,
             "precipitation_ge_1mm": 0.067,
-            "snowfall_positive": 0.0
+            "snowfall_positive": 0.033
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -732,7 +732,7 @@
           "probabilities": {
             "frost_any_hour": 0.867,
             "precipitation_ge_1mm": 0.333,
-            "snowfall_positive": 0.067
+            "snowfall_positive": 0.167
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -870,7 +870,7 @@
           "probabilities": {
             "frost_any_hour": 0.967,
             "precipitation_ge_1mm": 0.167,
-            "snowfall_positive": 0.133
+            "snowfall_positive": 0.2
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -1008,7 +1008,7 @@
           "probabilities": {
             "frost_any_hour": 1.0,
             "precipitation_ge_1mm": 0.067,
-            "snowfall_positive": 0.1
+            "snowfall_positive": 0.333
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -1146,7 +1146,7 @@
           "probabilities": {
             "frost_any_hour": 0.967,
             "precipitation_ge_1mm": 0.033,
-            "snowfall_positive": 0.067
+            "snowfall_positive": 0.2
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -1284,7 +1284,7 @@
           "probabilities": {
             "frost_any_hour": 1.0,
             "precipitation_ge_1mm": 0.067,
-            "snowfall_positive": 0.233
+            "snowfall_positive": 0.2
           },
           "available_members": {
             "frost_any_hour": 30,
@@ -1457,9 +1457,9 @@
                 "partial_members": 30,
                 "empty_members": 0,
                 "missing_field_members": 0,
-                "minimum_valid_hours": 2,
-                "maximum_valid_hours": 2,
-                "valid_value_fraction": 0.083
+                "minimum_valid_hours": 8,
+                "maximum_valid_hours": 8,
+                "valid_value_fraction": 0.333
               },
               "wind_gusts_10m": {
                 "complete_members": 0,
@@ -7691,9 +7691,9 @@
       },
       "quality_note": "Perturbed members only; unsuffixed/control member 0 excluded, preserving existing event fractions. Daily statistics require all returned hours per member; full_calendar_day flags truncated edge days. Maxima are computed per member before ensemble statistics. Snow depth is instantaneous, never summed. Hourly snow depth uses all valid members at that timestamp. Units are km/h for gusts and m for depth. Hourly values can be interpolated by Open-Meteo; temporal coverage does not imply native hourly model output.",
       "run_metadata": {
-        "latest_published_run_utc": "2026-11-28T00:00:00Z",
-        "last_run_availability_utc": "2026-11-28T05:51:31Z",
-        "metadata_checked_at_utc": "2026-11-28T11:42:25.326971Z",
+        "latest_published_run_utc": "2026-11-28T06:00:00Z",
+        "last_run_availability_utc": "2026-11-28T11:44:42Z",
+        "metadata_checked_at_utc": "2026-11-28T11:57:29.445992Z",
         "metadata_source_url": "https://api.open-meteo.com/data/ncep_gefs025/static/meta.json",
         "forecast_run_verification": "unverified",
         "note": "Latest published model run only; NOT verified as the forecast data run.",
@@ -15411,7 +15411,7 @@
       "run_metadata": {
         "latest_published_run_utc": "2026-11-28T00:00:00Z",
         "last_run_availability_utc": "2026-11-28T10:56:06Z",
-        "metadata_checked_at_utc": "2026-11-28T11:42:27.585835Z",
+        "metadata_checked_at_utc": "2026-11-28T11:57:32.315422Z",
         "metadata_source_url": "https://api.open-meteo.com/data/ecmwf_ifs025_ensemble/static/meta.json",
         "forecast_run_verification": "unverified",
         "note": "Latest published model run only; NOT verified as the forecast data run.",
