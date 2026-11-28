@@ -1,5 +1,5 @@
 {
-  "source_retrieved_at_utc": "2026-11-28T12:09:29.192577+00:00",
+  "source_retrieved_at_utc": "2026-11-28T12:19:25.288279+00:00",
   "note": "Indicative model signals, not official weather warnings; absence of signals does not establish safety",
   "events": [
     {
@@ -130,9 +130,7 @@
       "weather_codes": [
         51
       ],
-      "fallback_fields": [
-        "wind_gusts_10m"
-      ],
+      "fallback_fields": [],
       "date": "2026-11-30",
       "supporting_models": [
         "GFS"
@@ -155,9 +153,7 @@
       "weather_codes": [
         51
       ],
-      "fallback_fields": [
-        "wind_gusts_10m"
-      ],
+      "fallback_fields": [],
       "date": "2026-11-30",
       "supporting_models": [
         "GFS"
@@ -180,9 +176,7 @@
       "weather_codes": [
         51
       ],
-      "fallback_fields": [
-        "wind_gusts_10m"
-      ],
+      "fallback_fields": [],
       "date": "2026-12-03",
       "supporting_models": [
         "GFS"
@@ -228,9 +222,7 @@
       "weather_codes": [
         51
       ],
-      "fallback_fields": [
-        "wind_gusts_10m"
-      ],
+      "fallback_fields": [],
       "date": "2026-12-05",
       "supporting_models": [
         "GFS"
