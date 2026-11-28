@@ -1,5 +1,9 @@
 """Offline regression tests for the Mering post-fetch quality checks."""
 import unittest
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from scripts.validate_data_quality import collect_quality, write_quality
 from scripts.validate_data_quality import plausible, time_axis, check_models, check_mosmix, check_ensembles
 from scripts.annotate_dwd_quality import annotate
 from datetime import datetime, timezone
@@ -66,6 +70,37 @@ class DataQualityTests(unittest.TestCase):
         self.assertEqual(doc['collection_status'], 'degraded')
         self.assertTrue(doc['quality_details']['latest_short_term_usable'])
         self.assertEqual(doc['quality_details']['cached_reports'], ['kurzfrist_frueh'])
+
+
+class QualitySnapshotTests(unittest.TestCase):
+    def test_missing_sources_snapshot(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            report = collect_quality(root, datetime(2026, 11, 28, tzinfo=timezone.utc))
+            self.assertEqual(report['status'], 'failed')
+            self.assertEqual(report['critical_count'], 1)
+            self.assertEqual(report['warning_count'], 2)
+            self.assertFalse(report['sources']['mering_models.json']['readable'])
+            write_quality(root, report)
+            self.assertEqual(json.loads((root / 'mering_data_quality.json').read_text()), report)
+            self.assertFalse((root / 'mering_data_quality.tmp').exists())
+
+    def test_snapshot_preserves_inputs_and_run_age(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            now = datetime(2026, 11, 28, 12, tzinfo=timezone.utc)
+            doc = {'retrieved_at_utc': now.isoformat(), 'models': {'ICON-D2': {
+                'status': 'ok', 'model_run_utc': '2026-11-28T06:00:00Z',
+                'hourly': {'time': ['2026-11-28T13:00:00Z'], 'temperature_2m': [0], 'precipitation': [None]}}}}
+            path = root / 'mering_models.json'
+            original = json.dumps(doc)
+            path.write_text(original)
+            report = collect_quality(root, now)
+            self.assertEqual(report['status'], 'degraded')
+            self.assertEqual(report['models']['ICON-D2']['run_age_hours'], 6)
+            self.assertEqual(report['models']['ICON-D2']['valid_hours_by_variable']['precipitation'], 0)
+            write_quality(root, report)
+            self.assertEqual(path.read_text(), original)
 
 
 if __name__ == '__main__':
