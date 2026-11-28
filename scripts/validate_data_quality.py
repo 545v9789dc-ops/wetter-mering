@@ -284,19 +284,43 @@ def check_ensembles(doc):
     return warnings
 
 
-def main():
-    now = datetime.now(UTC)
+def collect_quality(root, now):
+    """Return a snapshot; do not modify any forecast input."""
     critical, warnings = [], []
+    sources, model_details = {}, {}
     for filename, checker in (('mering_models.json', check_models),
                               ('mering_mosmix.json', check_mosmix),
                               ('mering_ensembles.json', check_ensembles)):
         try:
-            path = ROOT / filename
+            path = root / filename
+            sources[filename] = {"readable": False}
             doc = json.loads(path.read_text(encoding='utf-8'))
+            sources[filename] = {'readable': True, 'retrieved_at_utc': doc.get('retrieved_at_utc'),
+                                 'collection_status': doc.get('collection_status')}
             age = (now - stamp(doc['retrieved_at_utc'])).total_seconds() / 3600
+            sources[filename]['age_hours'] = round(age, 2)
             if age < -1 or age > 30:
                 warnings.append(f'{filename}: collection timestamp age {age:.1f}h')
             if filename == 'mering_models.json':
+                for name, rec in doc.get('models', {}).items():
+                    if not isinstance(rec, dict):
+                        continue
+                    detail = {'status': rec.get('status'), 'model_run_utc': rec.get('model_run_utc'),
+                              'age_limit_hours': model_age_limit(name), 'run_age_hours': None,
+                              'valid_hours_by_variable': {}, 'fallback_fields': []}
+                    try:
+                        detail['run_age_hours'] = round((now - stamp(rec.get('model_run_utc'))).total_seconds()/3600, 2)
+                    except (ValueError, TypeError):
+                        pass
+                    hourly = rec.get('hourly') or {}
+                    if isinstance(hourly, dict):
+                        for field in ('temperature_2m', 'precipitation', 'wind_speed_10m', 'wind_gusts_10m', 'pressure_msl'):
+                            values = hourly.get(field)
+                            detail['valid_hours_by_variable'][field] = (sum(isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v) for v in values) if isinstance(values, list) else 0)
+                    fallback = rec.get('parameter_fallback') or {}
+                    if isinstance(fallback, dict):
+                        detail['fallback_fields'] = sorted(k for k, v in fallback.items() if isinstance(v, dict) and isinstance(v.get('recovered_hours'), int) and v['recovered_hours'] > 0)
+                    model_details[name] = detail
                 c, w = checker(doc, now)
                 critical.extend(c)
                 warnings.extend(w)
@@ -307,6 +331,29 @@ def main():
                 critical.append(f'{filename}: {e}')
             else:
                 warnings.append(f'{filename}: {e}')
+    return {'schema_version': 1, 'checked_at_utc': now.isoformat(),
+            'status': 'failed' if critical else ('degraded' if warnings else 'ok'),
+            'critical_count': len(critical), 'warning_count': len(warnings),
+            'critical': critical, 'warnings': warnings, 'sources': sources,
+            'models': model_details,
+            'note': 'Snapshot of existing validation rules; no historical change detection or DWD validation.'}
+
+
+def write_quality(root, report):
+    path = root / 'mering_data_quality.json'
+    temp = path.with_suffix('.tmp')
+    temp.write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n', encoding='utf-8')
+    temp.replace(path)
+
+
+def main():
+    report = collect_quality(ROOT, datetime.now(UTC))
+    critical, warnings = report['critical'], report['warnings']
+    try:
+        write_quality(ROOT, report)
+    except (OSError, ValueError, TypeError) as e:
+        print('::error::Quality snapshot write failed: ' + str(e))
+        return 1
     for issue in warnings:
         print('::warning::' + issue)
     for issue in critical:
